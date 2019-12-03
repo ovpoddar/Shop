@@ -29,7 +29,7 @@ namespace Shop.Handlers
                 ParentId = model.Id,
                 Name = model.Name
             });
-
+            _repository.save();
             return GetAll();
         }
 

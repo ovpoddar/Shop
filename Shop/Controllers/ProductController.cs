@@ -6,23 +6,23 @@ namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductManager ProductManager;
+        private readonly IProductManager _productManager;
         public ProductController(IProductManager productManager)
         {
-            ProductManager = productManager ?? throw new ArgumentNullException(nameof(ProductManager));
+            _productManager = productManager ?? throw new ArgumentNullException(nameof(ProductManager));
         }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = ProductManager.GetModel();
+            var model = _productManager.GetModel();
             return View(model);
         }
         [HttpPost]
         public IActionResult Index(int categoryId)
         {
-            var model = ProductManager.GetFilteredModel(categoryId);
+            var model = _productManager.GetFilteredModel(categoryId);
             return View(model);
         }
     }

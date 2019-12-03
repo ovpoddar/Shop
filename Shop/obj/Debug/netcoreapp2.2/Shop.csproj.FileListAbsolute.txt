@@ -28,8 +28,6 @@ C:\Users\ayanp\OneDrive\Desktop\New folder\Shop\Shop\bin\Debug\netcoreapp2.2\Sho
 C:\Users\ayanp\OneDrive\Desktop\New folder\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.Views.pdb
 C:\Users\ayanp\OneDrive\Desktop\New folder\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csproj.CopyComplete
 C:\Users\ayanp\OneDrive\Desktop\New folder\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csprojAssemblyReference.cache
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csprojAssemblyReference.cache
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csproj.CoreCompileInputs.cache
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.RazorAssemblyInfo.cache
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.RazorAssemblyInfo.cs
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.AssemblyInfoInputs.cache
@@ -37,18 +35,21 @@ C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.AssemblyI
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.TagHelpers.input.cache
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.TagHelpers.output.cache
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.RazorCoreGenerate.cache
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Brand\Index.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Category\Index.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Product\Index.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\WholeSale\Index.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
-C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Brand\Index.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Category\Index.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\WholeSale\Index.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.RazorTargetAssemblyInfo.cache
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.RazorTargetAssemblyInfo.cs
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.dll
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.pdb
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Shop.deps.json
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Shop.runtimeconfig.json
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Shop.runtimeconfig.dev.json
@@ -58,3 +59,4 @@ C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Shop.Views.dll
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\bin\Debug\netcoreapp2.2\Shop.Views.pdb
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.Views.pdb
 C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csproj.CopyComplete
+C:\Users\ayanp\OneDrive\Desktop\Shop\Shop\obj\Debug\netcoreapp2.2\Shop.csprojAssemblyReference.cache

@@ -7,27 +7,25 @@ namespace Shop.Controllers
 {
     public class WholeSaleController : Controller
     {
-        private readonly IWholesaleHandler wholesaleHandler;
+        private readonly IWholesaleHandler _wholesaleHandler;
 
         public WholeSaleController(IWholesaleHandler wholeSaleManager)
         {
-            wholesaleHandler = wholeSaleManager ?? throw new ArgumentNullException(nameof(wholesaleHandler));
+            _wholesaleHandler = wholeSaleManager ?? throw new ArgumentNullException(nameof(_wholesaleHandler));
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var model = wholesaleHandler.GetModel();
-            return View(model);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Index(WholeSaleViewModel model, int selected)
+        public IActionResult Index(WholeSaleViewModel model)
         {
-            var backupmodel = wholesaleHandler.GetModel();
-            var result = wholesaleHandler.Add(model, selected);
+            var result = _wholesaleHandler.Add(model);
             if (ModelState.IsValid || result)
                 return RedirectToAction("Index", "Product");
-            return View(backupmodel);
+            return View();
         }
     }
 }

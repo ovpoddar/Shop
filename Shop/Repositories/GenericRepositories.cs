@@ -6,27 +6,31 @@ namespace Shop.Repositories
 {
     public class GenericRepositories<T> : IGenericRepository<T> where T : BaseEntity
     {
-        public readonly ApplicationDbContext DbContext;
+        private readonly ApplicationDbContext _dbContext;
 
         public GenericRepositories(ApplicationDbContext dbContext)
         {
-            DbContext = dbContext ?? throw new ArgumentNullException(nameof(DbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
         }
 
         public void Add(T model)
         {
-            DbContext.Add(model);
-            DbContext.SaveChanges();
+            _dbContext.Add(model);
         }
 
         public IQueryable<T> GetAll()
         {
-            return DbContext.Set<T>();
+            return _dbContext.Set<T>();
         }
 
         public T GetById(int id)
         {
-            return DbContext.Set<T>().Find(id);
+            return _dbContext.Set<T>().Find(id);
+        }
+
+        public void save()
+        {
+            _dbContext.SaveChanges();
         }
     }
 }

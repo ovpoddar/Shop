@@ -9,7 +9,6 @@ namespace Shop.Handlers
 {
     public interface IWholesaleHandler
     {
-        WholeSaleViewModel GetModel();
-        bool Add(WholeSaleViewModel Details, int Products);
+        bool Add(WholeSaleViewModel Details);
     }
 }
