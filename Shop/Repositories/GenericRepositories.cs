@@ -8,29 +8,19 @@ namespace Shop.Repositories
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public GenericRepositories(ApplicationDbContext dbContext)
-        {
+        public GenericRepositories(ApplicationDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-        }
-
-        public void Add(T model)
-        {
+        
+        public void Add(T model) =>
             _dbContext.Add(model);
-        }
-
-        public IQueryable<T> GetAll()
-        {
-            return _dbContext.Set<T>();
-        }
-
-        public T GetById(int id)
-        {
-            return _dbContext.Set<T>().Find(id);
-        }
-
-        public void save()
-        {
+        
+        public IQueryable<T> GetAll() => 
+            _dbContext.Set<T>();
+        
+        public T GetById(int id) =>
+            _dbContext.Set<T>().Find(id);
+        
+        public void save() => 
             _dbContext.SaveChanges();
-        }
     }
 }

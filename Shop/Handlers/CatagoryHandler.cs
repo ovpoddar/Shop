@@ -12,10 +12,8 @@ namespace Shop.Handlers
     {
         private readonly IGenericRepository<Category> _repository;
 
-        public CategoryHandler(IGenericRepository<Category> repository)
-        {
+        public CategoryHandler(IGenericRepository<Category> repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
 
         public List<Category> AddCategory(CategoryViewModel model)
         {
@@ -34,7 +32,8 @@ namespace Shop.Handlers
         }
 
         public List<Category> Categories() =>
-            _repository.GetAll().Where(category => category.ParentId == null).Include(p => p.SubCategories).ToList();
+            _repository.GetAll().Where(category => category.ParentId == null)
+                .Include(p => p.SubCategories).ToList();
 
         public List<Category> GetAll() => _repository.GetAll().ToList();
     }

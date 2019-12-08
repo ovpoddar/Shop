@@ -9,7 +9,8 @@ namespace Shop.Controllers
     {
         private readonly ICategoryHandler _categoryHandler;
 
-        public CategoryController(ICategoryHandler categoryHandler) => _categoryHandler = categoryHandler ?? throw new ArgumentNullException(nameof(categoryHandler));
+        public CategoryController(ICategoryHandler categoryHandler) => 
+            _categoryHandler = categoryHandler ?? throw new ArgumentNullException(nameof(categoryHandler));
 
         [HttpGet]
         public IActionResult Index()

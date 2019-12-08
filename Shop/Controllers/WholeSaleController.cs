@@ -9,10 +9,9 @@ namespace Shop.Controllers
     {
         private readonly IWholesaleHandler _wholesaleHandler;
 
-        public WholeSaleController(IWholesaleHandler wholeSaleManager)
-        {
+        public WholeSaleController(IWholesaleHandler wholeSaleManager) =>
             _wholesaleHandler = wholeSaleManager ?? throw new ArgumentNullException(nameof(_wholesaleHandler));
-        }
+        
         [HttpGet]
         public IActionResult Index()
         {

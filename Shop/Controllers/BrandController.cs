@@ -9,17 +9,15 @@ namespace Shop.Controllers
     {
         private readonly IBrandHandler _brandHandler;
 
-        public BrandController(IBrandHandler brandHandler)
-        {
+        public BrandController(IBrandHandler brandHandler) =>
             _brandHandler = brandHandler ?? throw new ArgumentNullException(nameof(brandHandler));
-        }
-
-
+        
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Index(Brand brand)
         {
