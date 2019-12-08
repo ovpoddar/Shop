@@ -18,18 +18,25 @@ namespace Shop.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Index(int PageNumber)
-        {
-            var model = _productManager.GetModel(PageNumber);
-            return View(model);
-        }
-
-        [HttpPost]
+        [AcceptVerbs("post")]
         public IActionResult Index(int categoryId, int PageNumber)
         {
-            var model = _productManager.GetFilteredModel(categoryId, PageNumber);
-            return View(model);
+            var i = PageNumber + 1;
+            switch (categoryId)
+            {
+                case 0:
+                    {
+                        var model = _productManager.GetModel(i);
+                        return View(model);
+                    }
+
+                default:
+                    {
+                        var model = _productManager.GetFilteredModel(categoryId, i);
+                        return View(model);
+                    }
+            }
+
         }
     }
 }
