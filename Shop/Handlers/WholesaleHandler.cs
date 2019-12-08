@@ -11,7 +11,8 @@ namespace Shop.Handlers
         private readonly IGenericRepository<ProductWholeSale> _genericRepository;
         private readonly IGenericRepository<WholesaleSize> _repository;
 
-        public WholesaleHandler(IGenericRepository<WholesaleSize> repository, IGenericRepository<ProductWholeSale> genericRepository)
+        public WholesaleHandler(IGenericRepository<WholesaleSize> repository,
+            IGenericRepository<ProductWholeSale> genericRepository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
             _genericRepository = genericRepository ?? throw new ArgumentNullException(nameof(_genericRepository));
@@ -20,20 +21,17 @@ namespace Shop.Handlers
         public bool Add(WholeSaleViewModel Details)
         {
             if (Details.Package == 0 || Details.Size == 0)
-            {
                 return false;
-            }
-            else
+
+            var wholesale = new WholesaleSize
             {
-                WholesaleSize wholesale = new WholesaleSize
-                {
-                    Package = Details.Package,
-                    Size = Details.Size,
-                };
-                _repository.Add(wholesale);
-                _genericRepository.save();
-                return true;
-            }
+                Package = Details.Package,
+                Size = Details.Size,
+            };
+
+            _repository.Add(wholesale);
+            _genericRepository.save();
+            return true;
         }
     }
 }
