@@ -11,6 +11,7 @@ namespace Shop.Handlers
     {
         private readonly IGenericRepository<Product> _repository;
         private readonly IProductRepositories _productRepositories;
+        private readonly int _pageSize = 6;
 
         public ProductHandler(IGenericRepository<Product> repository, IProductRepositories productRepositories)
         {
@@ -18,14 +19,32 @@ namespace Shop.Handlers
             _productRepositories = productRepositories ?? throw new ArgumentNullException(nameof(productRepositories));
         }
 
-        public List<Product> Products() => _repository.GetAll().Include(p => p.Brand).Include(p => p.Categories).Include(p => p.ProductWholeSales).OrderBy(o => o.ProductName).ToList();
+        public List<Product> Products(int PageNumber) => _repository.GetAll().Include(p => p.Brand).Include(p => p.Categories).Include(p => p.ProductWholeSales).OrderBy(o => o.ProductName)
+                .Skip(PageNumber * _pageSize)
+                .Take(_pageSize).ToList();
 
-        public List<Product> Products(int id) =>
+        public List<Product> Products(int id, int PageNumber) =>
             _repository.GetAll()
                 .Include(p => p.Brand)
                 .Include(p => p.Categories)
                 .Where(p => _productRepositories.GetGetCategoryIds(id)
-                    .Contains(p.CategoriesId))
+                        .Contains(p.CategoriesId))
+                .Skip(PageNumber * _pageSize)
+                .Take(_pageSize)
                 .ToList();
+
+        public int TotalCount()
+        {
+            var product = _repository.GetAll().Count();
+            var groupPage = (product / _pageSize);
+            var extraPage = (product % _pageSize);
+            switch (extraPage)
+            {
+                case 0:
+                    return groupPage;
+                default:
+                    return groupPage + 1;
+            }
+        }
     }
 }

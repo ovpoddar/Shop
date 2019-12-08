@@ -5,6 +5,7 @@ namespace Shop.Managers
     public interface IProductManager
     {
         ProductListViewModel GetModel();
-        ProductListViewModel GetFilteredModel(int id);
+        ProductListViewModel GetModel(int PageNumber);
+        ProductListViewModel GetFilteredModel(int id, int PageNumber);
     }
 }

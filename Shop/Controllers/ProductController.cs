@@ -19,9 +19,16 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int categoryId)
+        public IActionResult Index(int PageNumber)
         {
-            var model = _productManager.GetFilteredModel(categoryId);
+            var model = _productManager.GetModel(PageNumber);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Index(int categoryId, int PageNumber)
+        {
+            var model = _productManager.GetFilteredModel(categoryId, PageNumber);
             return View(model);
         }
     }
