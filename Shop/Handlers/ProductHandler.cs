@@ -18,7 +18,7 @@ namespace Shop.Handlers
             _productRepositories = productRepositories ?? throw new ArgumentNullException(nameof(productRepositories));
         }
 
-        public List<Product> Products() => _repository.GetAll().Include(p => p.Brand).Include(p => p.Categories).Include(p => p.ProductWholeSales).ToList();
+        public List<Product> Products() => _repository.GetAll().Include(p => p.Brand).Include(p => p.Categories).Include(p => p.ProductWholeSales).OrderBy(o => o.ProductName).ToList();
 
         public List<Product> Products(int id) =>
             _repository.GetAll()

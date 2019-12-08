@@ -41,9 +41,46 @@ html {
   min-height: 100%;
 }
 
+table {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(90deg, #c2c2c2 30%, #808080 70%);
+    color: black;
+    height: 45px;
+    box-sizing: border-box;
+}
+tbody {
+    background: rgba(0, 0, 0,.15);
+    box-sizing: border-box;
+}
+tbody tr td{
+    height: 39px;
+}
+tr td {
+    padding: 10px;
+}
+select {
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 0px;
+}
+    select:hover {
+        -webkit-appearance: menulist;
+        -moz-appearance: menulist;
+    }
+option {
+    background: transparent;
+    color: Background;
+    border: none;
+}
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;
