@@ -3,36 +3,42 @@
     ViewData["Title"] = "Index";
 }
 
-<table>
-    <thead>
-        <tr>
-            <td>Product Name</td>
-            <td>Price</td>
-            <td>Brand</td>
-            <td>
-                <form method="post" id="form">
-                    <select onchange="document.getElementById('form').submit()" name="categoryId">
-                        <option selected="selected">Categories</option>
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category.Id">@category.Name</option>
-                        }
-                    </select>
-                </form>
-            </td>
-            <td>Stock</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Products)
+    <form method="post" id="form">
+        <table>
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Price</td>
+                    <td>Brand</td>
+                    <td>
+                        <select name="categoryId">
+                            <option>Categories</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </td>
+                    <td>Stock</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Price</td>
+                        <td>@item.Brand.BrandName</td>
+                        <td>@item.Categories.Name</td>
+                        <td>@item.StockLevel</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        @for (var x = 1; x <= Model.TotalNo; x++)
         {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Price</td>
-                <td>@item.Brand.BrandName</td>
-                <td>@item.Categories.Name</td>
-                <td>@item.StockLevel</td>
-            </tr>
+            <button name="PageNumber" value="@x" type="submit">@x</button>
         }
-    </tbody>
-</table>
+    </form>

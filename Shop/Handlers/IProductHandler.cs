@@ -5,7 +5,9 @@ namespace Shop.Handlers
 {
     public interface IProductHandler
     {
-        List<Product> Products();
-        List<Product> Products(int id);
+        List<Product> Products(int PageNumber);
+        List<Product> Products(int id, int PageNumber);
+        int TotalCount(int id);
+        int TotalCount();
     }
 }
