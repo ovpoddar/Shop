@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shop
 {
@@ -14,7 +10,7 @@ namespace Shop
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductWholeSale> ProductWholeSales { get; set; }
-        public DbSet<Shop.Entities.WholesaleSize> WholesaleSize { get; set; }
+        public DbSet<WholesaleSize> WholesaleSize { get; set; }
 
     }
 }

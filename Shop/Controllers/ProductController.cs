@@ -34,7 +34,6 @@ namespace Shop.Controllers
                         return View(model);
                     }
             }
-
         }
         
     }
