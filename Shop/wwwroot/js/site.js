@@ -1,7 +1,6 @@
 ﻿window.onload = function () {
     let x = document.getElementById("toggle");
     let option = document.getElementsByName("categoryId")[0];
-    option.value = getCookie("category");
     x.onclick = function ()
     {
         let y = x.getElementsByTagName("div")[1];

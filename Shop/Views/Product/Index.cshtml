@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-
     <form method="post" id="form">
         <table>
             <thead>
@@ -42,3 +41,6 @@
             <button name="PageNumber" value="@x" type="submit">@x</button>
         }
     </form>
+<script>
+    option.value = getCookie("category");
+</script>
