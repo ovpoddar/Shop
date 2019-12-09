@@ -42,5 +42,10 @@
         }
     </form>
 <script>
-    document.getElementsByName("categoryId")[0].value = getCookie("category");
+    if (getCookie("category") === "") {
+        document.getElementsByName("categoryId")[0].value = "Categories";
+    }
+    else {
+        document.getElementsByName("categoryId")[0].value = getCookie("category");
+    }
 </script>
