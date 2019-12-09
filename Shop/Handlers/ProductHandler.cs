@@ -11,7 +11,7 @@ namespace Shop.Handlers
     {
         private readonly IGenericRepository<Product> _repository;
         private readonly IProductRepositories _productRepositories;
-        private readonly int _pageSize = 4;
+        private readonly int _pageSize = 10;
 
         public ProductHandler(IGenericRepository<Product> repository, IProductRepositories productRepositories)
         {
