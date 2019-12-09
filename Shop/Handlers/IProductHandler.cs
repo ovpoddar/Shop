@@ -7,6 +7,7 @@ namespace Shop.Handlers
     {
         List<Product> Products(int PageNumber);
         List<Product> Products(int id, int PageNumber);
+        int TotalCount(int id);
         int TotalCount();
     }
 }

@@ -17,21 +17,14 @@ namespace Shop.Managers
         public ProductListViewModel GetFilteredModel(int id, int PageNumber) => new ProductListViewModel
         {
             Categories = _categoryHandler.Categories(),
-            Products = _productHandler.Products(id, PageNumber),
-            TotalNo = _productHandler.TotalCount()
-        };
-
-        public ProductListViewModel GetModel() => new ProductListViewModel
-        {
-            Categories = _categoryHandler.Categories(),
-            Products = _productHandler.Products(1),
-            TotalNo = _productHandler.TotalCount()
+            Products = _productHandler.Products(id, PageNumber - 1),
+            TotalNo = _productHandler.TotalCount(id)
         };
 
         public ProductListViewModel GetModel(int PageNumber) => new ProductListViewModel
         {
             Categories = _categoryHandler.Categories(),
-            Products = _productHandler.Products(PageNumber),
+            Products = _productHandler.Products(PageNumber - 1),
             TotalNo = _productHandler.TotalCount()
         };
     }
