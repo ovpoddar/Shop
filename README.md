@@ -1,18 +1,18 @@
 # Shop
 Work with tim shop
 
-GO
 
-/****** Object:  StoredProcedure [dbo].[spGetCategoryIds]    Script Date: 02/12/2019 20:33:21 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE PROCEDURE [dbo].[spGetCategoryIds]
-
+PROCEDURE for get data 
+SET ANSI_NULLS ON  
+GO  
+SET QUOTED_IDENTIFIER ON  
+GO  
+-- =============================================  
+-- Author:      Manoj Kalla  
+-- Create date: 20-Nov-2017  
+-- Description: Update a member detail by ID  
+-- =============================================  
+CREATE PROCEDURE spGetCategoryIds  
 @id int
 
 AS
@@ -32,6 +32,5 @@ BEGIN
 
 SELECT  *
 FROM  cte
-
-END
-GO
+END  
+GO  
