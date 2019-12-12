@@ -11,6 +11,7 @@ namespace Shop
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductWholeSale> ProductWholeSales { get; set; }
         public DbSet<WholesaleSize> WholesaleSize { get; set; }
+        public DbSet<Csv> Csvs { get; set; }
 
     }
 }
