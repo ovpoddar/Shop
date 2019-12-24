@@ -1,14 +1,21 @@
-﻿using Shop.ViewModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Handlers;
+using Shop.Managers;
+using Shop.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Shop.Controllers
 {
     public class CsvController : Controller
     {
+        private readonly ICsvManager _CsvManager;
+
+        public CsvController(ICsvManager csvManager)
+        {
+            _CsvManager = csvManager ?? throw new ArgumentNullException(nameof(_CsvManager));
+        }
+
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -19,7 +26,10 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var x = model.Csv.FileName.Length;
+                if (_CsvManager.Upload(model))
+                    return View("product/index");
+                else
+                    return View();
             };
             return View();
         }
