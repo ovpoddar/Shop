@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers;
 using Shop.Managers;
 using Shop.ViewModels;
 using System;
-using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {

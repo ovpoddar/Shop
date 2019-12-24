@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Shop.Entities;
 using Shop.Repositories;
-using Shop.ViewModels;
 using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Handlers
 {
