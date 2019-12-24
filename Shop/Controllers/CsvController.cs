@@ -3,6 +3,7 @@ using Shop.Handlers;
 using Shop.Managers;
 using Shop.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
@@ -27,7 +28,7 @@ namespace Shop.Controllers
             if (ModelState.IsValid)
             {
                 if (_CsvManager.Upload(model))
-                    return View("product/index");
+                    return View("//product/index");
                 else
                     return View();
             };

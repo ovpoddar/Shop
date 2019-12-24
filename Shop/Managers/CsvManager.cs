@@ -28,21 +28,19 @@ namespace Shop.Managers
 
         public bool Upload(CsvViewModel csv)
         {
-
+            string hashvalue = null;
             Random random = new Random();
-            var RelativePath = Path.Combine("Userfile", random.ToString());
+            var RelativePath = Path.Combine("Userfile", random.Next().ToString());
             var FullPath = Path.Combine(_Hosting.WebRootPath, RelativePath);
             _csvHandler.Store(FullPath, csv.Csv);
             var stream = new FileStream(FullPath, FileMode.Open);
-            var hashvalue = BitConverter.ToString(MD5.Create().ComputeHash(stream));
+            hashvalue = BitConverter.ToString(MD5.Create().ComputeHash(stream));
             var time = DateTime.Now.ToString();
-            if(_Repository.GetAll().Any(p => p.HashName == hashvalue))
-            {
-                _csvHandler.Delete(FullPath);
-                return false;
-            }
-            _csvHandler.Save(csv.Csv.FileName ,RelativePath, hashvalue, time);
-            return true;
+            stream.Close();
+            if (!_Repository.GetAll().Any(p => p.HashName == hashvalue))
+                _csvHandler.Save(csv.Csv.FileName, RelativePath, hashvalue, time);
+            _csvHandler.Delete(FullPath);
+            return false;
         }
     }
 }
