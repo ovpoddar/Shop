@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +36,7 @@ namespace Shop
             services.AddTransient<IGenericRepository<Brand>, GenericRepositories<Brand>>();
             services.AddTransient<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
             services.AddTransient<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
+            services.AddTransient<IGenericRepository<Csv>, GenericRepositories<Csv>>();
 
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
@@ -47,6 +44,8 @@ namespace Shop
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
+            services.AddTransient<ICsvHandler, CsvHandler>();
+            services.AddTransient<ICsvManager, CsvManager>();
             services.AddMvc();
 
 
