@@ -25,10 +25,16 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_CsvManager.Upload(model))
+                var result = _CsvManager.Upload(model);
+                if (result.Success)
+                {
+                    _CsvManager.Update(result.Path);
                     return View("//product/index");
+                }
                 else
+                {
                     return View();
+                }
             };
             return View();
         }

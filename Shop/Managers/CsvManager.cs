@@ -23,7 +23,12 @@ namespace Shop.Managers
             _Repository = repository ?? throw new ArgumentNullException(nameof(_Repository));
         }
 
-        public bool Upload(CsvViewModel csv)
+        public void Update(string csv)
+        {
+            string file = new StreamReader(csv).ReadToEnd();
+        }
+
+        public UploadReport Upload(CsvViewModel csv)
         {
             string hashvalue = null;
             Random random = new Random();
@@ -37,12 +42,22 @@ namespace Shop.Managers
             if (!_Repository.GetAll().Any(p => p.HashName == hashvalue))
             {
                 _csvHandler.Save(csv.Csv.FileName, RelativePath, hashvalue, time);
-                return true;
+                UploadReport report = new UploadReport()
+                {
+                    Path = FullPath,
+                    Success = true
+                };
+                return report;
             }
             else
             {
-                _csvHandler.Delete(FullPath);
-                return false;
+                _csvHandler.Delete(FullPath); 
+                UploadReport report = new UploadReport()
+                {
+                    Path = null,
+                    Success = false
+                };
+                return report;
             }
         }
     }

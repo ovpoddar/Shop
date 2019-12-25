@@ -4,6 +4,7 @@ namespace Shop.Managers
 {
     public interface ICsvManager
     {
-        bool Upload(CsvViewModel csv);
+        UploadReport Upload(CsvViewModel csv);
+        void Update(string csv);
     }
 }
