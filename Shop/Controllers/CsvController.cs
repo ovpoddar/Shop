@@ -21,7 +21,7 @@ namespace Shop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(CsvViewModel model)
+        public IActionResult Index(CsvViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -29,7 +29,7 @@ namespace Shop.Controllers
                 if (result.Success)
                 {
                     _CsvManager.Update(result.Path);
-                    return View("//product/index");
+                    return RedirectToAction("index", "product");
                 }
                 else
                 {

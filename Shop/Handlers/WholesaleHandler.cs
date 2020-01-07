@@ -20,7 +20,7 @@ namespace Shop.Handlers
 
         public bool Add(WholeSaleViewModel Details)
         {
-            if (Details.Package == 0 || Details.Size == 0)
+            if (Details.Package == 0 || Details.Size == 0 || _repository.GetAll().Any(o => o.Package == Details.Package && o.Size == Details.Size))
                 return false;
 
             var wholesale = new WholesaleSize
@@ -33,5 +33,11 @@ namespace Shop.Handlers
             _genericRepository.save();
             return true;
         }
+
+        public int GetId(int size, int package) =>
+            _repository.GetAll()
+            .Where(o => o.Size == size && o.Package == package)
+            .Select(o => o.Id)
+            .FirstOrDefault();
     }
 }

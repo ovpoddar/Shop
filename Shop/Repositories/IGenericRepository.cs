@@ -5,8 +5,9 @@ namespace Shop.Repositories
     public interface IGenericRepository<T>
     {
         IQueryable<T> GetAll();
-        void Add(T model);
         T GetById(int id);
+        void Add(T model);
+        void Delete(T model);
         void save();
     }
 }

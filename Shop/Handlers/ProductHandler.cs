@@ -19,6 +19,35 @@ namespace Shop.Handlers
             _productRepositories = productRepositories ?? throw new ArgumentNullException(nameof(productRepositories));
         }
 
+        public bool AddProduct(Product product)
+        {
+            if (_repository.GetAll().Any(o => o.ProductName.ToLower() == product.ProductName.ToLower() && o.Price == product.Price))
+            {
+                var OldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
+                Product NewProduct = new Product()
+                {
+                    BrandId = product.BrandId,
+                    CategoriesId = product.CategoriesId,
+                    MinimumWholesaleOrder = product.MinimumWholesaleOrder,
+                    ProductName = product.ProductName,
+                    wholesalePrice = product.wholesalePrice,
+                    Price = product.Price,
+                    OrderLevel = product.OrderLevel,
+                    StockLevel = Convert.ToDouble(OldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel
+                };
+                _repository.Delete(OldProduct.FirstOrDefault());
+                _repository.Add(NewProduct);
+                _repository.save();
+                return false;
+            }
+            else
+            {
+                _repository.Add(product);
+                _repository.save();
+                return true;
+            }
+        }
+
         public List<Product> Products(int PageNumber)
         {
             if (PageNumber == -1)
