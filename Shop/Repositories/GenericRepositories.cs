@@ -13,7 +13,10 @@ namespace Shop.Repositories
         
         public void Add(T model) =>
             _dbContext.Add(model);
-        
+
+        public void Delete(T model) =>
+            _dbContext.Remove(model);
+
         public IQueryable<T> GetAll() => 
             _dbContext.Set<T>();
         
