@@ -3,6 +3,7 @@ using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
 using Shop.ViewModels;
+using Shop.Helpers;
 using System;
 using System.IO;
 using System.Linq;
@@ -15,70 +16,17 @@ namespace Shop.Managers
         private readonly IHostingEnvironment _Hosting;
         private readonly ICsvHandler _csvHandler;
         private readonly IGenericRepository<Csv> _Repository;
-        private readonly IBrandHandler _brand;
-        private readonly IWholesaleHandler _WholesaleHandler;
         private readonly IProductHandler _product;
-        private readonly ICategoryHandler _catagory;
+        private readonly ICsvHelper _function;
 
-        public CsvManager(IHostingEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IBrandHandler brand, IProductHandler product, IWholesaleHandler WholesaleHandler, ICategoryHandler catagory)
+        public CsvManager(IHostingEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IProductHandler product, ICsvHelper function)
         {
             _Hosting = hosting ?? throw new ArgumentNullException(nameof(_Hosting));
             _csvHandler = csv ?? throw new ArgumentNullException(nameof(_csvHandler));
             _Repository = repository ?? throw new ArgumentNullException(nameof(_Repository));
-            _brand = brand ?? throw new ArgumentNullException(nameof(_brand));
-            _WholesaleHandler = WholesaleHandler ?? throw new ArgumentNullException(nameof(_WholesaleHandler));
             _product = product ?? throw new ArgumentNullException(nameof(_product));
-            _catagory = catagory ?? throw new ArgumentNullException(nameof(_catagory));
+            _function = function ?? throw new ArgumentNullException(nameof(_function));
         }
-
-
-
-
-
-        private double WholesaleID(int value1, int value2)
-        {
-            WholeSaleViewModel wholesaleSize = new WholeSaleViewModel()
-            {
-                Package = value1,
-                Size = value2
-            };
-            _WholesaleHandler.Add(wholesaleSize);
-            return _WholesaleHandler.GetId(value1, value2);
-        }
-
-        private int Categorieauto(string v1)
-        {
-            CategoryViewModel model = new CategoryViewModel()
-            {
-                Name = v1
-            };
-            _catagory.AddCategory(model);
-            return _catagory.GetId(v1);
-        }
-        private void Categorieauto(string v1, string v2)
-        {
-            var id = _catagory.GetId(v1);
-            CategoryViewModel model = new CategoryViewModel()
-            {
-                Id = id,
-                Name = v2
-            };
-            _catagory.AddCategory(model);
-        }
-
-        private int BrandId(string value)
-        {
-            Brand brand = new Brand()
-            {
-                BrandName = value
-            };
-            _brand.AddBrand(brand);
-            return _brand.GetId(value);
-        }
-
-
-
-
 
         public void Update(string csv)
         {
@@ -88,25 +36,24 @@ namespace Shop.Managers
             for (int i = 1; i < lines.Length; i++)
             {
                 var values = lines[i].Split(",");
-                var catagorieid = Categorieauto(values[1]);
+                var catagorieid = _function.Categorieauto(values[1]);
                 for(var j =1; j< 6; j++)
                 {
-                    Categorieauto(values[j], values[j + 1]);
+                    _function.Categorieauto(values[j], values[j + 1]);
                 }
                 Product product = new Product()
                 {
                     ProductName = values[0],
-                    BrandId = BrandId(values[7]),
+                    BrandId = _function.BrandId(values[7]),
                     CategoriesId = catagorieid,
                     Price = Convert.ToDouble(values[11]),
                     StockLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
                     MinimumWholesaleOrder = Convert.ToDouble(values[12]) * Convert.ToDouble(values[13]),
                     OrderLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
-                    wholesalePrice = WholesaleID(Convert.ToInt32(values[8]), Convert.ToInt32(values[9])),
+                    wholesalePrice = _function.WholesaleID(Convert.ToInt32(values[8]), Convert.ToInt32(values[9])),
                 };
                 _product.AddProduct(product);
             }
-
         }
 
         public UploadReport Upload(CsvViewModel csv)

@@ -1,10 +1,12 @@
-﻿
+﻿@model CsvViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
 <form method="post" enctype="multipart/form-data">
-    <input type="file" accept=".csv" name="Csv" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <span asp-validation-for="Csv"></span>
+    <input type="file" accept=".csv" required="required" asp-for="Csv"/>
     <button formmethod="post">Update</button>
 </form>
 

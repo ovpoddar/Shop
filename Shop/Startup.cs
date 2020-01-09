@@ -9,6 +9,7 @@ using Shop.Entities;
 using Shop.Handlers;
 using Shop.Managers;
 using Shop.Repositories;
+using Shop.Helpers;
 
 namespace Shop
 {
@@ -37,7 +38,6 @@ namespace Shop
             services.AddTransient<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
             services.AddTransient<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
             services.AddTransient<IGenericRepository<Csv>, GenericRepositories<Csv>>();
-
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
             services.AddTransient<IProductRepositories, ProductRepositories>();
@@ -46,6 +46,7 @@ namespace Shop
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
             services.AddTransient<ICsvManager, CsvManager>();
+            services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddMvc();
 
 
