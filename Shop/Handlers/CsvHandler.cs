@@ -22,7 +22,7 @@ namespace Shop.Handlers
 
         public void Save(string name, string Path, string hash, string time)
         {
-            Csv csv = new Csv()
+            var csv = new Csv()
             {
                 FileName = name,
                 Filepath = Path,

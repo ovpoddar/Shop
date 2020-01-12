@@ -24,7 +24,7 @@ namespace Shop.Handlers
             if (_repository.GetAll().Any(o => o.ProductName.ToLower() == product.ProductName.ToLower() && o.Price == product.Price))
             {
                 var OldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
-                Product NewProduct = new Product()
+                var NewProduct = new Product()
                 {
                     BrandId = product.BrandId,
                     CategoriesId = product.CategoriesId,

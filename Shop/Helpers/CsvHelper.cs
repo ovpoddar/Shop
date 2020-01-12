@@ -20,7 +20,7 @@ namespace Shop.Helpers
 
         public double WholesaleID(int value1, int value2)
         {
-            WholeSaleViewModel wholesaleSize = new WholeSaleViewModel()
+            var wholesaleSize = new WholeSaleViewModel()
             {
                 Package = value1,
                 Size = value2
@@ -31,7 +31,7 @@ namespace Shop.Helpers
 
         public int Categorieauto(string v1)
         {
-            CategoryViewModel model = new CategoryViewModel()
+            var model = new CategoryViewModel()
             {
                 Name = v1
             };
@@ -41,7 +41,7 @@ namespace Shop.Helpers
         public void Categorieauto(string v1, string v2)
         {
             var id = _catagory.GetId(v1);
-            CategoryViewModel model = new CategoryViewModel()
+            var model = new CategoryViewModel()
             {
                 Id = id,
                 Name = v2
@@ -51,7 +51,7 @@ namespace Shop.Helpers
 
         public int BrandId(string value)
         {
-            Brand brand = new Brand()
+            var brand = new Brand()
             {
                 BrandName = value
             };
