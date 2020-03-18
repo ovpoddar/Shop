@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
+using Shop.ViewModels;
 using System;
 
 namespace Shop.Controllers
@@ -19,22 +20,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int categoryId, int PageNumber)
+        public IActionResult Index(int categoryId, int pageNumber)
         {
-            switch (categoryId)
-            {
-                case 0:
-                    {
-                        var model = _productManager.GetModel(PageNumber);
-                        return View(model);
-                    }
-                default:
-                    {
-                        var model = _productManager.GetFilteredModel(categoryId, PageNumber);
-                        return View(model);
-                    }
-            }
+            ProductListViewModel model = categoryId == 0 ? _productManager.GetModel(pageNumber) : _productManager.GetFilteredModel(categoryId, pageNumber);
+            return View(model);
         }
-        
+
     }
 }

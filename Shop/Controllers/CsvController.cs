@@ -9,10 +9,7 @@ namespace Shop.Controllers
     {
         private readonly ICsvManager _CsvManager;
 
-        public CsvController(ICsvManager csvManager)
-        {
-            _CsvManager = csvManager ?? throw new ArgumentNullException(nameof(_CsvManager));
-        }
+        public CsvController(ICsvManager csvManager) => _CsvManager = csvManager ?? throw new ArgumentNullException(nameof(_CsvManager));
 
 
         [HttpGet]
@@ -26,15 +23,11 @@ namespace Shop.Controllers
             if (ModelState.IsValid && model.Csv != null)
             {
                 var result = _CsvManager.Upload(model);
-                if (result.Success)
-                {
-                    _CsvManager.Update(result.Path);
-                    return RedirectToAction("index", "product");
-                }
-                else
-                {
+                if (!result.Success)
                     return View();
-                }
+
+                _CsvManager.Update(result.Path);
+                return RedirectToAction("index", "product");
             };
             return View();
         }
