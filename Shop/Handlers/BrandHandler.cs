@@ -22,9 +22,12 @@ namespace Shop.Handlers
             return true;
         }
 
-        public int GetId(string Name) =>
-            _repository.GetAll()
-            .Where(o => o.BrandName.ToLower() == Name.ToLower())
-            .FirstOrDefault().Id;
+        public int GetId(string Name)
+        {
+            var brand = _repository.GetAll()
+.FirstOrDefault(o => string.Equals(o.BrandName, Name, StringComparison.CurrentCultureIgnoreCase));
+            return brand?.Id ?? 0;
+
+        }
     }
 }

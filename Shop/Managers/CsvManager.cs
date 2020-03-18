@@ -62,14 +62,14 @@ namespace Shop.Managers
             var random = new Random();
             string RelativePath = Path.Combine("Userfile", random.Next().ToString());
             string FullPath = Path.Combine(_Hosting.WebRootPath, RelativePath);
-            _csvHandler.Store(FullPath, csv.Csv);
+            _csvHandler.StoreCsvAsFile(FullPath, csv.Csv);
             var stream = new FileStream(FullPath, FileMode.Open);
             hashvalue = BitConverter.ToString(MD5.Create().ComputeHash(stream));
             string time = DateTime.Now.ToString();
             stream.Close();
             if (!_Repository.GetAll().Any(p => p.HashName == hashvalue))
             {
-                _csvHandler.Save(csv.Csv.FileName, RelativePath, hashvalue, time);
+                _csvHandler.SaveCsv(csv.Csv.FileName, RelativePath, hashvalue, time);
                 var report = new UploadReport()
                 {
                     Path = FullPath,

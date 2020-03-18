@@ -17,7 +17,7 @@ namespace Shop.Handlers
 
         public List<Category> AddCategory(CategoryViewModel model)
         {
-            if (_repository.GetAll().Any(category => category.Name.ToLower() == model.Name.ToLower() && category.ParentId == model.Id) || model.Name == "")
+            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id) || model.Name == "")
                 return _repository.GetAll().ToList();
 
             _repository.Add(new Category
@@ -35,9 +35,9 @@ namespace Shop.Handlers
 
         public List<Category> GetAll() => _repository.GetAll().ToList();
 
-        public int GetId(string Name) =>
+        public int GetId(string name) =>
             _repository.GetAll()
-            .Where(o => o.Name.ToLower() == Name.ToLower())
+            .Where(o => o.Name.ToLower() == name.ToLower())
             .Select(o => o.Id)
             .FirstOrDefault();
     }
