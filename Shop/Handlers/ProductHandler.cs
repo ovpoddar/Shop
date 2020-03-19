@@ -21,10 +21,11 @@ namespace Shop.Handlers
 
         public bool AddProduct(Product product)
         {
-            if (_repository.GetAll().Any(o => o.ProductName.ToLower() == product.ProductName.ToLower() && o.Price == product.Price))
+            var all = _repository.GetAll();
+            if (all.Any(o => o.ProductName.ToLower() == product.ProductName.ToLower() && o.Price == product.Price))
             {
-                var OldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
-                var NewProduct = new Product()
+                var oldProduct = all.Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
+                var newProduct = new Product()
                 {
                     BrandId = product.BrandId,
                     CategoriesId = product.CategoriesId,
@@ -33,51 +34,46 @@ namespace Shop.Handlers
                     wholesalePrice = product.wholesalePrice,
                     Price = product.Price,
                     OrderLevel = product.OrderLevel,
-                    StockLevel = Convert.ToDouble(OldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel
+                    StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel
                 };
-                _repository.Delete(OldProduct.FirstOrDefault());
-                _repository.Add(NewProduct);
+                _repository.Delete(oldProduct.FirstOrDefault());
+                _repository.Add(newProduct);
                 _repository.save();
                 return false;
             }
-            else
-            {
-                _repository.Add(product);
-                _repository.save();
-                return true;
-            }
+            _repository.Add(product);
+            _repository.save();
+            return true;
         }
 
-        public List<Product> Products(int PageNumber)
+        public List<Product> Products(int pageNumber)
         {
-            if (PageNumber == -1)
-                PageNumber = 0;
+            pageNumber = pageNumber == -1 ? 0 : pageNumber;
             return _repository.GetAll()
                 .Include(p => p.Brand)
                 .Include(p => p.Categories)
                 .Include(p => p.ProductWholeSales)
                 .OrderBy(o => o.ProductName)
-                .Skip(PageNumber * _pageSize)
+                .Skip(pageNumber * _pageSize)
                 .Take(_pageSize)
                 .ToList();
         }
 
-        public List<Product> Products(int id, int PageNumber)
+        public List<Product> Products(int id, int pageNumber)
         {
-            if (PageNumber == -1)
-                PageNumber = 0;
+            pageNumber = pageNumber == -1 ? 0 : pageNumber;
             return _repository.GetAll()
                 .Include(p => p.Brand)
                 .Include(p => p.Categories)
                 .Where(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId))
-                .Skip(PageNumber * _pageSize)
+                .Skip(pageNumber * _pageSize)
                 .Take(_pageSize)
                 .ToList();
         }
 
         public int TotalCount(int id)
         {
-            var product = _repository.GetAll().Where(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)).Count();
+            var product = _repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId));
             var groupPage = (product / _pageSize);
             var extraPage = (product % _pageSize);
             switch (extraPage)
@@ -94,13 +90,7 @@ namespace Shop.Handlers
             var product = _repository.GetAll().Count();
             var groupPage = (product / _pageSize);
             var extraPage = (product % _pageSize);
-            switch (extraPage)
-            {
-                case 0:
-                    return groupPage;
-                default:
-                    return groupPage + 1;
-            }
+            return extraPage == 0 ? groupPage : groupPage + 1;
         }
     }
 }

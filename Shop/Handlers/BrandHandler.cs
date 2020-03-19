@@ -15,17 +15,16 @@ namespace Shop.Handlers
         
         public bool AddBrand(Brand brand)
         {
-            if (_repository.GetAll().Any(p => p.BrandName.ToLower() == brand.BrandName.ToLower()))
+            if (_repository.GetAll().Any(p => string.Equals(p.BrandName, brand.BrandName, StringComparison.CurrentCultureIgnoreCase)))
                 return false;
             _repository.Add(brand);
             _repository.save();
             return true;
         }
 
-        public int GetId(string Name)
+        public int GetId(string name)
         {
-            var brand = _repository.GetAll()
-.FirstOrDefault(o => string.Equals(o.BrandName, Name, StringComparison.CurrentCultureIgnoreCase));
+            var brand = _repository.GetAll().FirstOrDefault(o => string.Equals(o.BrandName, name, StringComparison.CurrentCultureIgnoreCase));
             return brand?.Id ?? 0;
 
         }

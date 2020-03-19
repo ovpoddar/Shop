@@ -18,15 +18,15 @@ namespace Shop.Handlers
             _genericRepository = genericRepository ?? throw new ArgumentNullException(nameof(_genericRepository));
         }
 
-        public bool Add(WholeSaleViewModel Details)
+        public bool Add(WholeSaleViewModel details)
         {
-            if (Details.Package == 0 || Details.Size == 0 || _repository.GetAll().Any(o => o.Package == Details.Package && o.Size == Details.Size))
+            if (details.Package == 0 || details.Size == 0 || _repository.GetAll().Any(o => o.Package == details.Package && o.Size == details.Size))
                 return false;
 
             var wholesale = new WholesaleSize
             {
-                Package = Details.Package,
-                Size = Details.Size,
+                Package = details.Package,
+                Size = details.Size,
             };
 
             _repository.Add(wholesale);
