@@ -22,7 +22,7 @@ namespace Shop.Handlers
         public bool AddProduct(Product product)
         {
             var oldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
-            if (oldProduct != null)
+            if (oldProduct.Any())
             {
                 var newProduct = new Product()
                 {
