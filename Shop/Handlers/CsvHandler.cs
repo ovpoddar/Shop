@@ -17,12 +17,12 @@ namespace Shop.Handlers
         public void Delete(string path) =>
             File.Delete(path);
 
-        public void SaveCsv(string name, string Path, string hash, string time)
+        public void SaveCsv(string name, string path, string hash, string time)
         {
             var csv = new Csv()
             {
                 FileName = name,
-                Filepath = Path,
+                Filepath = path,
                 HashName = hash,
                 UpdateDate = time
             };
@@ -38,7 +38,6 @@ namespace Shop.Handlers
                 file.AppendLine(text.ReadLine());
             var fileText = file.ToString();
             File.WriteAllText(name, fileText);
-            
         }
     }
 }

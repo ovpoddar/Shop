@@ -21,10 +21,9 @@ namespace Shop.Handlers
 
         public bool AddProduct(Product product)
         {
-            var all = _repository.GetAll();
-            if (all.Any(o => o.ProductName.ToLower() == product.ProductName.ToLower() && o.Price == product.Price))
+            var oldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
+            if (oldProduct != null)
             {
-                var oldProduct = all.Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
                 var newProduct = new Product()
                 {
                     BrandId = product.BrandId,
@@ -76,13 +75,7 @@ namespace Shop.Handlers
             var product = _repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId));
             var groupPage = (product / _pageSize);
             var extraPage = (product % _pageSize);
-            switch (extraPage)
-            {
-                case 0:
-                    return groupPage;
-                default:
-                    return groupPage + 1;
-            }
+            return extraPage == 0 ? groupPage : groupPage + 1;
         }
 
         public int TotalCount()
