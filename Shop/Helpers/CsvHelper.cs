@@ -20,42 +20,35 @@ namespace Shop.Helpers
 
         public double WholesaleID(int value1, int value2)
         {
-            var wholesaleSize = new WholeSaleViewModel()
+            _WholesaleHandler.Add(new WholeSaleViewModel()
             {
                 Package = value1,
                 Size = value2
-            };
-            _WholesaleHandler.Add(wholesaleSize);
+            });
             return _WholesaleHandler.GetId(value1, value2);
         }
 
         public int Categorieauto(string v1)
         {
-            var model = new CategoryViewModel()
+            _catagory.AddCategory(new CategoryViewModel()
             {
                 Name = v1
-            };
-            _catagory.AddCategory(model);
+            });
             return _catagory.GetId(v1);
         }
-        public void Categorieauto(string v1, string v2)
-        {
-            var id = _catagory.GetId(v1);
-            var model = new CategoryViewModel()
+        public void Categorieauto(string v1, string v2) =>
+            _catagory.AddCategory(new CategoryViewModel()
             {
-                Id = id,
+                Id = _catagory.GetId(v1),
                 Name = v2
-            };
-            _catagory.AddCategory(model);
-        }
+            });
 
         public int BrandId(string value)
         {
-            var brand = new Brand()
+            _brand.AddBrand(new Brand()
             {
                 BrandName = value
-            };
-            _brand.AddBrand(brand);
+            });
             return _brand.GetId(value);
         }
     }

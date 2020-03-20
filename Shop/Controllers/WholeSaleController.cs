@@ -21,10 +21,7 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(WholeSaleViewModel model)
         {
-            var result = _wholesaleHandler.Add(model);
-            if (ModelState.IsValid || result)
-                return RedirectToAction("Index", "Product");
-            return View();
+            return ModelState.IsValid || _wholesaleHandler.Add(model) ? RedirectToAction("Index", "Product") : (IActionResult)View();
         }
     }
 }

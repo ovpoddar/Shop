@@ -22,11 +22,7 @@ namespace Shop.Handlers
             return true;
         }
 
-        public int GetId(string name)
-        {
-            var brand = _repository.GetAll().FirstOrDefault(o => string.Equals(o.BrandName, name, StringComparison.CurrentCultureIgnoreCase));
-            return brand?.Id ?? 0;
-
-        }
+        public int GetId(string name) =>
+            _repository.GetAll().FirstOrDefault(o => string.Equals(o.BrandName, name, StringComparison.CurrentCultureIgnoreCase))?.Id ?? 0;
     }
 }

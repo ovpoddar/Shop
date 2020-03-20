@@ -5,6 +5,6 @@ namespace Shop.Handlers
     public interface IBrandHandler
     {
         bool AddBrand(Brand brand);
-        int GetId(string Name);
+        int GetId(string name);
     }
 }

@@ -23,11 +23,9 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid && model.Csv != null)
             {
-                var result = _csvManager.Upload(model);
-                if (!result.Success)
+                if (!_csvManager.Upload(model).Success)
                     return View();
-
-                _csvManager.Update(result.Path);
+                _csvManager.Update(_csvManager.Upload(model).Path);
                 return RedirectToAction("index", "product");
             };
             return View();

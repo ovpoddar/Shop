@@ -21,10 +21,9 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(Brand brand)
         {
-            if (!ModelState.IsValid || brand.BrandName == null) return View(brand);
-            if (_brandHandler.AddBrand(brand))
-                return RedirectToAction("Index", "Product");
-            return View(brand);
+            return !ModelState.IsValid || brand.BrandName == null
+                ? View(brand)
+                : _brandHandler.AddBrand(brand) ? RedirectToAction("Index", "Product") : (IActionResult)View(brand);
         }
     }
 }

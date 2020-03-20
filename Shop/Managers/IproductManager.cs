@@ -4,7 +4,7 @@ namespace Shop.Managers
 {
     public interface IProductManager
     {
-        ProductListViewModel GetModel(int PageNumber);
-        ProductListViewModel GetFilteredModel(int id, int PageNumber);
+        ProductListViewModel GetModel(int pageNumber);
+        ProductListViewModel GetFilteredModel(int id, int pageNumber);
     }
 }

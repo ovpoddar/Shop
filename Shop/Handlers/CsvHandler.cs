@@ -36,8 +36,7 @@ namespace Shop.Handlers
             var text = new StreamReader(csv.OpenReadStream());
             while (text.Peek() >= 0)
                 file.AppendLine(text.ReadLine());
-            var fileText = file.ToString();
-            File.WriteAllText(name, fileText);
+            File.WriteAllText(name, file.ToString());
         }
     }
 }

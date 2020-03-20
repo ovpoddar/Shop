@@ -70,20 +70,10 @@ namespace Shop.Handlers
                 .ToList();
         }
 
-        public int TotalCount(int id)
-        {
-            var product = _repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId));
-            var groupPage = (product / _pageSize);
-            var extraPage = (product % _pageSize);
-            return extraPage == 0 ? groupPage : groupPage + 1;
-        }
+        public int TotalCount(int id) =>
+            (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) % _pageSize) == 0 ? (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) : (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) + 1;
 
-        public int TotalCount()
-        {
-            var product = _repository.GetAll().Count();
-            var groupPage = (product / _pageSize);
-            var extraPage = (product % _pageSize);
-            return extraPage == 0 ? groupPage : groupPage + 1;
-        }
+        public int TotalCount()=>
+            (_repository.GetAll().Count() % _pageSize) == 0 ? (_repository.GetAll().Count() / _pageSize) : (_repository.GetAll().Count() / _pageSize) + 1;
     }
 }

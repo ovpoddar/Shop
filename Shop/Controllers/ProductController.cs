@@ -15,15 +15,13 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _productManager.GetModel(1);
-            return View(model);
+            return View(_productManager.GetModel(1));
         }
 
         [HttpPost]
         public IActionResult Index(int categoryId, int pageNumber)
         {
-            var model = categoryId == 0 ? _productManager.GetModel(pageNumber) : _productManager.GetFilteredModel(categoryId, pageNumber);
-            return View(model);
+            return View(categoryId == 0 ? _productManager.GetModel(pageNumber) : _productManager.GetFilteredModel(categoryId, pageNumber));
         }
 
     }

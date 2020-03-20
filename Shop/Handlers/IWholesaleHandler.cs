@@ -4,7 +4,7 @@ namespace Shop.Handlers
 {
     public interface IWholesaleHandler
     {
-        bool Add(WholeSaleViewModel Details);
-        int GetId(int Size, int Package);
+        bool Add(WholeSaleViewModel details);
+        int GetId(int size, int package);
     }
 }
