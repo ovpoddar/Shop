@@ -5,7 +5,7 @@ using System;
 
 namespace Shop.Helpers
 {
-    public class CsvHelper :  ICsvHelper
+    public class CsvHelper : ICsvHelper
     {
         private readonly IBrandHandler _brand;
         private readonly IWholesaleHandler _WholesaleHandler;

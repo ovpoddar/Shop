@@ -73,7 +73,7 @@ namespace Shop.Handlers
         public int TotalCount(int id) =>
             (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) % _pageSize) == 0 ? (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) : (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) + 1;
 
-        public int TotalCount()=>
+        public int TotalCount() =>
             (_repository.GetAll().Count() % _pageSize) == 0 ? (_repository.GetAll().Count() / _pageSize) : (_repository.GetAll().Count() / _pageSize) + 1;
     }
 }

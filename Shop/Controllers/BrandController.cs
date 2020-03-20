@@ -11,7 +11,7 @@ namespace Shop.Controllers
 
         public BrandController(IBrandHandler brandHandler) =>
             _brandHandler = brandHandler ?? throw new ArgumentNullException(nameof(brandHandler));
-        
+
         [HttpGet]
         public IActionResult Index()
         {

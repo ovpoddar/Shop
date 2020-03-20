@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Entities;
 using Shop.Handlers;
+using Shop.Helpers;
 using Shop.Managers;
 using Shop.Repositories;
-using Shop.Helpers;
 
 namespace Shop
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
-using Shop.ViewModels;
 using System;
 
 namespace Shop.Controllers

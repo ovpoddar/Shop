@@ -12,7 +12,7 @@ namespace Shop.Handlers
 
         public BrandHandler(IGenericRepository<Brand> repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        
+
         public bool AddBrand(Brand brand)
         {
             if (_repository.GetAll().Any(p => string.Equals(p.BrandName, brand.BrandName, StringComparison.CurrentCultureIgnoreCase)))

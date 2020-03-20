@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Shop.Entities;
 using Shop.Handlers;
+using Shop.Helpers;
 using Shop.Repositories;
 using Shop.ViewModels;
-using Shop.Helpers;
 using System;
 using System.IO;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace Shop.Managers
             for (int i = 1; i < lines.Length; i++)
             {
                 var values = lines[i].Split(",");
-                for (var j =1; j< 6; j++)
+                for (var j = 1; j < 6; j++)
                 {
                     _function.Categorieauto(values[j], values[j + 1]);
                 }

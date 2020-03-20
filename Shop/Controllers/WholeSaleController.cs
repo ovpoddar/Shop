@@ -11,7 +11,7 @@ namespace Shop.Controllers
 
         public WholeSaleController(IWholesaleHandler wholeSaleManager) =>
             _wholesaleHandler = wholeSaleManager ?? throw new ArgumentNullException(nameof(_wholesaleHandler));
-        
+
         [HttpGet]
         public IActionResult Index()
         {

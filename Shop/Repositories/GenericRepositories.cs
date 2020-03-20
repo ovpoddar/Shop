@@ -10,20 +10,20 @@ namespace Shop.Repositories
 
         public GenericRepositories(ApplicationDbContext dbContext) =>
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-        
+
         public void Add(T model) =>
             _dbContext.Add(model);
 
         public void Delete(T model) =>
             _dbContext.Remove(model);
 
-        public IQueryable<T> GetAll() => 
+        public IQueryable<T> GetAll() =>
             _dbContext.Set<T>();
-        
+
         public T GetById(int id) =>
             _dbContext.Set<T>().Find(id);
-        
-        public void save() => 
+
+        public void save() =>
             _dbContext.SaveChanges();
     }
 }
