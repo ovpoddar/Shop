@@ -21,7 +21,7 @@ namespace Shop.Handlers
 
         public bool AddProduct(Product product)
         {
-            var oldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price);
+            var oldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price).ToList();
             if (oldProduct.Any())
             {
                 var newProduct = new Product()
@@ -30,7 +30,7 @@ namespace Shop.Handlers
                     CategoriesId = product.CategoriesId,
                     MinimumWholesaleOrder = product.MinimumWholesaleOrder,
                     ProductName = product.ProductName,
-                    wholesalePrice = product.wholesalePrice,
+                    WholesalePrice = product.WholesalePrice,
                     Price = product.Price,
                     OrderLevel = product.OrderLevel,
                     StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel

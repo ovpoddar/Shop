@@ -46,11 +46,11 @@ namespace Shop.Managers
                     ProductName = values[0],
                     BrandId = _function.BrandId(values[7]),
                     CategoriesId = catagorieid,
-                    Price = Convert.ToDouble(values[11]),
+                    Price = Convert.ToDecimal(values[11]),
                     StockLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
                     MinimumWholesaleOrder = Convert.ToDouble(values[12]) * Convert.ToDouble(values[13]),
                     OrderLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
-                    wholesalePrice = _function.WholesaleID(Convert.ToInt32(values[8]), Convert.ToInt32(values[9])),
+                    WholesalePrice = _function.WholesaleID(Convert.ToInt32(values[8]), Convert.ToInt32(values[9])),
                 };
                 _product.AddProduct(product);
             }
