@@ -25,8 +25,11 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(CategoryViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(model.Name))
+            {
+                model.Categories = _categoryHandler.GetAll();
                 return View(model);
+            }
             _categoryHandler.AddCategory(model);
             return RedirectToAction("Index", "Product");
         }

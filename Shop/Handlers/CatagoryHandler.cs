@@ -17,8 +17,8 @@ namespace Shop.Handlers
 
         public List<Category> AddCategory(CategoryViewModel model)
         {
-            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id) || model.Name == "")
-                return _repository.GetAll().ToList();
+            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id))
+                return GetAll();
 
             _repository.Add(new Category
             {
