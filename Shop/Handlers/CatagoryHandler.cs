@@ -15,10 +15,14 @@ namespace Shop.Handlers
         public CategoryHandler(IGenericRepository<Category> repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        public List<Category> AddCategory(CategoryViewModel model)
+        public CategorieReport AddCategory(CategoryViewModel model)
         {
-            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id))
-                return GetAll();
+            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id) || string.IsNullOrWhiteSpace(model.Name))
+                return new CategorieReport
+                {
+                    All = GetAll(),
+                    Success = false
+                };
 
             _repository.Add(new Category
             {
@@ -26,7 +30,11 @@ namespace Shop.Handlers
                 Name = model.Name
             });
             _repository.save();
-            return GetAll();
+            return new CategorieReport
+            {
+                All = GetAll(),
+                Success = true
+            };
         }
 
         public List<Category> Categories() =>

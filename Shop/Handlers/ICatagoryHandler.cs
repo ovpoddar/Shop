@@ -8,7 +8,7 @@ namespace Shop.Handlers
     {
         List<Category> Categories();
         List<Category> GetAll();
-        List<Category> AddCategory(CategoryViewModel model);
+        CategorieReport AddCategory(CategoryViewModel model);
         int GetId(string name);
     }
 }

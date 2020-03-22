@@ -15,23 +15,20 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var categories = new CategoryViewModel
+            return View(new CategoryViewModel
             {
                 Categories = _categoryHandler.GetAll()
-            };
-            return View(categories);
+            });
         }
 
         [HttpPost]
         public IActionResult Index(CategoryViewModel model)
         {
-            if (string.IsNullOrWhiteSpace(model.Name))
-            {
-                model.Categories = _categoryHandler.GetAll();
-                return View(model);
-            }
-            _categoryHandler.AddCategory(model);
-            return RedirectToAction("Index", "Product");
+            var result = _categoryHandler.AddCategory(model);
+            if (result.Success)
+                return RedirectToAction("Index", "Product");
+            model.Categories = result.All;
+            return View(model);
         }
     }
 }
