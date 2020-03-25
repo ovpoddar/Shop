@@ -20,7 +20,7 @@ namespace Shop.Handlers
             if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && category.ParentId == model.Id) || string.IsNullOrWhiteSpace(model.Name))
                 return new CategorieReport
                 {
-                    All = GetAll(),
+                    All = _repository.GetAll().ToList(),
                     Success = false
                 };
 
@@ -32,7 +32,7 @@ namespace Shop.Handlers
             _repository.save();
             return new CategorieReport
             {
-                All = GetAll(),
+                All = _repository.GetAll().ToList(),
                 Success = true
             };
         }
@@ -45,7 +45,7 @@ namespace Shop.Handlers
 
         public int GetId(string name) =>
             _repository.GetAll()
-            .Where(o => o.Name.ToLower() == name.ToLower())
+            .Where(o => string.Equals(o.Name, name, StringComparison.CurrentCultureIgnoreCase))
             .Select(o => o.Id)
             .FirstOrDefault();
     }

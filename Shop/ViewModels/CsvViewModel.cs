@@ -6,7 +6,7 @@ namespace Shop.ViewModels
 {
     public class CsvViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "select a csv file")]
         [ValidFileType(FileName: "Csv", ErrorMessage = "only csv files are allowed")]
         public IFormFile Csv { get; set; }
     }

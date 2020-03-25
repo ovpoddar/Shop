@@ -21,15 +21,13 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(CsvViewModel model)
         {
-            if (ModelState.IsValid && model.Csv != null)
-            {
-                var result = _csvManager.Upload(model);
-                if (!result.Success)
-                    return View();
-                _csvManager.Update(result.Path);
-                return RedirectToAction("index", "product");
-            };
-            return View();
+            if (ModelState.IsValid || model.Csv != null)
+                return View();
+            var result = _csvManager.Upload(model);
+            if (!result.Success)
+                return View();
+            _csvManager.Update(result.Path);
+            return RedirectToAction("index", "product");
         }
     }
 }

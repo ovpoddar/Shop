@@ -22,12 +22,11 @@ namespace Shop.Handlers
         {
             if (details.Package == 0 || details.Size == 0 || _repository.GetAll().Any(o => o.Package == details.Package && o.Size == details.Size))
                 return false;
-            var wholesale = new WholesaleSize
+            _repository.Add(new WholesaleSize
             {
                 Package = details.Package,
                 Size = details.Size,
-            };
-            _repository.Add(wholesale);
+            });
             _genericRepository.save();
             return true;
         }

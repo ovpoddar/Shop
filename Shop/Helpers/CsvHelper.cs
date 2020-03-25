@@ -8,39 +8,39 @@ namespace Shop.Helpers
     public class CsvHelper : ICsvHelper
     {
         private readonly IBrandHandler _brand;
-        private readonly IWholesaleHandler _WholesaleHandler;
-        private readonly ICategoryHandler _catagory;
+        private readonly IWholesaleHandler _wholesaleHandler;
+        private readonly ICategoryHandler _category;
 
         public CsvHelper(IBrandHandler brand, IWholesaleHandler WholesaleHandler, ICategoryHandler catagory)
         {
             _brand = brand ?? throw new ArgumentNullException(nameof(_brand));
-            _WholesaleHandler = WholesaleHandler ?? throw new ArgumentNullException(nameof(_WholesaleHandler));
-            _catagory = catagory ?? throw new ArgumentNullException(nameof(_catagory));
+            _wholesaleHandler = WholesaleHandler ?? throw new ArgumentNullException(nameof(_wholesaleHandler));
+            _category = catagory ?? throw new ArgumentNullException(nameof(_category));
         }
 
-        public double WholesaleID(int value1, int value2)
+        public double WholesaleID(int size, int packege)
         {
-            _WholesaleHandler.Add(new WholeSaleViewModel()
+            _wholesaleHandler.Add(new WholeSaleViewModel
             {
-                Package = value1,
-                Size = value2
+                Package = size,
+                Size = packege
             });
-            return _WholesaleHandler.GetId(value1, value2);
+            return _wholesaleHandler.GetId(size, packege);
         }
 
-        public int Categorieauto(string v1)
+        public int Categoryauto(string name)
         {
-            _catagory.AddCategory(new CategoryViewModel()
+            _category.AddCategory(new CategoryViewModel
             {
-                Name = v1
+                Name = name
             });
-            return _catagory.GetId(v1);
+            return _category.GetId(name);
         }
-        public void Categorieauto(string v1, string v2) =>
-            _catagory.AddCategory(new CategoryViewModel()
+        public void Categoryauto(string underName, string name) =>
+            _category.AddCategory(new CategoryViewModel
             {
-                Id = _catagory.GetId(v1),
-                Name = v2
+                Id = _category.GetId(underName),
+                Name = name
             });
 
         public int BrandId(string value)
