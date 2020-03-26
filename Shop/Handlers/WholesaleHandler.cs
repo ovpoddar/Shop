@@ -20,14 +20,18 @@ namespace Shop.Handlers
 
         public bool Add(WholeSaleViewModel details)
         {
-            if (details.Package == 0 || details.Size == 0 || _repository.GetAll().Any(o => o.Package == details.Package && o.Size == details.Size))
+            if (details.Package == 0 || details.Size == 0 ||
+                _repository.GetAll().Any(o => o.Package == details.Package && o.Size == details.Size))
                 return false;
+
             _repository.Add(new WholesaleSize
             {
                 Package = details.Package,
                 Size = details.Size,
             });
+
             _genericRepository.save();
+
             return true;
         }
 

@@ -26,6 +26,7 @@ namespace Shop.Handlers
                 HashName = hash,
                 UpdateDate = time
             };
+
             _Repository.Add(csv);
             _Repository.save();
         }

@@ -35,11 +35,14 @@ namespace Shop.Handlers
                     OrderLevel = product.OrderLevel,
                     StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel
                 };
+
                 _repository.Delete(oldProduct.FirstOrDefault());
                 _repository.Add(newProduct);
                 _repository.save();
+
                 return false;
             }
+
             _repository.Add(product);
             _repository.save();
             return true;
