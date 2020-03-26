@@ -5,6 +5,7 @@ using Shop.Helpers;
 using Shop.Repositories;
 using Shop.ViewModels;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -58,12 +59,13 @@ namespace Shop.Managers
             var relativePath = Path.Combine("Userfile", random.Next().ToString());
             var fullPath = Path.Combine(_hosting.WebRootPath, relativePath);
             _csvHandler.StoreCsvAsFile(fullPath, csv.Csv);
+
             using (var stream = new FileStream(fullPath, FileMode.Open))
             {
                 var hashValue = BitConverter.ToString(MD5.Create().ComputeHash(stream));
                 if (!_repository.GetAll().Any(p => p.HashName == hashValue))
                 {
-                    _csvHandler.SaveCsv(csv.Csv.FileName, relativePath, hashValue, DateTime.Now.ToString());
+                    _csvHandler.SaveCsv(csv.Csv.FileName, relativePath, hashValue, DateTime.Now.ToString(CultureInfo.InvariantCulture));
                     return new UploadReport()
                     {
                         Path = fullPath,
