@@ -31,7 +31,9 @@ namespace Shop.Managers
         public void Update(string csv)
         {
             var lines = new StreamReader(csv).ReadToEnd().Replace("\r", "").Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            for (var i = 1; i < lines.Length; i++)
+            var length = lines.Length;
+
+            for (var i = 1; i < length; i++)
             {
                 var values = lines[i].Split(",");
                 for (var j = 1; j < 6; j++)
