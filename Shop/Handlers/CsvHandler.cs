@@ -9,10 +9,10 @@ namespace Shop.Handlers
 {
     public class CsvHandler : ICsvHandler
     {
-        private readonly IGenericRepository<Csv> _Repository;
+        private readonly IGenericRepository<Csv> _repository;
 
         public CsvHandler(IGenericRepository<Csv> repository) =>
-            _Repository = repository ?? throw new ArgumentNullException(nameof(_Repository));
+            _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
 
         public void Delete(string path) =>
             File.Delete(path);
@@ -27,8 +27,8 @@ namespace Shop.Handlers
                 UpdateDate = time
             };
 
-            _Repository.Add(csv);
-            _Repository.save();
+            _repository.Add(csv);
+            _repository.save();
         }
 
         public void StoreCsvAsFile(string name, IFormFile csv)
