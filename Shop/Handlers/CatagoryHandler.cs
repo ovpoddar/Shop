@@ -18,7 +18,8 @@ namespace Shop.Handlers
         public CategorieReport AddCategory(CategoryViewModel model)
         {
             if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && 
-                                                     category.ParentId == model.Id) || string.IsNullOrWhiteSpace(model.Name))
+                                                     category.ParentId == model.Id) ||
+                                                     string.IsNullOrWhiteSpace(model.Name))
                 return new CategorieReport
                 {
                     All = _repository.GetAll().ToList(),
