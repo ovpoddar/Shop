@@ -21,7 +21,7 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(CsvViewModel model)
         {
-            if (ModelState.IsValid || model.Csv != null)
+            if (!ModelState.IsValid || model.Csv == null)
                 return View();
             var result = _csvManager.Upload(model);
             if (!result.Success)

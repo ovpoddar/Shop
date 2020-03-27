@@ -19,15 +19,13 @@ namespace Shop.Handlers
 
         public void SaveCsv(string name, string path, string hash, string time)
         {
-            var csv = new Csv()
+            _repository.Add(new Csv()
             {
                 FileName = name,
                 Filepath = path,
                 HashName = hash,
                 UpdateDate = time
-            };
-
-            _repository.Add(csv);
+            });
             _repository.save();
         }
 

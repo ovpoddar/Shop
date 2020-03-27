@@ -10,6 +10,7 @@ namespace Shop.Entities
         public double StockLevel { get; set; }
         public double OrderLevel { get; set; }
         public double MinimumWholesaleOrder { get; set; }
+        public double BarCode { get; set; }
         public int BrandId { get; set; }
         public int CategoriesId { get; set; }
         public virtual Category Categories { get; set; }

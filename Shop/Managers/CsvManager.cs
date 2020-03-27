@@ -42,13 +42,14 @@ namespace Shop.Managers
                 _product.AddProduct(new Product()
                 {
                     ProductName = values[0],
-                    BrandId = _csvHelper.BrandId(values[7]),
-                    CategoriesId = _csvHelper.Categoryauto(values[1]),
-                    Price = Convert.ToDecimal(values[11]),
-                    StockLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
-                    MinimumWholesaleOrder = Convert.ToDouble(values[12]) * Convert.ToDouble(values[13]),
-                    OrderLevel = Convert.ToDouble(values[9]) * Convert.ToDouble(values[15]) * Convert.ToDouble(values[16]),
-                    WholesalePrice = _csvHelper.WholesaleID(Convert.ToInt32(values[8]), Convert.ToInt32(values[9])),
+                    BrandId = _csvHelper.BrandId(values[8]),
+                    CategoriesId = _csvHelper.Categoryauto(values[2]),
+                    Price = Convert.ToDecimal(values[12]),
+                    StockLevel = Convert.ToDouble(values[10]) * Convert.ToDouble(values[16]) * Convert.ToDouble(values[17]),
+                    MinimumWholesaleOrder = Convert.ToDouble(values[13]) * Convert.ToDouble(values[14]),
+                    OrderLevel = Convert.ToDouble(values[10]) * Convert.ToDouble(values[16]) * Convert.ToDouble(values[17]),
+                    WholesalePrice = _csvHelper.WholesaleID(Convert.ToInt32(values[9]), Convert.ToInt32(values[10])),
+                    BarCode = Convert.ToDouble(values[1])
                 });
             }
         }

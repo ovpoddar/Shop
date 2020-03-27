@@ -33,7 +33,8 @@ namespace Shop.Handlers
                     WholesalePrice = product.WholesalePrice,
                     Price = product.Price,
                     OrderLevel = product.OrderLevel,
-                    StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel
+                    StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel,
+                    BarCode = product.BarCode
                 };
 
                 _repository.Delete(oldProduct.FirstOrDefault());
