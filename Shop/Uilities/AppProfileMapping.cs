@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Shop.Entities;
 using Shop.Models;
+using Shop.ViewModels;
 
 namespace Shop.Uilities
 {

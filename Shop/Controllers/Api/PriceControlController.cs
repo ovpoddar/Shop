@@ -22,13 +22,12 @@ namespace Shop.Controllers.Api
 
         [HttpPost]
         [Route("api/Buy")]
-        public bool Buy(int id, int Qunatity)
+        public void Buy(int id, int Qunatity)
         {
             var product = _product.GetProduct(id);
             if (product.ProductName == null)
-                return false; 
+                return;
             _product.RemoveProduct(product, Qunatity);
-            return true;
         }
     }
 }

@@ -22,20 +22,27 @@
         });
     }
     catch (ex) {
-    let q = document.getElementById("pdp");
-    q.addEventListener("keyup", function () {
+
+    }
+    try {
+        let q = document.getElementById("pdp");
+        q.addEventListener("keyup", function () {
             var Pamnt = 0;
             for (var i = 0; i < allItem.length; i++) {
                 Pamnt += allItem[i]["total"];
             }
-        if (Pamnt < this.value) {
-            document.getElementById("change").innerHTML = (this.value - Pamnt);
-        }
-        else {
-            document.getElementById("change").innerHTML = "";
-        }
+            if (Pamnt < this.value || Pamnt == this.value) {
+                document.getElementById("change").innerHTML = (this.value - Pamnt);
+                let pay = document.getElementById("pay");
+                pay.innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
+            }
+            else {
+                document.getElementById("change").innerHTML = "";
+            }
         });
-        this.console.log(ex);
+        
+    }
+    catch (ex) {
     }
 };
 

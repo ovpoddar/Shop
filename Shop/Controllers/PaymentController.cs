@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
 using Shop.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace Shop.Controllers
@@ -11,13 +12,13 @@ namespace Shop.Controllers
 
         public PaymentController(IPaymentManager payment)
         {
-            _payment = payment ?? throw new System.ArgumentNullException(nameof(_payment));
+            _payment = payment ?? throw new ArgumentNullException(nameof(_payment));
         }
         [HttpGet]
         public IActionResult Index()
         {
             var list = new List<ItemViewModel>();
-            if (Request.Cookies.Keys.Count == 0)
+            if (Request.Cookies.Keys.Count == 1)
                 return RedirectToAction("Index", "Product");
             foreach (var cookie in Request.Cookies.Keys)
             {
@@ -31,7 +32,15 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(List<ItemViewModel> models)
         {
-            return View();
+            _payment.PurchaseCall(models);
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                if (cookie.Length > 3)
+                    continue;
+                Response.Cookies.Delete(cookie);
+            }
+            // store the record to sarver;
+            return RedirectToAction("Index", "Product");
         }
     }
 }

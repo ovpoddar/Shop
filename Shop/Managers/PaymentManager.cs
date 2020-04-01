@@ -2,7 +2,7 @@
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Shop.Managers
@@ -17,7 +17,6 @@ namespace Shop.Managers
         }
         public ItemViewModel GetViewModels(string qunatity, string productId)
         {
-            var amnt = Convert.ToInt32(qunatity);
             var product = _product.GetProduct(Convert.ToInt32(productId));
             return new ItemViewModel
             {
@@ -25,9 +24,17 @@ namespace Shop.Managers
                 Brand = product.Brand.BrandName,
                 Name = product.ProductName,
                 Price = product.Price,
-                Quantity = amnt,
-                TotalPrice = Convert.ToDouble(product.Price * amnt)
+                Quantity = Convert.ToInt32(qunatity),
+                TotalPrice = Convert.ToDouble(product.Price * Convert.ToInt32(qunatity))
             };
+        }
+
+        public async void PurchaseCall(List<ItemViewModel> models)
+        {
+            foreach(var item in models)
+            {
+                await new HttpClient().PostAsync("http://localhost:59616/api/Buy?id=" + item.Id + "&Qunatity=" + item.Quantity, null);
+            }
         }
     }
 }

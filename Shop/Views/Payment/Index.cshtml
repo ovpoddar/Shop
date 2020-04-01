@@ -35,14 +35,17 @@
         </div>
     </div>
 </div>
-
+ 
 @section footer
 {
-    <form method="post">
-        <div hidden="hidden">@*@item.Id ,@item.Quantity*@</div>
+    <form method="post" id="from">
+        @for (var i =0;i< Model.Count;i++)
+        {
+            <input type="hidden" asp-for="@Model[i].Id" />
+            <input type="hidden" asp-for="@Model[i].Quantity" />
+        }
         <div class="card card-footer bg-dark">
-            <div style="margin-left: calc(100% - 150px)">
-                <button class="btn-primary btn btn-success" formmethod="post">Payment Now</button>
+            <div style="margin-left: calc(100% - 150px)" id="pay">
             </div>
         </div>
     </form>
