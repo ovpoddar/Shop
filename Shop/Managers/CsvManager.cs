@@ -2,6 +2,7 @@
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Helpers;
+using Shop.Models;
 using Shop.Repositories;
 using Shop.ViewModels;
 using System;
@@ -32,15 +33,14 @@ namespace Shop.Managers
         public void Update(string csv)
         {
             var lines = new StreamReader(csv).ReadToEnd().Replace("\r", "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var length = lines.Length;
 
-            for (var i = 1; i < length; i++)
+            for (var i = 1; i < lines.Length; i++)
             {
                 var values = lines[i].Split(",");
                 _product.AddProduct(new Product()
                 {
                     ProductName = values[0],
-                    BarCode = Convert.ToDouble(values[1]),
+                    BarCode = Convert.ToString(values[1]),
                     CategoriesId = _csvHelper.Categoryauto(values[2]),
                     BrandId = _csvHelper.BrandId(values[8]),
                     WholesalePrice = _csvHelper.WholesaleID(Convert.ToInt32(values[9]), Convert.ToInt32(values[10])),
@@ -54,10 +54,9 @@ namespace Shop.Managers
             }
         }
 
-        public UploadReport Upload(CsvViewModel csv)
+        public UploadModel Upload(CsvViewModel csv)
         {
-            var random = new Random();
-            var relativePath = Path.Combine("Userfile", random.Next().ToString());
+            var relativePath = Path.Combine("Userfile", new Random().Next().ToString());
             var fullPath = Path.Combine(_hosting.WebRootPath, relativePath);
             _csvHandler.StoreCsvAsFile(fullPath, csv.Csv);
 
@@ -67,7 +66,7 @@ namespace Shop.Managers
                 if (!_repository.GetAll().Any(p => p.HashName == hashValue))
                 {
                     _csvHandler.SaveCsv(csv.Csv.FileName, relativePath, hashValue, DateTime.Now.ToString(CultureInfo.InvariantCulture));
-                    return new UploadReport()
+                    return new UploadModel()
                     {
                         Path = fullPath,
                         Success = true
@@ -75,7 +74,7 @@ namespace Shop.Managers
                 }
                 stream.Close();
                 _csvHandler.Delete(fullPath);
-                return new UploadReport()
+                return new UploadModel()
                 {
                     Path = null,
                     Success = false

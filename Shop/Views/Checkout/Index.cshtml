@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card-body card-deck" style="box-sizing: border-box; z-index:1;">
+    <label>Product Name:</label>
+    <div class="input-group-text" style=" position: relative; left: 100px">
+        <input type="text" id="name" style="width: 100%;" autocomplete="off" />
+        <button id="a">Add</button>
+    </div>
+</div>
+
+<div>
+    <div class="card" style="margin-top: 10px">
+        <div class="card card-deck">
+            <div class="card card-columns ">Name</div>
+            <div class="card card-columns">Brand</div>
+            <div class="card card-columns">Price Per Unit</div>
+            <div class="card card-columns">No</div>
+            <div class="card card-columns">Total</div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 10px" id="Container">
+
+    </div>
+    <div class="card" style="margin-top: 10px">
+        <div class="card card-deck">
+            <div class="card card-columns">Total</div>
+            <div class="card card-columns text-right" id="Total"></div>
+        </div>
+    </div>
+</div>
+
+<ul class="dropdown-toggle-split" id="suggsation" style="position: absolute; top: 140px; left: 250px">
+</ul>
+
+@section footer
+{
+    <div class="card card-footer bg-dark">
+        <div style="margin-left: calc(100% - 150px)">
+            <button id="p" class="btn-primary btn btn-success">Payment Now</button>
+        </div>
+    </div>
+ }
+<script src="~/js/Class.js" type="text/javascript"></script>
+<script>
+    var x = document.getElementById("name");
+    var y = document.getElementById("a");
+    var allItem = [];
+    var storedata;
+    x.addEventListener("keyup", call);
+    x.addEventListener("change", call)
+
+    function call() {
+        var Crequest = new Request("http://localhost:59616/api/Get?name=" + x.value, {
+            credentials: "same-origin",
+            method: "Get",
+            mode: "cors",
+            headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
+        });
+        HttpDo(Crequest, function (e) {
+            var data = JSON.parse(e);
+            document.getElementById("suggsation").innerHTML = "";
+            for (var i in data) {
+                var eml = document.createElement("li");
+                eml.innerHTML = data[i]["name"];
+                eml.onclick = function click() {
+                    x.value = this.innerHTML;
+                    select();
+                };
+                document.getElementById("suggsation").appendChild(eml);
+            }
+            storedata = data;
+        });
+    }
+
+    function select() {
+        var Srequest = new Request("http://localhost:59616/api/Select?name=" + x.value, {
+            credentials: "same-origin",
+            method: "Get",
+            mode: "cors",
+            headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
+        });
+        HttpDo(Srequest, function (e) {
+            var data = JSON.parse(e);
+            document.getElementById("suggsation").innerHTML = "";
+            var eml = document.createElement("li");
+            eml.innerHTML = data["name"];
+            eml.onclick = function click() {
+                x.value = this.innerHTML;
+            };
+            for (var i = 0; i < allItem.length; i++) {
+                if (allItem[i]["name"] == data["name"]) {
+                    console.log("nnot");
+                }
+                else {
+                    document.getElementById("suggsation").appendChild(eml);
+                }
+            }
+            storedata = data;
+        });
+    }
+    
+
+
+    y.addEventListener("click", function () {
+        var doprint = true;
+        if (storedata.length == undefined || storedata.length == 1) {
+            if (allItem.length >= 1) {
+                for (var i = 0; i < allItem.length; i++) {
+                    if (storedata["name"] == allItem[i].name) {
+                        doprint = false;
+                    }
+                }
+                if (doprint) {
+                    createlist();
+                    showlist();
+                    totalcount();
+                }
+            }
+            else {
+                createlist();
+                showlist();
+                totalcount();
+            }
+        }
+    });
+
+    function createlist() {
+        var it = new ItemC(storedata["name"], storedata["id"], storedata["price"], storedata["brand"], storedata["price"], 1);
+        allItem.push(it);
+    }
+    function showlist() {
+        document.getElementById("Container").innerHTML = "";
+        for (var x = 0; x < allItem.length; x++) {
+            allItem[x].show();
+        }
+    }
+</script>

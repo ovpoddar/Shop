@@ -1,10 +1,11 @@
-﻿using Shop.ViewModels;
+﻿using Shop.Models;
+using Shop.ViewModels;
 
 namespace Shop.Managers
 {
     public interface ICsvManager
     {
-        UploadReport Upload(CsvViewModel csv);
+        UploadModel Upload(CsvViewModel csv);
         void Update(string csv);
     }
 }

@@ -10,5 +10,7 @@ namespace Shop.Handlers
         int TotalCount(int id);
         int TotalCount();
         bool AddProduct(Product product);
+        void RemoveProduct(Product product, int quantity);
+        Product GetProduct(int id);
     }
 }

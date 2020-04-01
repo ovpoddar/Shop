@@ -20,9 +20,6 @@ namespace Shop.Repositories
         public IQueryable<T> GetAll() =>
             _dbContext.Set<T>();
 
-        public T GetById(int id) =>
-            _dbContext.Set<T>().Find(id);
-
         public void save() =>
             _dbContext.SaveChanges();
     }

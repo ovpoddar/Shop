@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Entities;
+using Shop.Models;
 using Shop.Repositories;
 using Shop.ViewModels;
 using System;
@@ -15,12 +16,12 @@ namespace Shop.Handlers
         public CategoryHandler(IGenericRepository<Category> repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        public CategorieReport AddCategory(CategoryViewModel model)
+        public CategorieModel AddCategory(CategoryViewModel model)
         {
             if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && 
                                                      category.ParentId == model.Id) ||
                                                      string.IsNullOrWhiteSpace(model.Name))
-                return new CategorieReport
+                return new CategorieModel
                 {
                     All = _repository.GetAll().ToList(),
                     Success = false
@@ -34,7 +35,7 @@ namespace Shop.Handlers
 
             _repository.save();
 
-            return new CategorieReport
+            return new CategorieModel
             {
                 All = _repository.GetAll().ToList(),
                 Success = true

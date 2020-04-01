@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Shop.Handlers;
 using Shop.Helpers;
 using Shop.Managers;
 using Shop.Repositories;
+using Shop.Uilities;
 
 namespace Shop
 {
@@ -40,16 +42,20 @@ namespace Shop
             services.AddTransient<IGenericRepository<Csv>, GenericRepositories<Csv>>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
+            services.AddTransient<ISuggestionHandler, SuggestionHandler>();
             services.AddTransient<IProductRepositories, ProductRepositories>();
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
             services.AddTransient<ICsvManager, CsvManager>();
+            services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddMvc();
-
-
+            services.AddSingleton(new MapperConfiguration(e =>
+            {
+                e.AddProfile(new AppProfileMapping());
+            }).CreateMapper());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

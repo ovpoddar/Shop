@@ -1,6 +1,6 @@
-﻿namespace Shop.ViewModels
+﻿namespace Shop.Models
 {
-    public class UploadReport
+    public class UploadModel
     {
         public bool Success { get; set; }
         public string Path { get; set; }

@@ -8,6 +8,10 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/js/site.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (IsSectionDefined("script"))
+    {
+        @RenderSection("script");
+    }
 </head>
 <body>
     <header class="card-header bg-dark" style="width:auto; height: 70px;">
@@ -27,10 +31,16 @@
         </div>
         <div class="nav-item float-right bg-dark h-100 btn-primary">
             <a asp-action="Index" asp-controller="Checkout" class="btn btn-link">Check Out</a>
-        </div> 
+        </div>
     </header>
-    <section style="width: auto; height: auto; margin: 50px auto" class="card-body">
+    <section style="width: auto; height: auto;" class="card-body">
         @RenderBody()
     </section>
+    <footer>
+        @if (IsSectionDefined("footer"))
+        {
+            @RenderSection("footer");
+        }
+    </footer>
 </body>
 </html>

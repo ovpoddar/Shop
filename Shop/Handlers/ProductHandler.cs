@@ -21,10 +21,12 @@ namespace Shop.Handlers
 
         public bool AddProduct(Product product)
         {
-            var oldProduct = _repository.GetAll().Where(o => o.ProductName == product.ProductName && o.Price == product.Price).ToList();
+            var oldProduct = _repository.GetAll().Where(o => string.Equals(o.ProductName, product.ProductName, StringComparison.OrdinalIgnoreCase) && o.Price == product.Price).ToList();
             if (oldProduct.Any())
             {
-                var newProduct = new Product()
+
+                _repository.Delete(oldProduct.FirstOrDefault());
+                _repository.Add(new Product()
                 {
                     BrandId = product.BrandId,
                     CategoriesId = product.CategoriesId,
@@ -35,12 +37,8 @@ namespace Shop.Handlers
                     OrderLevel = product.OrderLevel,
                     StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel,
                     BarCode = product.BarCode
-                };
-
-                _repository.Delete(oldProduct.FirstOrDefault());
-                _repository.Add(newProduct);
+                });
                 _repository.save();
-
                 return false;
             }
 
@@ -48,6 +46,12 @@ namespace Shop.Handlers
             _repository.save();
             return true;
         }
+
+        public Product GetProduct(int id) => _repository.GetAll()
+            .Where(o => o.Id == id)
+            .Include(o => o.Brand)
+            .Include(o => o.Categories)
+            .FirstOrDefault();
 
         public List<Product> Products(int pageNumber)
         {
@@ -72,6 +76,14 @@ namespace Shop.Handlers
                 .Skip(pageNumber * _pageSize)
                 .Take(_pageSize)
                 .ToList();
+        }
+
+        public void RemoveProduct(Product product, int quantity)
+        {
+            _repository.GetAll()
+                .Where(o => string.Equals(o.ProductName, product.ProductName, StringComparison.CurrentCultureIgnoreCase) && o.Price == product.Price)
+                .FirstOrDefault().StockLevel -= quantity;
+            _repository.save();
         }
 
         public int TotalCount(int id) =>
