@@ -36,7 +36,7 @@ namespace Shop.Handlers
                     WholesalePrice = product.WholesalePrice,
                     Price = product.Price,
                     OrderLevel = product.OrderLevel,
-                    StockLevel = Convert.ToDouble(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel,
+                    StockLevel = Convert.ToUInt32(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel,
                     BarCode = product.BarCode
                 });
                 _repository.save();
@@ -79,7 +79,7 @@ namespace Shop.Handlers
                 .ToList();
         }
 
-        public void RemoveProduct(Product product, int quantity)
+        public void RemoveProduct(Product product, uint quantity)
         {
             _repository.GetAll()
                 .Where(o => string.Equals(o.ProductName, product.ProductName, StringComparison.CurrentCultureIgnoreCase) && o.Price == product.Price)

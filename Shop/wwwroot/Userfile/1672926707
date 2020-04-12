@@ -1,0 +1,3 @@
+Product Name,barcode,Category1,Category2,Category3,Category4,Category5,Category6,Brand,Size,Package,Weight / Volume,Whole Price Per unit,Minimum Order (Package),Minimum Order (Item),Minimum Order (Weight / olume),Recommended Retail Price,Pack Amount,Item Amount,Total Price
+Cola,0000010101010255,Drinks,Soft Drinks,Carbonated Drinks,,,,Coca Cola,2,20,3 Litre,0.75,2,12,12  Litre,1,10,60,7.5
+Dairy Milk Chocolate,00000101052500455,Sweets,Chocolate,,,,,Cadbury,20,1,200g,0.1,1,20,4 Kg,0.25,20,400,10

@@ -8,7 +8,7 @@ namespace Shop.Entities
         public string BarCode { get; set; }
         public decimal Price { get; set; }
         public double WholesalePrice { get; set; }
-        public double StockLevel { get; set; }
+        public uint StockLevel { get; set; }
         public double OrderLevel { get; set; }
         public double MinimumWholesaleOrder { get; set; }
         public int BrandId { get; set; }

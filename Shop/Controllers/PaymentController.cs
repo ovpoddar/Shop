@@ -30,7 +30,7 @@ namespace Shop.Controllers
             return View(list);
         }
         [HttpPost]
-        public IActionResult Index(List<ItemViewModel> models)
+        public IActionResult Index(List<ItemViewModel> models, uint Payment)
         {
             _payment.PurchaseCall(models);
             foreach (var cookie in Request.Cookies.Keys)

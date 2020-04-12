@@ -22,7 +22,7 @@ namespace Shop.Controllers.Api
 
         [HttpPost]
         [Route("api/Buy")]
-        public void Buy(int id, int Qunatity)
+        public void Buy(int id, uint Qunatity)
         {
             var product = _product.GetProduct(id);
             if (product.ProductName == null)

@@ -33,16 +33,32 @@
             }
             if (Pamnt < this.value || Pamnt == this.value) {
                 document.getElementById("change").innerHTML = (this.value - Pamnt);
-                let pay = document.getElementById("pay");
-                pay.innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
+                document.getElementById("Payment-type").className = "";
             }
             else {
                 document.getElementById("change").innerHTML = "";
+                document.getElementById("Payment-type").className = "d-none";
+                document.getElementById("pay").innerHTML = "";
             }
         });
-        
+        let pt = document.getElementsByName("Payment");
+        for (let j = 0; j < pt.length; j++) {
+            pt[j].onclick = function () {
+                var Pamnt = 0;
+                for (var i = 0; i < allItem.length; i++) {
+                    Pamnt += allItem[i]["total"];
+                }
+                if (Pamnt < q.value || Pamnt == q.value) {
+                    document.getElementById("pay").innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
+                }
+                else {
+                    document.getElementById("pay").innerHTML = "";
+                }
+            };
+        }
     }
     catch (ex) {
+
     }
 };
 
@@ -180,7 +196,9 @@ function httpCall(url, type, headers, parameter, callback) {
 
 function storeInLoacal() {
     for (var i = 0; i < allItem.length; i++) {
-        document.cookie = i+"=" + allItem[i].quantityI.value + "+" + allItem[i].id + ";expires=Wed, 18 Dec 2023 12:00:00 GMT&quot;";
+        if (Math.sign(allItem[i].quantityI.value) == 1) {
+            document.cookie = i + "=" + allItem[i].quantityI.value + "+" + allItem[i].id + ";expires=Wed, 18 Dec 2023 12:00:00 GMT&quot;";
+        }
     }
     
 }

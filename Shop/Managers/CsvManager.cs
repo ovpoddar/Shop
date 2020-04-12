@@ -44,7 +44,7 @@ namespace Shop.Managers
                     CategoriesId = _csvHelper.Categoryauto(values[2]),
                     BrandId = _csvHelper.BrandId(values[8]),
                     WholesalePrice = _csvHelper.WholesaleID(Convert.ToInt32(values[9]), Convert.ToInt32(values[10])),
-                    StockLevel = Convert.ToDouble(values[10]) * Convert.ToDouble(values[16]) * Convert.ToDouble(values[17]),
+                    StockLevel = Convert.ToUInt32(values[10]) * Convert.ToUInt32(values[16]) * Convert.ToUInt32(values[17]),
                     OrderLevel = Convert.ToDouble(values[10]) * Convert.ToDouble(values[16]) * Convert.ToDouble(values[17]),
                     Price = Convert.ToDecimal(values[12]),
                     MinimumWholesaleOrder = Convert.ToDouble(values[13]) * Convert.ToDouble(values[14]),

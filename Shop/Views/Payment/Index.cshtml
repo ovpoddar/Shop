@@ -35,11 +35,19 @@
         </div>
     </div>
 </div>
+
  
 @section footer
 {
     <form method="post" id="from">
-        @for (var i =0;i< Model.Count;i++)
+        <div id="Payment-type" class="d-none">
+            <span>
+                Select Payment Type:
+                <input type="radio" value="1" name="Payment" /><span>Card</span>
+                <input type="radio" value="2" name="Payment" /><span>Cash</span>
+            </span>
+        </div>
+        @for (var i = 0; i < Model.Count; i++)
         {
             <input type="hidden" asp-for="@Model[i].Id" />
             <input type="hidden" asp-for="@Model[i].Quantity" />

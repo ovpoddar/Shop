@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Entities;
 
 namespace Shop.Data
 {
-    public static class BalanceDataConfiguration
+    public class BalanceDataConfiguration : IEntityTypeConfiguration<PaymentType>
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<PaymentType> builder)
         {
-            modelBuilder.Entity<PaymentType>().HasData(new PaymentType
+            builder.HasData(new PaymentType()
             {
                 Id = 1,
                 Name = "Card"
             },
-            new PaymentType
+            new PaymentType()
             {
                 Id = 2,
                 Name = "Cash"

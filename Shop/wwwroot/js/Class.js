@@ -54,25 +54,30 @@ class ItemC extends Item {
         this.quantityD.innerHTML = "";
         this.quantityD.appendChild(this.quantityI);
         this.quantityI.onkeyup = function () {
-            var elm = this.parentElement.parentElement;
-            var uid = elm.id;
-            var all = elm.querySelectorAll("div");
-            var totalprice = all[4];
-            var id = all[5].innerHTML;
-            var quantity = this.value;
-            totalprice.innerHTML = "";
-            var Srequest = new Request("http://localhost:59616/api/PriceP?id=" + id + "&Quantity=" + quantity, {
-                credentials: "same-origin",
-                method: "Get",
-                mode: "cors",
-                headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
-            });
-            HttpDo(Srequest, function (e) {
-                totalprice.append(parseFloat(e));
-                allItem[uid].total = parseFloat(e);
-                allItem[uid].quantity = quantity;
-                totalcount();
-            });
+            if (Math.sign(this.value) == 1 || this.value == 0) {
+                var elm = this.parentElement.parentElement;
+                var uid = elm.id;
+                var all = elm.querySelectorAll("div");
+                var totalprice = all[4];
+                var id = all[5].innerHTML;
+                var quantity = this.value;
+                totalprice.innerHTML = "";
+                var Srequest = new Request("http://localhost:59616/api/PriceP?id=" + id + "&Quantity=" + quantity, {
+                    credentials: "same-origin",
+                    method: "Get",
+                    mode: "cors",
+                    headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
+                });
+                HttpDo(Srequest, function (e) {
+                    totalprice.append(parseFloat(e));
+                    allItem[uid].total = parseFloat(e);
+                    allItem[uid].quantity = quantity;
+                    totalcount();
+                });
+            }
+            else {
+                this.value = 1;
+            }
         };
     }
 }
