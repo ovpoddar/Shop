@@ -14,9 +14,11 @@ namespace Shop.Data
                 Id = 1,
                 Ammount = 500,
                 Date = DateTime.Now,
+                ProductId = null,
+                Quantity = 0,
                 Incoming = 500,
                 PaymentTypeId = 2,
-                Outgoing = 0
+                Outgoing = 0,
             });
         }
     }

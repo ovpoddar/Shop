@@ -1,8 +1,10 @@
-﻿namespace Shop.Entities
+﻿using System.Collections.Generic;
+
+namespace Shop.Entities
 {
     public class PaymentType: BaseEntity
     {
         public string Name { get; set; }
-        public Balance Balance { get; set; }
+        public virtual ICollection<Balance> Balance { get; set; }
     }
 }

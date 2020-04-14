@@ -34,22 +34,29 @@ namespace Shop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContextPool<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("database")));
-            services.AddTransient<IGenericRepository<Category>, GenericRepositories<Category>>();
-            services.AddTransient<IGenericRepository<Product>, GenericRepositories<Product>>();
-            services.AddTransient<IGenericRepository<Brand>, GenericRepositories<Brand>>();
             services.AddTransient<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
             services.AddTransient<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
+            services.AddTransient<IGenericRepository<Category>, GenericRepositories<Category>>();
+            services.AddTransient<IGenericRepository<Product>, GenericRepositories<Product>>();
+            services.AddTransient<IGenericRepository<Balance>, GenericRepositories<Balance>>();
+            services.AddTransient<IGenericRepository<Brand>, GenericRepositories<Brand>>();
             services.AddTransient<IGenericRepository<Csv>, GenericRepositories<Csv>>();
+
+            services.AddTransient<IProductRepositories, ProductRepositories>();
+
+            services.AddTransient<ISuggestionHandler, SuggestionHandler>();
+            services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
-            services.AddTransient<ISuggestionHandler, SuggestionHandler>();
-            services.AddTransient<IProductRepositories, ProductRepositories>();
-            services.AddTransient<IProductManager, ProductManager>();
+            services.AddTransient<IBalanceHandler, BalanceHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
-            services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
-            services.AddTransient<ICsvManager, CsvManager>();
+
+            services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<IPaymentManager, PaymentManager>();
+            services.AddTransient<ICsvManager, CsvManager>();
+            services.AddTransient<IBalanceManager, BalanceManager>();
+
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddMvc();
             services.AddSingleton(new MapperConfiguration(e =>

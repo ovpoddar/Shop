@@ -11,10 +11,11 @@ namespace Shop.Entities
         public uint StockLevel { get; set; }
         public double OrderLevel { get; set; }
         public double MinimumWholesaleOrder { get; set; }
-        public int BrandId { get; set; }
         public int CategoriesId { get; set; }
-        public virtual Category Categories { get; set; }
-        public virtual Brand Brand { get; set; }
+        public Category Categories { get; set; }
+        public int BrandId { get; set; }
+        public Brand Brands { get; set; }
         public List<ProductWholeSale> ProductWholeSales { get; set; }
+        public virtual ICollection<Balance> Balances { get; set; }
     }
 }

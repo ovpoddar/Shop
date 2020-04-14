@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Handlers;
 using Shop.Managers;
 using Shop.ViewModels;
 using System;
@@ -9,10 +10,12 @@ namespace Shop.Controllers
     public class PaymentController : Controller
     {
         private readonly IPaymentManager _payment;
+        private readonly IBalanceManager _balance;
 
-        public PaymentController(IPaymentManager payment)
+        public PaymentController(IPaymentManager payment, IBalanceManager balance)
         {
             _payment = payment ?? throw new ArgumentNullException(nameof(_payment));
+            _balance = balance ?? throw new ArgumentNullException(nameof(_balance));
         }
         [HttpGet]
         public IActionResult Index()
@@ -33,6 +36,7 @@ namespace Shop.Controllers
         public IActionResult Index(List<ItemViewModel> models, uint Payment)
         {
             _payment.PurchaseCall(models);
+            _balance.Purchase(models, Payment);
             foreach (var cookie in Request.Cookies.Keys)
             {
                 if (cookie.Length > 3)

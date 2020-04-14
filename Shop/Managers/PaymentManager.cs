@@ -21,7 +21,7 @@ namespace Shop.Managers
             return new ItemViewModel
             {
                 Id = product.Id,
-                Brand = product.Brand.BrandName,
+                Brand = product.Brands.BrandName,
                 Name = product.ProductName,
                 Price = product.Price,
                 Quantity = Convert.ToInt32(qunatity),

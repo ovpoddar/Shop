@@ -50,7 +50,7 @@ namespace Shop.Handlers
 
         public Product GetProduct(int id) => _repository.GetAll()
             .Where(o => o.Id == id)
-            .Include(o => o.Brand)
+            .Include(o => o.Brands)
             .Include(o => o.Categories)
             .FirstOrDefault();
 
@@ -58,7 +58,7 @@ namespace Shop.Handlers
         {
             pageNumber = pageNumber == -1 ? 0 : pageNumber;
             return _repository.GetAll()
-                .Include(p => p.Brand)
+                .Include(p => p.Brands)
                 .Include(p => p.Categories)
                 .Include(p => p.ProductWholeSales)
                 .OrderBy(o => o.ProductName)
@@ -71,7 +71,7 @@ namespace Shop.Handlers
         {
             pageNumber = pageNumber == -1 ? 0 : pageNumber;
             return _repository.GetAll()
-                .Include(p => p.Brand)
+                .Include(p => p.Brands)
                 .Include(p => p.Categories)
                 .Where(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId))
                 .Skip(pageNumber * _pageSize)

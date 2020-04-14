@@ -11,7 +11,7 @@ namespace Shop.Uilities
         {
             CreateMap<Product, SuggestionModel>()
                 .ForMember(opt => opt.Name, opt => opt.MapFrom(o => o.ProductName))
-                .ForMember(opt => opt.Brand, opt => opt.MapFrom(o => o.Brand.BrandName));
+                .ForMember(opt => opt.Brand, opt => opt.MapFrom(o => o.Brands.BrandName));
         }
     }
 }

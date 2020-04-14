@@ -1,11 +1,10 @@
-﻿using Shop.ViewModels;
-using System.Collections.Generic;
+﻿using Shop.Entities;
 
 namespace Shop.Handlers
 {
     public interface IBalanceHandler
     {
-        void Purchase();
-        void Sales(List<ItemViewModel> products, string purchaseType);
+        Balance GetLastBalance();
+        bool AddBalance(Balance Balance);
     }
 }

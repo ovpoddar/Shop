@@ -8,5 +8,6 @@ namespace Shop.Entities
         public Category Parent { get; set; }
         public string Name { get; set; }
         public ICollection<Category> SubCategories { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
