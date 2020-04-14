@@ -15,13 +15,13 @@ namespace Shop.Managers
 {
     public class CsvManager : ICsvManager
     {
-        private readonly IHostingEnvironment _hosting;
+        private readonly IWebHostEnvironment _hosting;
         private readonly ICsvHandler _csvHandler;
         private readonly IGenericRepository<Csv> _repository;
         private readonly IProductHandler _product;
         private readonly ICsvHelper _csvHelper;
 
-        public CsvManager(IHostingEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IProductHandler product, ICsvHelper function)
+        public CsvManager(IWebHostEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IProductHandler product, ICsvHelper function)
         {
             _hosting = hosting ?? throw new ArgumentNullException(nameof(_hosting));
             _csvHandler = csv ?? throw new ArgumentNullException(nameof(_csvHandler));
