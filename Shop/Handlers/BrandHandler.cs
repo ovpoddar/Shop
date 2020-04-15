@@ -15,7 +15,7 @@ namespace Shop.Handlers
 
         public bool AddBrand(Brand brand)
         {
-            if (_repository.GetAll().Any(p => string.Equals(p.BrandName, brand.BrandName, StringComparison.CurrentCultureIgnoreCase)))
+            if (_repository.GetAll().Any(p => p.BrandName.ToUpper()== brand.BrandName.ToUpper()))
                 return false;
             _repository.Add(brand);
             _repository.save();
@@ -23,6 +23,6 @@ namespace Shop.Handlers
         }
 
         public int GetId(string name) =>
-            _repository.GetAll().FirstOrDefault(o => string.Equals(o.BrandName, name, StringComparison.CurrentCultureIgnoreCase))?.Id ?? 0;
+            _repository.GetAll().FirstOrDefault(o => o.BrandName.ToUpper() == name.ToUpper())?.Id ?? 0;
     }
 }

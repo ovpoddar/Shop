@@ -22,7 +22,7 @@ namespace Shop.Handlers
 
         public bool AddProduct(Product product)
         {
-            var oldProduct = _repository.GetAll().Where(o => string.Equals(o.ProductName, product.ProductName, StringComparison.OrdinalIgnoreCase) && o.Price == product.Price).ToList();
+            var oldProduct = _repository.GetAll().Where(o => o.ProductName.ToUpper() == product.ProductName.ToUpper() && o.Price == product.Price).ToList();
             if (oldProduct.Any())
             {
 
@@ -82,7 +82,7 @@ namespace Shop.Handlers
         public void RemoveProduct(Product product, uint quantity)
         {
             _repository.GetAll()
-                .Where(o => string.Equals(o.ProductName, product.ProductName, StringComparison.CurrentCultureIgnoreCase) && o.Price == product.Price)
+                .Where(o => o.ProductName.ToUpper() ==  product.ProductName.ToUpper() && o.Price == product.Price)
                 .FirstOrDefault().StockLevel -= quantity;
             _repository.save();
         }

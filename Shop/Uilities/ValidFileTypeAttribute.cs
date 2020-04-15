@@ -13,6 +13,6 @@ namespace Shop.Uilities
         public override bool IsValid(object value) =>
             (value as IFormFile).FileName.Split(".").Length == 0 ?
             false :
-            string.Equals((value as IFormFile).FileName.Split(".")[(value as IFormFile).FileName.Split(".").Length - 1], _fileName, StringComparison.CurrentCultureIgnoreCase);
+            (value as IFormFile).FileName.Split(".")[^1].ToUpper() == _fileName.ToUpper();
     }
 }

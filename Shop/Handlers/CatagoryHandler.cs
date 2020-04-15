@@ -18,7 +18,7 @@ namespace Shop.Handlers
 
         public CategorieModel AddCategory(CategoryViewModel model)
         {
-            if (_repository.GetAll().Any(category => string.Equals(category.Name, model.Name, StringComparison.CurrentCultureIgnoreCase) && 
+            if (_repository.GetAll().Any(category => category.Name.ToUpper() == model.Name.ToUpper() && 
                                                      category.ParentId == model.Id) ||
                                                      string.IsNullOrWhiteSpace(model.Name))
                 return new CategorieModel
@@ -50,7 +50,7 @@ namespace Shop.Handlers
 
         public int GetId(string name) =>
             _repository.GetAll()
-            .Where(o => string.Equals(o.Name, name, StringComparison.CurrentCultureIgnoreCase))
+            .Where(o => o.Name.ToUpper() ==  name.ToUpper())
             .Select(o => o.Id)
             .FirstOrDefault();
     }
