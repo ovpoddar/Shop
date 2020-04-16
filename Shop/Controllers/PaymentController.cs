@@ -43,7 +43,6 @@ namespace Shop.Controllers
                     continue;
                 Response.Cookies.Delete(cookie);
             }
-            // store the record to sarver;
             return RedirectToAction("Index", "Product");
         }
     }
