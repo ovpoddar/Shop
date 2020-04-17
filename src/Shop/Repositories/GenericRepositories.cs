@@ -22,7 +22,7 @@ namespace Shop.Repositories
         public IQueryable<T> GetAll() =>
             _dbContext.Set<T>();
 
-        public void save() =>
+        public void Save() =>
             _dbContext.SaveChanges();
 
         public void Update(T model)

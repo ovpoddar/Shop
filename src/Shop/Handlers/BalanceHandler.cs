@@ -16,7 +16,7 @@ namespace Shop.Handlers
         public bool AddBalance(Balance Balance)
         {
             _repository.Add(Balance);
-            _repository.save();
+            _repository.Save();
             return true;
         }
 

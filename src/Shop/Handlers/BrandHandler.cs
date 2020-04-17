@@ -18,7 +18,7 @@ namespace Shop.Handlers
             if (_repository.GetAll().Any(p => p.BrandName.ToUpper()== brand.BrandName.ToUpper()))
                 return false;
             _repository.Add(brand);
-            _repository.save();
+            _repository.Save();
             return true;
         }
 

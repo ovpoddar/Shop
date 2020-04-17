@@ -40,8 +40,9 @@ namespace Shop.Managers
                 return new Results<Product> { HttpStatusCode = HttpStatusCode.InternalServerError, Exception = exception.Message};
             }
         }
-        
-        public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) => _productHandler.RemoveProduct(saleProduct)
+
+        public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) =>
+            _productHandler.RemoveProduct(saleProduct);
        
         public ProductListViewModel GetModel(int pageNumber) => new ProductListViewModel
         {

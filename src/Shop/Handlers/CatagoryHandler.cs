@@ -37,7 +37,7 @@ namespace Shop.Handlers
                 Name = model.Name
             });
 
-            _repository.save();
+            _repository.Save();
 
             return new Results<IEnumerable<Category>>
             {

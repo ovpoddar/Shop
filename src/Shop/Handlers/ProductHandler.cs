@@ -28,6 +28,9 @@ namespace Shop.Handlers
             {
 
                 _repository.Delete(oldProduct.FirstOrDefault());
+
+                var  stockLevel = oldProduct.Select(o => o.StockLevel).FirstOrDefault() + product.StockLevel;
+
                 _repository.Add(new Product()
                 {
                     BrandId = product.BrandId,
@@ -37,15 +40,15 @@ namespace Shop.Handlers
                     WholesalePrice = product.WholesalePrice,
                     Price = product.Price,
                     OrderLevel = product.OrderLevel,
-                    StockLevel = Convert.ToUInt32(oldProduct.Select(o => o.StockLevel).FirstOrDefault()) + product.StockLevel,
+                    StockLevel = stockLevel >= 0 ? stockLevel : 0,
                     BarCode = product.BarCode
                 });
-                _repository.save();
+                _repository.Save();
                 return false;
             }
 
             _repository.Add(product);
-            _repository.save();
+            _repository.Save();
             return true;
         }
 

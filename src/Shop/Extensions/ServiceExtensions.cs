@@ -31,7 +31,7 @@ namespace Shop.Extensions
             services.AddTransient<ICsvHandler, CsvHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
-            services.AddTransient<IPaymentManager, PaymentManager>();
+           // services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
 

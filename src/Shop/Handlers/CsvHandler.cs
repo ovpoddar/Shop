@@ -26,7 +26,7 @@ namespace Shop.Handlers
                 HashName = hash,
                 UpdateDate = time
             });
-            _repository.save();
+            _repository.Save();
         }
 
         public void StoreCsvAsFile(string name, IFormFile csv)

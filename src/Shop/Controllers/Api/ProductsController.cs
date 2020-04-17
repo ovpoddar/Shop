@@ -29,7 +29,7 @@ namespace Shop.Controllers.Api
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult UpdateProductStockLevel([FromBody] SaleProduct saleProduct)
         {
-
+            return new OkResult();
         }
         //[HttpPost]
       
