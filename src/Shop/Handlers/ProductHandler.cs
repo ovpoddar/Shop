@@ -4,6 +4,7 @@ using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Shop.Models;
 
 namespace Shop.Handlers
@@ -85,21 +86,27 @@ namespace Shop.Handlers
             {
                 var product = _repository.GetAll().FirstOrDefault(p => p.Id == saleProduct.ProductId);
 
-                if(product == null) throw new ArgumentNullException();
+                if(product == null) throw new ArgumentNullException(); 
+                
                 var newStockLevel = product.StockLevel - saleProduct.SaleQuantity;
-
                 product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
 
+                _repository.Update(product);
 
+                saleProduct.StockLevel = product.StockLevel;
+                saleProduct.OrderLevel = product.OrderLevel;
 
+                if (product.StockLevel < product.OrderLevel) saleProduct.Message = MessageValues.MinimumStock;
+
+                return new Results<SaleProduct>
+                    {HttpStatusCode = HttpStatusCode.OK, Success = true, Result = saleProduct};
             }
             catch (Exception exception)
             {
                 saleProduct.Message = "Product does not exist";
                 return new Results<SaleProduct> {Exception = exception.Message, Result = saleProduct};
             }
-           
-            _repository.save();
+            
         }
 
         public int TotalCount(int id) =>

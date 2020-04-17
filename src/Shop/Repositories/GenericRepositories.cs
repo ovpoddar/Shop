@@ -1,6 +1,7 @@
 ﻿using Shop.Entities;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 
 namespace Shop.Repositories
@@ -23,5 +24,11 @@ namespace Shop.Repositories
 
         public void save() =>
             _dbContext.SaveChanges();
+
+        public void Update(T model)
+        {
+            _dbContext.Entry(model).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
     }
 }

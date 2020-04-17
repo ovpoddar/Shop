@@ -7,6 +7,7 @@ namespace Shop.Repositories
         IQueryable<T> GetAll();
         void Add(T model);
         void Delete(T model);
-        void save();
+        void Save();
+        void Update(T model);
     }
 }
