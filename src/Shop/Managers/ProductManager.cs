@@ -37,12 +37,10 @@ namespace Shop.Managers
             }
             catch (Exception exception)
             {
-                return new Results<Product> { HttpStatusCode = HttpStatusCode.InternalServerError };
+                return new Results<Product> { HttpStatusCode = HttpStatusCode.InternalServerError, Exception = exception.Message};
             }
         }
-          
-      
-
+        
         public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct)
         {
             throw new NotImplementedException();

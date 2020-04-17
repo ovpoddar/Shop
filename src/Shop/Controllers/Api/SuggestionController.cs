@@ -11,11 +11,9 @@ namespace Shop.Controllers.Api
     {
         private readonly ISuggestionHandler _suggestion;
 
-        public SuggestionController(ISuggestionHandler suggestion)
-        {
-            _suggestion = suggestion ?? throw new System.ArgumentNullException(nameof(_suggestion));
-        }
-
+        public SuggestionController(ISuggestionHandler suggestion) =>
+            _suggestion = suggestion;
+        
         [HttpGet("{name}")]
         public List<Suggestion> Get(string name)
         {

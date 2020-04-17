@@ -4,6 +4,7 @@ using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shop.Models;
 
 namespace Shop.Handlers
 {
@@ -78,11 +79,26 @@ namespace Shop.Handlers
                 .ToList();
         }
 
-        public void RemoveProduct(Product product, uint quantity)
+        public Results<SaleProduct> RemoveProduct(SaleProduct saleProduct)
         {
-            _repository.GetAll()
-                .Where(o => o.ProductName.ToUpper() ==  product.ProductName.ToUpper() && o.Price == product.Price)
-                .FirstOrDefault().StockLevel -= quantity;
+            try
+            {
+                var product = _repository.GetAll().FirstOrDefault(p => p.Id == saleProduct.ProductId);
+
+                if(product == null) throw new ArgumentNullException();
+                var newStockLevel = product.StockLevel - saleProduct.SaleQuantity;
+
+                product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
+
+
+
+            }
+            catch (Exception exception)
+            {
+                saleProduct.Message = "Product does not exist";
+                return new Results<SaleProduct> {Exception = exception.Message, Result = saleProduct};
+            }
+           
             _repository.save();
         }
 

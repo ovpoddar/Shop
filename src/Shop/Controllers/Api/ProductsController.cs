@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
 using System.Net;
+using Shop.ActionFilters;
+using Shop.Models;
 
 namespace Shop.Controllers.Api
 {
@@ -23,11 +25,28 @@ namespace Shop.Controllers.Api
             return new OkObjectResult(results.Result);
         }
 
+        [HttpPatch("StockLevel")]
+        [ServiceFilter(typeof(ProductActionFilter))]
+        public IActionResult UpdateProductStockLevel([FromBody] SaleProduct saleProduct)
+        {
+
+        }
         //[HttpPost]
-        //[ServiceFilter(typeof(ProductActionFilter))]
+      
         //public IActionResult UpdateProductStockLevel([FromBody]SaleProduct saleProduct)
         //{
         //    var result = _productManager.UpdateStockLevel(saleProduct]);
+        //}
+
+
+        //[HttpPost]
+        //[Route("api/Buy")]
+        //public void Buy(int id, uint Qunatity)
+        //{
+        //    var product = _product.GetProduct(id);
+        //    if (product.ProductName == null)
+        //        return;
+        //    _product.RemoveProduct(product, Qunatity);
         //}
     }
 }

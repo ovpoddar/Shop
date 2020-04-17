@@ -7,5 +7,6 @@ namespace Shop.Models
         public T Result { get; set; }
         public HttpStatusCode HttpStatusCode { get; set; }
         public bool Success { get; set; }
+        public string Exception { get; set; }
     }
 }
