@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Shop.Controllers.Api
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class SuggestionController : ControllerBase
     {
@@ -15,15 +16,13 @@ namespace Shop.Controllers.Api
             _suggestion = suggestion ?? throw new System.ArgumentNullException(nameof(_suggestion));
         }
 
-        [HttpGet]
-        [Route("api/Get")]
+        [HttpGet("{name}")]
         public List<Suggestion> Get(string name)
         {
             return _suggestion.GetSuggestions(name);
         }
 
-        [HttpGet]
-        [Route("api/Select")]
+        [HttpGet("select/{name}")]
         public Suggestion Select(string name)
         {
             return _suggestion.SelectSuggestion(name);
