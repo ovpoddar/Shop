@@ -41,11 +41,8 @@ namespace Shop.Managers
             }
         }
         
-        public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct)
-        {
-            throw new NotImplementedException();
-        }
-
+        public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) => _productHandler.RemoveProduct(saleProduct)
+       
         public ProductListViewModel GetModel(int pageNumber) => new ProductListViewModel
         {
             Categories = _categoryHandler.Categories(),

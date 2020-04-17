@@ -1,5 +1,6 @@
 ﻿using Shop.Entities;
 using System.Collections.Generic;
+using Shop.Models;
 
 namespace Shop.Handlers
 {
@@ -10,7 +11,7 @@ namespace Shop.Handlers
         int TotalCount(int id);
         int TotalCount();
         bool AddProduct(Product product);
-        void RemoveProduct(Product product, uint quantity);
+        Results<SaleProduct> RemoveProduct(SaleProduct saleProduct);
         Product GetProduct(int id);
     }
 }
