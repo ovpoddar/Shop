@@ -10,5 +10,6 @@ namespace Shop.Managers
         ProductListViewModel GetFilteredModel(int id, int pageNumber);
         Results<Product> GetProductById(int productId);
         Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct);
+        Results<Brand> AddBrand(Brand brand);
     }
 }

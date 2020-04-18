@@ -2,6 +2,7 @@
 using Shop.Managers;
 using System.Net;
 using Shop.ActionFilters;
+using Shop.Entities;
 using Shop.Models;
 
 namespace Shop.Controllers.Api
@@ -28,24 +29,19 @@ namespace Shop.Controllers.Api
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult UpdateProductStockLevel([FromBody] SaleProduct saleProduct)
         {
+            var request = _productManager.UpdateStockLevel(saleProduct);
             return new OkResult();
         }
-        //[HttpPost]
-      
-        //public IActionResult UpdateProductStockLevel([FromBody]SaleProduct saleProduct)
-        //{
-        //    var result = _productManager.UpdateStockLevel(saleProduct]);
-        //}
 
+        [HttpPost("Brand")]
+        [ServiceFilter(typeof(ProductActionFilter))]
+        public IActionResult CreateBrand(Brand brand)
+        {
+            var results = _productManager.AddBrand(brand);
+            if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
 
-        //[HttpPost]
-        //[Route("api/Buy")]
-        //public void Buy(int id, uint Qunatity)
-        //{
-        //    var product = _product.GetProduct(id);
-        //    if (product.ProductName == null)
-        //        return;
-        //    _product.RemoveProduct(product, Qunatity);
-        //}
+            return new OkObjectResult(results.Result);
+
+        }
     }
 }

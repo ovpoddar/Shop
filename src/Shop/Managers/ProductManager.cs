@@ -11,10 +11,13 @@ namespace Shop.Managers
     {
         private readonly ICategoryHandler _categoryHandler;
         private readonly IProductHandler _productHandler;
-        public ProductManager(ICategoryHandler categoryHandler, IProductHandler productHandler)
+        private readonly IBrandHandler _brandHandler;
+
+        public ProductManager(ICategoryHandler categoryHandler, IProductHandler productHandler, IBrandHandler brandHandler)
         {
-            _categoryHandler = categoryHandler ?? throw new ArgumentNullException(nameof(CategoryHandler));
-            _productHandler = productHandler ?? throw new ArgumentNullException(nameof(productHandler));
+            _categoryHandler = categoryHandler;
+            _productHandler = productHandler;
+            _brandHandler = brandHandler;
         }
 
         public ProductListViewModel GetFilteredModel(int id, int pageNumber) => new ProductListViewModel
@@ -43,7 +46,14 @@ namespace Shop.Managers
 
         public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) =>
             _productHandler.RemoveProduct(saleProduct);
-       
+
+        public Results<Brand> AddBrand(Brand brand)
+        {
+            var brandWithReturn =  _brandHandler.AddBrandWithReturn(brand);
+
+            return new Results<Brand> {HttpStatusCode = HttpStatusCode.OK, Result = brandWithReturn};
+        }
+
         public ProductListViewModel GetModel(int pageNumber) => new ProductListViewModel
         {
             Categories = _categoryHandler.Categories(),
