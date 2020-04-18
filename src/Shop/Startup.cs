@@ -1,3 +1,4 @@
+using System.Reflection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Shop.Data;
 using Shop.Extensions;
 using Shop.Uilities;
@@ -37,8 +39,10 @@ namespace Shop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContextPool<ApplicationDbContext>(option =>
-                option.UseSqlServer(Configuration.GetConnectionString("database")));
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<ApplicationDbContext>(builder =>
+                builder.UseSqlServer(Configuration.GetConnectionString("database"),
+                    sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
 
             services.AddControllersWithViews();
             services.AddDependencies();
@@ -46,12 +50,25 @@ namespace Shop
 
             services.AddSingleton(
                 new MapperConfiguration(e => { e.AddProfile(new AppProfileMapping()); }).CreateMapper());
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" }); });
         }
 
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment)
         {
-            if (webHostEnvironment.IsDevelopment())
-                applicationBuilder.UseDeveloperExceptionPage();
+            var environment = Configuration["Environment"];
+
+            if (environment.ToLowerInvariant() != "prod")
+            {
+                applicationBuilder.UseSwagger();
+                applicationBuilder.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop");
+                });
+
+                if (webHostEnvironment.IsDevelopment())
+                    applicationBuilder.UseDeveloperExceptionPage();
+            }
+         
             else
                 applicationBuilder.UseExceptionHandler("/Error");
 
