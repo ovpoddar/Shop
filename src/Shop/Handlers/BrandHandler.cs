@@ -31,6 +31,7 @@ namespace Shop.Handlers
             _repository.Save();
             return brand;
         }
+
         public int GetId(string name) =>
             _repository.GetAll().FirstOrDefault(o => o.BrandName.ToUpper() == name.ToUpper())?.Id ?? 0;
     }
