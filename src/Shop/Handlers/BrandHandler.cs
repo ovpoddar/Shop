@@ -26,7 +26,7 @@ namespace Shop.Handlers
         public Brand AddBrandWithReturn(Brand brand)
         {
             if (_repository.GetAll().Any(p => p.BrandName.ToUpper() == brand.BrandName.ToUpper()))
-                return false;
+                return brand;
             _repository.Add(brand);
             _repository.Save();
             return brand;
