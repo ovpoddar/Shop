@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using CheckoutSimulator.Models;
+﻿using CheckoutSimulator.Models;
 using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace CheckoutSimulator.Handlers
 {
@@ -49,20 +47,26 @@ namespace CheckoutSimulator.Handlers
             var apiUri = $"{uri}Products/{productId}";
 
             Console.WriteLine("The httpRequestMessage GET is sent using the httpClient send Method");
+            try
+            {
+                var json = await _requestHandler.GetRequest(apiUri);
 
-            var json = await _requestHandler.GetRequest(apiUri);
+                Console.WriteLine("The code will check for a 200 success message if this exists it will retrieve the contents of the return  message");
+                Console.WriteLine("The return message should be json and can in this case be converted back to a Product object as we know this is what is returned");
 
-            Console.WriteLine("The code will check for a 200 success message if this exists it will retrieve the contents of the return  message");
-            Console.WriteLine("The return message should be json and can in this case be converted back to a Product object as we know this is what is returned");
+                var returnProduct = JsonConvert.DeserializeObject<SaleProduct>(json);
 
-            var returnProduct = JsonConvert.DeserializeObject<Product>(json);
-
-            Console.WriteLine(JsonConvert.SerializeObject(returnProduct));
+                Console.WriteLine(JsonConvert.SerializeObject(returnProduct));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         public async Task PatchExample(string uri, bool throwError)
         {
-            Console.WriteLine("Simulate a POST request");
+            Console.WriteLine("Simulate a PATCH request");
             Console.WriteLine("Build Correct uri - Base Uri should be in config and never hard coded");
 
 

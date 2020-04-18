@@ -16,7 +16,7 @@ namespace Shop.Controllers.Api
         public ProductsController(IProductManager productManager) => 
             _productManager = productManager;
 
-        [HttpGet("{id}")]
+        [HttpGet("{productId}")]
         public IActionResult GetProduct(int productId)
         {
             var results = _productManager.GetProductById(productId);
@@ -29,8 +29,9 @@ namespace Shop.Controllers.Api
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult UpdateProductStockLevel([FromBody] SaleProduct saleProduct)
         {
-            var request = _productManager.UpdateStockLevel(saleProduct);
-            return new OkResult();
+            var results = _productManager.UpdateStockLevel(saleProduct);
+            if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
+            return new OkObjectResult(results.Result);
         }
 
         [HttpPost("Brand")]
@@ -41,7 +42,6 @@ namespace Shop.Controllers.Api
             if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
 
             return new OkObjectResult(results.Result);
-
         }
     }
 }

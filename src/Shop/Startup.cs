@@ -1,4 +1,3 @@
-using System.Reflection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shop.Data;
 using Shop.Extensions;
-using Shop.Uilities;
+using Shop.Utilities;
+using System.Reflection;
 
 namespace Shop
 {

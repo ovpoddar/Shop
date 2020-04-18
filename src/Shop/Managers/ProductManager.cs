@@ -2,6 +2,7 @@
 using Shop.ViewModels;
 using System;
 using System.Net;
+using AutoMapper;
 using Shop.Entities;
 using Shop.Models;
 
@@ -12,12 +13,14 @@ namespace Shop.Managers
         private readonly ICategoryHandler _categoryHandler;
         private readonly IProductHandler _productHandler;
         private readonly IBrandHandler _brandHandler;
+        private readonly IMapper _mapper;
 
-        public ProductManager(ICategoryHandler categoryHandler, IProductHandler productHandler, IBrandHandler brandHandler)
+        public ProductManager(ICategoryHandler categoryHandler, IProductHandler productHandler, IBrandHandler brandHandler, IMapper mapper)
         {
             _categoryHandler = categoryHandler;
             _productHandler = productHandler;
             _brandHandler = brandHandler;
+            _mapper = mapper;
         }
 
         public ProductListViewModel GetFilteredModel(int id, int pageNumber) => new ProductListViewModel
@@ -27,20 +30,21 @@ namespace Shop.Managers
             TotalNo = _productHandler.TotalCount(id)
         };
 
-        public Results<Product> GetProductById(int productId)
+        public Results<SaleProduct> GetProductById(int productId)
         {
             try
             {
                 var product = _productHandler.GetProduct(productId);
-                return new Results<Product>
+
+                return new Results<SaleProduct>
                 {
-                    Result = product,
+                    Result = _mapper.Map<SaleProduct>(product),
                     HttpStatusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception exception)
             {
-                return new Results<Product> { HttpStatusCode = HttpStatusCode.InternalServerError, Exception = exception.Message};
+                return new Results<SaleProduct> { HttpStatusCode = HttpStatusCode.InternalServerError, Exception = exception.Message};
             }
         }
 

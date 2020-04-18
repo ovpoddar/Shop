@@ -4,6 +4,7 @@
     {
 
         public const string MinimumStock = "Minimum Stock Level";
+        public const string NoStock = "Stock Level is 0";
     }
 
 }

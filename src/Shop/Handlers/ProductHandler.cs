@@ -56,6 +56,7 @@ namespace Shop.Handlers
             .Where(o => o.Id == id)
             .Include(o => o.Brands)
             .Include(o => o.Categories)
+            .ToList()
             .FirstOrDefault();
 
         public List<Product> Products(int pageNumber)
@@ -100,6 +101,7 @@ namespace Shop.Handlers
                 saleProduct.OrderLevel = product.OrderLevel;
 
                 if (product.StockLevel < product.OrderLevel) saleProduct.Message = MessageValues.MinimumStock;
+                if (product.StockLevel <= 0) saleProduct.Message = MessageValues.NoStock;
 
                 return new Results<SaleProduct>
                     {HttpStatusCode = HttpStatusCode.OK, Success = true, Result = saleProduct};
