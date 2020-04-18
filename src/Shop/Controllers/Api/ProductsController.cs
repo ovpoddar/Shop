@@ -15,7 +15,6 @@ namespace Shop.Controllers.Api
         public ProductsController(IProductManager productManager) => 
             _productManager = productManager;
 
-
         [HttpGet("{id}")]
         public IActionResult GetProduct(int productId)
         {
