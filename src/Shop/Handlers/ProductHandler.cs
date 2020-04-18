@@ -111,7 +111,6 @@ namespace Shop.Handlers
                 saleProduct.Message = "Product does not exist";
                 return new Results<SaleProduct> {Exception = exception.Message, Result = saleProduct};
             }
-            
         }
 
         public int TotalCount(int id) =>
