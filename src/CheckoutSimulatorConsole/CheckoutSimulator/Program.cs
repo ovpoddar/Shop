@@ -11,11 +11,9 @@ namespace CheckoutSimulator
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) =>
             MainAsync(args).Wait();
-        }
-
+        
         static async Task MainAsync(string[] args)
         {
             IConfiguration configuration = new ConfigurationBuilder()
@@ -29,6 +27,7 @@ namespace CheckoutSimulator
                 .AddTransient<ISimulationManager, SimulationManager>()
                 .AddTransient<IHeartbeatHandler, HeartbeatHandler>()
                 .AddTransient<IRequestHandler, RequestHandler>()
+                .AddTransient<IProductHandler, ProductHandler>()
                 .AddTransient<IRequestBuilder, RequestBuilder>()
                 .AddTransient<IHttpService, HttpService>()
                 .BuildServiceProvider();
