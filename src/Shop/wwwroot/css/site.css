@@ -97,3 +97,12 @@ ul li {
     z-index:200;
     margin-top:2px;
 }
+#suggesstion{
+    position:absolute;
+    z-index:200
+}
+    #suggesstion span {
+        display: block;
+        background: #6c757d;
+        color:#fff;
+    }

@@ -51,13 +51,6 @@ namespace Shop.Managers
         public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) =>
             _productHandler.RemoveProduct(saleProduct);
 
-        public Results<Brand> AddBrand(Brand brand)
-        {
-            var brandWithReturn =  _brandHandler.AddBrandWithReturn(brand);
-
-            return new Results<Brand> {HttpStatusCode = HttpStatusCode.OK, Result = brandWithReturn};
-        }
-
         public ProductListViewModel GetModel(int pageNumber) => new ProductListViewModel
         {
             Categories = _categoryHandler.Categories(),

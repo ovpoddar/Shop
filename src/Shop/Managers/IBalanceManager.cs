@@ -1,4 +1,4 @@
-﻿using Shop.ViewModels;
+﻿using Shop.Models;
 using System.Collections.Generic;
 
 namespace Shop.Managers
@@ -6,6 +6,6 @@ namespace Shop.Managers
     public interface IBalanceManager
     {
         void Sales();
-        void Purchase(List<ItemViewModel> products, uint purchaseType);
+        void Purchase(List<ItemModel> products, uint purchaseType);
     }
 }

@@ -2,14 +2,26 @@
 @{
     ViewData["Title"] = "Index";
 }
+@model ItemViewModel
+@inject IItemHandler<ItemModel> items
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger bg-light"></div>
+    <div>
+        <div class="card-deck input-group-text">
+            <label class="float-left">Product Name:</label>
+            <div class="col-md float-left">
+                <input type="text" class="w-100" asp-for="Name" autocomplete="off" id="suggst" />
+                <div id="suggesstion"></div>
+            </div>
 
-<div class="card-body card-deck" style="box-sizing: border-box; z-index:1;">
-    <label>Product Name:</label>
-    <div class="input-group-text" style=" position: relative; left: 100px">
-        <input type="text" id="name" style="width: 100%;" autocomplete="off" />
-        <button id="a">Add</button>
+            <label class="float-left">Product Quantity:</label>
+            <div class="col-md float-left">
+                <input type="text" class="w-100" asp-for="Quantity" autocomplete="off" />
+            </div>
+            <button class="float-right">Add</button>
+        </div>
     </div>
-</div>
+</form>
 
 <div>
     <div class="card" style="margin-top: 10px">
@@ -17,124 +29,49 @@
             <div class="card card-columns ">Name</div>
             <div class="card card-columns">Brand</div>
             <div class="card card-columns">Price Per Unit</div>
-            <div class="card card-columns">No</div>
+            <div class="card card-columns">Quantity</div>
             <div class="card card-columns">Total</div>
+            <div class="card card-columns">Modify</div>
         </div>
     </div>
     <div class="card" style="margin-top: 10px" id="Container">
-
-    </div>
-    <div class="card" style="margin-top: 10px">
-        <div class="card card-deck">
-            <div class="card card-columns">Total</div>
-            <div class="card card-columns text-right" id="Total"></div>
+        <div>
+            @for (var i = 1; i < items.List.Count; i++)
+            {
+                <div class="card card-deck">
+                    <div class="card card-columns">@items.List[i].Name</div>
+                    <div class="card card-columns">@items.List[i].Brand</div>
+                    <div class="card card-columns">@items.List[i].Price</div>
+                    <div class="card card-columns">@items.List[i].Quantity</div>
+                    <div class="card card-columns">@items.List[i].TotalPrice</div>
+                    <div class="card card-columns d-inline-block"><a class="btn btn-link p-2 align-content-between" asp-action="update" asp-route-Name="@items.List[i].Name">edit</a><a class="btn btn-link p-2 align-content-between" asp-action="Delete" asp-route-id="@items.List[i].Id">delete</a></div>
+                </div>
+            }
         </div>
     </div>
 </div>
 
-<ul class="dropdown-toggle-split" id="suggsation" style="position: absolute; top: 140px; left: 250px">
-</ul>
+<script>
+    let c = document.getElementById("suggst");
+
+    c.addEventListener("keyup", call);
+    c.addEventListener("keypress", call);
+    c.addEventListener("paste", call);
+
+</script>
 
 @section footer
 {
-    <div class="card card-footer bg-dark">
-        <div style="margin-left: calc(100% - 150px)">
-            <button id="p" class="btn-primary btn btn-success">Payment Now</button>
+    <form method="post" asp-action="Payment">
+        @for (var i = 1; i < items.List.Count; i++)
+        {
+            <input type="hidden" value="@items.List[i].Name" name="names" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Quantity" name="Quantitys" formmethod="post"/>
+        }
+        <div class="card-footer bg-dark">
+            <div style="margin-left: calc(100% - 150px)">
+                <button class="btn-primary btn btn-success">Payment Now</button>
+            </div>
         </div>
-    </div>
- }
-<script src="~/js/Class.js" type="text/javascript"></script>
-<script>
-    var x = document.getElementById("name");
-    var y = document.getElementById("a");
-    var allItem = [];
-    var storedata;
-    x.addEventListener("keyup", call);
-    x.addEventListener("change", call)
-
-    function call() {
-        var Crequest = new Request("http://localhost:59616/api/Get?name=" + x.value, {
-            credentials: "same-origin",
-            method: "Get",
-            mode: "cors",
-            headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
-        });
-        HttpDo(Crequest, function (e) {
-            var data = JSON.parse(e);
-            document.getElementById("suggsation").innerHTML = "";
-            for (var i in data) {
-                var eml = document.createElement("li");
-                eml.innerHTML = data[i]["name"];
-                eml.onclick = function click() {
-                    x.value = this.innerHTML;
-                    select();
-                };
-                document.getElementById("suggsation").appendChild(eml);
-            }
-            storedata = data;
-        });
-    }
-
-    function select() {
-        var Srequest = new Request("http://localhost:59616/api/Select?name=" + x.value, {
-            credentials: "same-origin",
-            method: "Get",
-            mode: "cors",
-            headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }),
-        });
-        HttpDo(Srequest, function (e) {
-            var data = JSON.parse(e);
-            document.getElementById("suggsation").innerHTML = "";
-            var eml = document.createElement("li");
-            eml.innerHTML = data["name"];
-            eml.onclick = function click() {
-                x.value = this.innerHTML;
-            };
-            for (var i = 0; i < allItem.length; i++) {
-                if (allItem[i]["name"] == data["name"]) {
-                    console.log("nnot");
-                }
-                else {
-                    document.getElementById("suggsation").appendChild(eml);
-                }
-            }
-            storedata = data;
-        });
-    }
-    
-
-
-    y.addEventListener("click", function () {
-        var doprint = true;
-        if (storedata.length == undefined || storedata.length == 1) {
-            if (allItem.length >= 1) {
-                for (var i = 0; i < allItem.length; i++) {
-                    if (storedata["name"] == allItem[i].name) {
-                        doprint = false;
-                    }
-                }
-                if (doprint) {
-                    createlist();
-                    showlist();
-                    totalcount();
-                }
-            }
-            else {
-                createlist();
-                showlist();
-                totalcount();
-            }
-        }
-    });
-
-    function createlist() {
-        var it = new ItemC(storedata["name"], storedata["id"], storedata["price"], storedata["brand"], storedata["price"], 1);
-        allItem.push(it);
-    }
-    function showlist() {
-        document.getElementById("Container").innerHTML = "";
-        for (var x = 0; x < allItem.length; x++) {
-            allItem[x].show();
-        }
-    }
-</script>
+    </form>
+}

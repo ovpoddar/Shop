@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+}
+
+@model ItemViewModel
+
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger bg-light"></div>
+        <div class="card-deck input-group-text">
+            <label>Product Name:</label>
+            <div class="col-md">
+                <input type="hidden" class="w-100" asp-for="Name" />
+                <span>@Model.Name</span>
+            </div>
+            <label>Product Quantity:</label>
+            <div class="col-md">
+                <input type="text" class="w-100" asp-for="Quantity" />
+            </div>
+            <button>Update</button>
+        </div>
+    </form>

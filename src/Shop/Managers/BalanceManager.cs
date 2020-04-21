@@ -1,6 +1,6 @@
 ﻿using Shop.Entities;
 using Shop.Handlers;
-using Shop.ViewModels;
+using Shop.Models;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +23,7 @@ namespace Shop.Managers
             //all done
         }
 
-        public void Purchase(List<ItemViewModel> products, uint purchaseType)
+        public void Purchase(List<ItemModel> products, uint purchaseType)
         {
             foreach(var product in products)
             {

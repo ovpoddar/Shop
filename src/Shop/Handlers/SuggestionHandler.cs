@@ -25,12 +25,5 @@ namespace Shop.Handlers
                 .Include(o => o.Brands)
                 .Where(o => o.ProductName.Contains(name) || o.BarCode.Contains(name))
                 .ToList());
-
-        public Suggestion SelectSuggestion(string name) =>
-            _mapper.Map<Suggestion>(_repository.GetAll()
-                .Include(o => o.Brands)
-                .Where(o => o.ProductName == name || o.BarCode.Contains(name))
-                .FirstOrDefault());
-
     }
 }

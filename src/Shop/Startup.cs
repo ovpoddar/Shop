@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shop.Data;
 using Shop.Extensions;
+using Shop.Handlers;
 using Shop.Utilities;
 using System.Reflection;
 

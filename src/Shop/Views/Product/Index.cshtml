@@ -41,15 +41,15 @@
             <button name="PageNumber" value="@x" type="submit">@x</button>
         }
     </form>
-<script>
-    if (getCookie("category") === "") {
-        document.getElementsByName("categoryId")[0].value = "Categories";
-    }
-    else {
-        document.getElementsByName("categoryId")[0].value = getCookie("category");
-    }
-    document.getElementsByName("categoryId")[0].onchange = function () {
-        document.cookie = "category =" + this.value + ";";
-        document.getElementById('form').submit();
-    };
-</script>
+    <script>
+        if (getCookie("category") === "") {
+            document.getElementsByName("categoryId")[0].value = "Categories";
+        }
+        else {
+            document.getElementsByName("categoryId")[0].value = getCookie("category");
+        }
+        document.getElementsByName("categoryId")[0].onchange = function () {
+            document.cookie = "category =" + this.value + ";";
+            document.getElementById('form').submit();
+        };
+    </script>

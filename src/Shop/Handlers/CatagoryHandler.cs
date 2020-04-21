@@ -6,15 +6,14 @@ using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Category = Shop.Entities.Category;
 
 namespace Shop.Handlers
 {
     public class CategoryHandler : ICategoryHandler
     {
-        private readonly IGenericRepository<Entities.Category> _repository;
+        private readonly IGenericRepository<Category> _repository;
 
-        public CategoryHandler(IGenericRepository<Entities.Category> repository) =>
+        public CategoryHandler(IGenericRepository<Category> repository) =>
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         public Results<IEnumerable<Category>> AddCategory(CategoryViewModel model)
@@ -46,11 +45,11 @@ namespace Shop.Handlers
             };
         }
 
-        public List<Entities.Category> Categories() =>
+        public List<Category> Categories() =>
             _repository.GetAll().Where(category => category.ParentId == null)
                 .Include(p => p.SubCategories).ToList();
 
-        public List<Entities.Category> GetAll() => _repository.GetAll().ToList();
+        public List<Category> GetAll() => _repository.GetAll().ToList();
 
         public int GetId(string name) =>
             _repository.GetAll()

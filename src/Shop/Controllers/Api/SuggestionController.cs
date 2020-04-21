@@ -19,11 +19,5 @@ namespace Shop.Controllers.Api
         {
             return _suggestion.GetSuggestions(name);
         }
-
-        [HttpGet("select/{name}")]
-        public Suggestion Select(string name)
-        {
-            return _suggestion.SelectSuggestion(name);
-        }
     }
 }

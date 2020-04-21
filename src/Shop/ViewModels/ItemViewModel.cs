@@ -1,12 +1,14 @@
-﻿namespace Shop.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Shop.ViewModels
 {
     public class ItemViewModel
     {
-        public int Id { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Use letters only please")]
         public string Name { get; set; }
-        public decimal Price { get; set; }
-        public string Brand { get; set; }
-        public double TotalPrice { get; set; }
+        [Required]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "must contain valid number")]
         public int Quantity { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Shop.Entities;
 using Shop.Handlers;
 using Shop.Helpers;
 using Shop.Managers;
+using Shop.Models;
 using Shop.Repositories;
 
 namespace Shop.Extensions
@@ -29,11 +30,13 @@ namespace Shop.Extensions
             services.AddTransient<IBalanceHandler, BalanceHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
+            services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
            // services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
+            services.AddTransient<IItemManager, ItemManager>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
 

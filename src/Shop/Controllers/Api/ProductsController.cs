@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Managers;
-using System.Net;
 using Shop.ActionFilters;
-using Shop.Entities;
+using Shop.Managers;
 using Shop.Models;
+using System.Net;
 
 namespace Shop.Controllers.Api
 {
@@ -31,16 +30,6 @@ namespace Shop.Controllers.Api
         {
             var results = _productManager.UpdateStockLevel(saleProduct);
             if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
-            return new OkObjectResult(results.Result);
-        }
-
-        [HttpPost("Brand")]
-        [ServiceFilter(typeof(ProductActionFilter))]
-        public IActionResult CreateBrand(Brand brand)
-        {
-            var results = _productManager.AddBrand(brand);
-            if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
-
             return new OkObjectResult(results.Result);
         }
     }

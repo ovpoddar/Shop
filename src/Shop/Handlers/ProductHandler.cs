@@ -59,6 +59,13 @@ namespace Shop.Handlers
             .ToList()
             .FirstOrDefault();
 
+        public Product GetProduct(string name) => _repository.GetAll()
+            .Where(o => o.ProductName == name)
+            .Include(o => o.Brands)
+            .Include(o => o.Categories)
+            .ToList()
+            .FirstOrDefault();
+
         public List<Product> Products(int pageNumber)
         {
             pageNumber = pageNumber == -1 ? 0 : pageNumber;
