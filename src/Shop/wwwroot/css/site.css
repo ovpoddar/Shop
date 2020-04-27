@@ -101,8 +101,8 @@ ul li {
     position:absolute;
     z-index:200
 }
-    #suggesstion span {
-        display: block;
-        background: #6c757d;
-        color:#fff;
-    }
+#suggesstion span {
+    display: block;
+    background: #6c757d;
+    color:#fff;
+}

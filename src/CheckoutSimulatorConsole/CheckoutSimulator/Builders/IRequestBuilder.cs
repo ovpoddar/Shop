@@ -9,5 +9,7 @@ namespace CheckoutSimulator.Builders
         HttpRequestMessage BuildDeleteRequest(string uri);
         HttpRequestMessage BuildDeleteRequest(string uri, string content);
         HttpRequestMessage BuildPatchRequest(string uri);
+        //HttpRequestMessage BuildGetRequest(HttpMethod httpMethod, string uri);
+        //HttpRequestMessage BuildGetRequest(HttpMethod httpMethod, string uri, string content);
     }
 }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shop.Data;
 using Shop.Extensions;
-using Shop.Handlers;
 using Shop.Utilities;
 using System.Reflection;
 
@@ -36,14 +36,21 @@ namespace Shop
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+                options.HttpOnly = HttpOnlyPolicy.None;
+                options.Secure = CookieSecurePolicy.Always;
+                options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
+                options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
             });
 
-            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            // it will return the name of the project
+            var migrationsAssembly = typeof(Startup).Namespace;
+
             services.AddDbContext<ApplicationDbContext>(builder =>
                 builder.UseSqlServer(Configuration.GetConnectionString("database"),
-                    sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
+                    sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)
+                    ));
 
             services.AddControllersWithViews();
             services.AddDependencies();
@@ -69,7 +76,7 @@ namespace Shop
                 if (webHostEnvironment.IsDevelopment())
                     applicationBuilder.UseDeveloperExceptionPage();
             }
-         
+
             else
                 applicationBuilder.UseExceptionHandler("/Error");
 
@@ -78,14 +85,14 @@ namespace Shop
             applicationBuilder.UseCookiePolicy();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();
+            applicationBuilder.UseAuthorization();
             applicationBuilder.UseEndpoints(endpoints =>
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Product}/{action=index}/{id?}"));
         }
 
         private static void InitializeDb(IApplicationBuilder applicationBuilder)
         {
-            using var scope = applicationBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
-            scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+            applicationBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
         }
     }
 }

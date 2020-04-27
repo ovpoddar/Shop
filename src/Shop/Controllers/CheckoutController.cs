@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers;
 using Shop.Managers;
 using Shop.ViewModels;
-using System;
 using System.Collections.Generic;
 
 namespace Shop.Controllers
@@ -54,24 +52,16 @@ namespace Shop.Controllers
 
         public IActionResult Payment(List<string> names, List<int> Quantitys)
         {
-            CookieOptions cookie = new CookieOptions()
+            for (var i = 0; i < names.Count; i++)
             {
-                Domain = "localhost",
-                Expires = DateTime.Now.AddMonths(2),
-                HttpOnly = false,
-                IsEssential = true,
-                Path = "/",
-                SameSite = SameSiteMode.Lax,
-                Secure = true
-            };
-            Response.Cookies.Append("xx", "xx", cookie);
-            //for (var i = 0; i < names.Count; i++)
-            //{
-            //    var val = names[i] + "+" + Quantitys[i];
-            //    Set("list", val, 20);
-            //}
-            // store them into cookie
-            return View();
+                var val = names[i] + "=" + Quantitys[i];
+                Create(i.ToString(), val);
+            }
+            return RedirectToAction("Index", "Payment");
         }
+
+        public void Create(string cName, string cValue) =>
+            Response.Cookies.Append(cName, cValue);
+
     }
 }

@@ -24,13 +24,13 @@ namespace Shop.Extensions
             services.AddTransient<IProductRepositories, ProductRepositories>();
 
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
+            services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
             services.AddTransient<IBalanceHandler, BalanceHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
-            services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
            // services.AddTransient<IPaymentManager, PaymentManager>();
