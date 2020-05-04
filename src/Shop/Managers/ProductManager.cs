@@ -30,24 +30,6 @@ namespace Shop.Managers
             TotalNo = _productHandler.TotalCount(id)
         };
 
-        public Results<SaleProduct> GetProductById(int productId)
-        {
-            try
-            {
-                var product = _productHandler.GetProduct(productId);
-
-                return new Results<SaleProduct>
-                {
-                    Result = _mapper.Map<SaleProduct>(product),
-                    HttpStatusCode = HttpStatusCode.OK
-                };
-            }
-            catch (Exception exception)
-            {
-                return new Results<SaleProduct> { HttpStatusCode = HttpStatusCode.InternalServerError, Exception = exception.Message};
-            }
-        }
-
         public Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct) =>
             _productHandler.RemoveProduct(saleProduct);
 

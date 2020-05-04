@@ -15,22 +15,13 @@ namespace Shop.Controllers.Api
         public ProductsController(IProductManager productManager) => 
             _productManager = productManager;
 
-        [HttpGet("{productId}")]
-        public IActionResult GetProduct(int productId)
-        {
-            var results = _productManager.GetProductById(productId);
-            if(results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
-            
-            return new OkObjectResult(results.Result);
-        }
-
         [HttpPatch("StockLevel")]
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult UpdateProductStockLevel([FromBody] SaleProduct saleProduct)
         {
             var results = _productManager.UpdateStockLevel(saleProduct);
             if (results.HttpStatusCode == HttpStatusCode.InternalServerError) return new NotFoundResult();
-            return new OkObjectResult(results.Result);
+            return new OkObjectResult(results);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Shop.Builders;
+using Shop.Manager;
+using Shop.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Entities;
 using Shop.Handlers;
@@ -33,10 +36,15 @@ namespace Shop.Extensions
             services.AddTransient<ICsvHandler, CsvHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
+            services.AddTransient<IRequestManger, RequestManger>();
            // services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
             services.AddTransient<IItemManager, ItemManager>();
+
+            services.AddTransient<IRequestBuilder, RequestBuilder>();
+
+            services.AddTransient<ISentRequestService, SentRequestService>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
 
@@ -46,6 +54,7 @@ namespace Shop.Extensions
         public static IServiceCollection RegisterActionFilters(this IServiceCollection services)
         {
             services.AddScoped<ProductActionFilter>();
+            services.AddHttpClient();
             return services;
         }
     }

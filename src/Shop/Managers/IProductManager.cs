@@ -8,7 +8,6 @@ namespace Shop.Managers
     {
         ProductListViewModel GetModel(int pageNumber);
         ProductListViewModel GetFilteredModel(int id, int pageNumber);
-        Results<SaleProduct> GetProductById(int productId);
         Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct);
     }
 }
