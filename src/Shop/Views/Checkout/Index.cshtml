@@ -65,8 +65,12 @@
     <form method="post" asp-action="Payment">
         @for (var i = 1; i < items.List.Count; i++)
         {
-            <input type="hidden" value="@items.List[i].Name" name="names" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].Quantity" name="Quantitys" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Id" name="id" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Name" name="name" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Brand" name="brand" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Price" name="price" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Quantity" name="Quantity" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].TotalPrice" name="totalPrice" formmethod="post"/>
         }
         <div class="card-footer bg-dark">
             <div style="margin-left: calc(100% - 150px)">

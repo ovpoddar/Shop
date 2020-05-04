@@ -50,11 +50,11 @@ namespace Shop.Controllers
             return Redirect("Index");
         }
 
-        public IActionResult Payment(List<string> names, List<int> Quantitys)
+        public IActionResult Payment(List<string> id, List<string> name, List<string> brand, List<string> quantity, List<string> price, List<string> totalPrice)
         {
-            for (var i = 0; i < names.Count; i++)
+            for (var i = 0; i < id.Count; i++)
             {
-                var val = names[i] + "=" + Quantitys[i];
+                var val = $"{id[i]}={name[i]}={brand[i]}={quantity[i]}={price[i]}={totalPrice[i]}";
                 Create(i.ToString(), val);
             }
             return RedirectToAction("Index", "Payment");

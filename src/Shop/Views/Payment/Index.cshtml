@@ -2,6 +2,90 @@
 @{
     ViewData["Title"] = "Index";
 }
+@model PaymentViewModel
+<div>
+    <div class="card" style="margin-top: 10px">
+        <div class="card card-deck">
+            <div class="card card-columns ">Name</div>
+            <div class="card card-columns">Brand</div>
+            <div class="card card-columns">Price Per Unit</div>
+            <div class="card card-columns">No</div>
+            <div class="card card-columns">Total</div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 10px">
+        @foreach (var iten in Model.Items)
+        {
+            <div class="card card-deck">
+                <div class="card card-columns ">@iten.Name</div>
+                <div class="card card-columns ">@iten.Brand</div>
+                <div class="card card-columns ">@iten.Price</div>
+                <div class="card card-columns ">@iten.Quantity</div>
+                <div class="card card-columns ">@iten.TotalPrice</div>
+            </div>
+        }
+    </div>
+    <div class="card" style="margin-top: 40px; border: 2px solid black; overflow: hidden">
+        <div class="card card-deck">
+            <div class="card card-columns">Total</div>
+            <div class="card card-columns text-right">
+                @Model.Total
+            </div>
+        </div>
+        <div class="card card-deck">
+            <div class="card card-columns">Paid</div>
+            <div class="card card-columns text-right"><input id="pdp" type="text" /></div>
+        </div>
+        <div class="card card-deck">
+            <div class="card card-columns">Change</div>
+            <div class="card card-columns text-right" id="change"></div>
+        </div>
+    </div>
+</div>
 
-<h1>Index</h1>
 
+
+@section footer
+{
+    <form method="post" id="from">
+        <div id="Payment-type" class="d-none">
+            <span>
+                Select Payment Type:
+                <input type="radio" value="1" name="Payment" /><span>Card</span>
+                <input type="radio" value="2" name="Payment" /><span>Cash</span>
+            </span>
+        </div>
+
+        <div class="card card-footer bg-dark">
+            <div style="margin-left: calc(100% - 150px)" id="pay">
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+        var Total = @Model.Total;
+         document.getElementById("pdp").addEventListener("keyup", function () {
+            if (Total < this.value || Total == this.value) {
+                document.getElementById("change").innerHTML = (this.value - Total);
+                document.getElementById("Payment-type").className = "";
+            }
+            else {
+                document.getElementById("change").innerHTML = "";
+                document.getElementById("Payment-type").className = "d-none";
+                document.getElementById("pay").innerHTML = "";
+            }
+         });
+        let pt = document.getElementsByName("Payment");
+        for (let j = 0; j < pt.length; j++) {
+            pt[j].onclick = function () {
+                if (Total < document.getElementById("pdp").value || Total == document.getElementById("pdp").value) {
+                    document.getElementById("pay").innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
+                }
+                else {
+                    document.getElementById("pay").innerHTML = "";
+                }
+            };
+        }
+    </script>
+}
