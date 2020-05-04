@@ -5,7 +5,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Shop.Manager
+namespace Shop.Managers
 {
     public class RequestManger : IRequestManger
     {

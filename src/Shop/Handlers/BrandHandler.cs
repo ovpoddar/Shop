@@ -33,6 +33,7 @@ namespace Shop.Handlers
         }
 
         public int GetId(string name) =>
-            _repository.GetAll().FirstOrDefault(o => o.BrandName.ToUpper() == name.ToUpper())?.Id ?? 0;
+            _repository.GetAll()
+            .FirstOrDefault(o => o.BrandName.ToUpper() == name.ToUpper())?.Id ?? 0;
     }
 }

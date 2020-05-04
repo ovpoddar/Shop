@@ -1,14 +1,13 @@
-﻿using Shop.Builders;
-using Shop.Manager;
-using Shop.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
+using Shop.Builders;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Helpers;
 using Shop.Managers;
 using Shop.Models;
 using Shop.Repositories;
+using Shop.Services;
 
 namespace Shop.Extensions
 {
@@ -32,6 +31,7 @@ namespace Shop.Extensions
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
             services.AddTransient<IBalanceHandler, BalanceHandler>();
+            services.AddTransient<IPaymentHandler, PaymentHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
 

@@ -55,7 +55,15 @@
                 <input type="radio" value="2" name="Payment" /><span>Cash</span>
             </span>
         </div>
-
+        @for (var i =0; i < Model.Items.Count; i++)
+        {
+            <input type="hidden" asp-for="Items[i].Id"/>
+            <input type="hidden" asp-for="Items[i].Name"/>
+            <input type="hidden" asp-for="Items[i].Brand"/>
+            <input type="hidden" asp-for="Items[i].Price"/>
+            <input type="hidden" asp-for="Items[i].Quantity"/>
+            <input type="hidden" asp-for="Items[i].TotalPrice"/>
+        }
         <div class="card card-footer bg-dark">
             <div style="margin-left: calc(100% - 150px)" id="pay">
             </div>

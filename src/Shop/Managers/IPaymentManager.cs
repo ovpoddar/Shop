@@ -1,14 +1,13 @@
-﻿using Shop.Models;
-using Shop.ViewModels;
+﻿using Shop.Entities;
+using Shop.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Shop.Handlers
+namespace Shop.Managers
 {
     public interface IPaymentManager
     {
-        Task<bool> PurchaseCall(List<SaleProduct> products);
         ItemModel CreateModel(string id, string name, string brand, string quantity, string price, string totalPrice);
-        PaymentViewModel GetModel(List<ItemModel> items, decimal total);
+        Task<bool> MakeingPaymentAsync(List<ItemModel> Items, uint type);
     }
 }

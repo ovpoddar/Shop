@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers;
+using Shop.Managers;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
@@ -20,36 +21,49 @@ namespace Shop.Controllers
         {
             if (Request.Cookies.Keys.Count == 1)
                 return RedirectToAction("Index", "Checkout");
-            var items = new List<ItemModel>();
-            decimal total = 0;
+            var model = new PaymentViewModel()
+            {
+                Items = new List<ItemModel>(),
+                Total = 0
+            };
             for (var i = 0; i < Request.Cookies.Keys.Count; i++)
             {
                 try
                 {
                     var cookie = Get(i.ToString()).Split("=");
-                    items.Add(_manager.CreateModel(cookie[0], cookie[1], cookie[2], cookie[3], cookie[4], cookie[5]));
-                    total += decimal.Parse(cookie[5]);
+                    model.Items.Add(_manager.CreateModel(cookie[0], cookie[1], cookie[2], cookie[3], cookie[4], cookie[5]));
+                    model.Total += decimal.Parse(cookie[5]);
                 }
                 catch
                 {
                     continue;
                 }
             }
-            return View(_manager.GetModel(items, total));
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Index(List<ItemViewModel> models, uint Payment)
+        public async Task<IActionResult> IndexAsync(List<ItemModel> Items, uint Payment)
         {
-            _payment.PurchaseCall(models);
-            _balance.Purchase(models, Payment);
-            foreach (var cookie in Request.Cookies.Keys)
+            if (!await _manager.MakeingPaymentAsync(Items, Payment))
+                return View("ErrView");
+            for (var i = 0; i < Request.Cookies.Keys.Count; i++)
             {
-                if (cookie.Length > 3)
+                try
+                {
+                    Delete(i.ToString());
+                }
+                catch
+                {
                     continue;
-                Delete(cookie);
+                }
             }
             return RedirectToAction("Index", "Product");
+        }
+
+        public IActionResult ErrView()
+        {
+            return View();
         }
 
         private string Get(string cName) =>

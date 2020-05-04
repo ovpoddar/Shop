@@ -9,7 +9,6 @@ namespace Shop.Handlers
     {
         List<Category> Categories();
         List<Category> GetAll();
-        //Models.Category AddCategory(CategoryViewModel model);
         Results<IEnumerable<Category>> AddCategory(CategoryViewModel model);
         int GetId(string name);
     }

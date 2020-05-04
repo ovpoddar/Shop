@@ -1,22 +1,24 @@
 ﻿using Newtonsoft.Json;
-using Shop.Manager;
+using Shop.Entities;
+using Shop.Handlers;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Shop.Handlers
+namespace Shop.Managers
 {
     public class PaymentManager : IPaymentManager
     {
-        private readonly IRequestManger _request;
+        private readonly IBalanceManager _balance;
+        private readonly IPaymentHandler _payment;
 
-        public PaymentManager(IRequestManger request)
+        public PaymentManager(IBalanceManager balance, IPaymentHandler payment)
         {
-            _request = request ?? throw new ArgumentNullException(nameof(_request));
+            _balance = balance ?? throw new ArgumentNullException(nameof(_balance));
+            _payment = payment ?? throw new ArgumentNullException(nameof(_payment));
         }
-
         public ItemModel CreateModel(string id, string name, string brand, string quantity, string price, string totalPrice) => 
             new ItemModel
             {
@@ -28,22 +30,11 @@ namespace Shop.Handlers
                 TotalPrice = double.Parse(totalPrice)
             };
 
-        public PaymentViewModel GetModel(List<ItemModel> items, decimal total) =>
-             new PaymentViewModel
-             {
-                 Items = items,
-                 Total = total
-             };
-
-        public async Task<bool> PurchaseCall(List<SaleProduct> products)
+        public async Task<bool> MakeingPaymentAsync(List<ItemModel> Items, uint type)
         {
-            foreach(var product in products)
-            {
-                var responce = await _request.PatchRequest("api/Products/StockLevel", product);
-                var obj = JsonConvert.DeserializeObject<Results<SaleProduct>>(responce);
-                if (!obj.Success)
-                    return false;
-            }
+            if (!await _payment.PurchaseCall(_payment.GetProducts(Items)))
+                return false;
+            _balance.Purchase(Items, type);
             return true;
         }
     }

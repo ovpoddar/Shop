@@ -20,6 +20,9 @@ namespace Shop.Handlers
             return true;
         }
 
-        public Balance GetLastBalance() => _repository.GetAll().Where(o => o.Id == _repository.GetAll().Count()).FirstOrDefault();
+        public Balance GetLastBalance() => 
+            _repository.GetAll()
+            .Where(o => o.Id == _repository.GetAll().Count())
+            .FirstOrDefault();
     }
 }

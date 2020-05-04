@@ -23,19 +23,19 @@ namespace Shop.Managers
             //all done
         }
 
-        public void Purchase(List<ItemModel> products, uint purchaseType)
+        public void Purchase(List<ItemModel> items, uint purchaseType)
         {
-            foreach(var product in products)
+            foreach(var item in items)
             {
-                var price = _product.GetProduct(product.Id).Price * product.Quantity;
+                var product = _product.GetProduct(item.Name);
                 _balance.AddBalance(new Balance
                 {
                     Date = DateTime.Now,
                     PaymentTypeId = (int)purchaseType,
                     ProductId = product.Id,
-                    Quantity = (uint)product.Quantity,
-                    Incoming = price,
-                    Ammount = _balance.GetLastBalance().Ammount + price
+                    Quantity = (uint)item.Quantity,
+                    Incoming = product.Price * item.Quantity,
+                    Ammount = _balance.GetLastBalance().Ammount + product.Price * item.Quantity
                 });
             }
         }
