@@ -36,9 +36,10 @@ namespace Shop
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
                 options.HttpOnly = HttpOnlyPolicy.None;
-                options.Secure = CookieSecurePolicy.Always;
+                options.Secure= CookieSecurePolicy.SameAsRequest;
                 options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
                 options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
             });

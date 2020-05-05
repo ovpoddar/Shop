@@ -67,7 +67,7 @@ namespace Shop.Controllers
         }
 
         private string Get(string cName) =>
-            Request.Cookies[cName];
+            HttpContext.Request.Cookies[cName];
 
         private void Delete(string cName) =>
             Response.Cookies.Delete(cName);
