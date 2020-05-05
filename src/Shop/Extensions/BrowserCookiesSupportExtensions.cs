@@ -33,6 +33,10 @@ namespace Shop.Extensions
 
         public static bool DisallowsSameSiteNone(string userAgent)
         {
+            if (string.IsNullOrEmpty(userAgent))
+            {
+                return false;
+            }
             if (userAgent.Contains("CPU iPhone OS 12") || userAgent.Contains("iPad; CPU OS 12"))
             {
                 return true;
