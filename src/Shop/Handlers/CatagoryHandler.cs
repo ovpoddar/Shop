@@ -53,7 +53,7 @@ namespace Shop.Handlers
 
         public int GetId(string name) =>
             _repository.GetAll()
-            .Where(o => o.Name.ToUpper() ==  name.ToUpper())
+            .Where(o => o.Name.ToUpper() == name.ToUpper())
             .Select(o => o.Id)
             .FirstOrDefault();
     }

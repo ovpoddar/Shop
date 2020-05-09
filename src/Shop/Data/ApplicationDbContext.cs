@@ -14,6 +14,7 @@ namespace Shop.Data
         public DbSet<Csv> Csvs { get; set; }
         public DbSet<Balance> Balances { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<Employer> Employers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

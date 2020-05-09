@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace Shop.Utilities
 {
@@ -11,7 +11,7 @@ namespace Shop.Utilities
             _fileName = FileName ?? throw new ArgumentNullException(nameof(_fileName));
 
         public override bool IsValid(object value) =>
-            (value as IFormFile).FileName.Split(".").Length == 0 ?
+            (value as IFormFile).FileName.Split(".").Length == 0 || value == null ?
             false :
             (value as IFormFile).FileName.Split(".")[^1].ToUpper() == _fileName.ToUpper();
     }

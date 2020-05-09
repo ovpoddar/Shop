@@ -7,8 +7,8 @@ namespace CheckoutSimulator.Builders
     {
         public HttpRequestMessage BuildGetRequest(string uri) =>
             new HttpRequestMessage(HttpMethod.Get, uri);
-        
-        public HttpRequestMessage BuildInsertRequest(string uri, string content, HttpMethod httpMethod) => 
+
+        public HttpRequestMessage BuildInsertRequest(string uri, string content, HttpMethod httpMethod) =>
             new HttpRequestMessage(httpMethod, uri)
             {
                 Content = new StringContent(content, Encoding.UTF8, "application/json"),
@@ -16,7 +16,7 @@ namespace CheckoutSimulator.Builders
 
         public HttpRequestMessage BuildDeleteRequest(string uri) =>
             new HttpRequestMessage(HttpMethod.Delete, uri);
-        
+
         public HttpRequestMessage BuildDeleteRequest(string uri, string content) =>
             new HttpRequestMessage(HttpMethod.Delete, uri)
             {

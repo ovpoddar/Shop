@@ -1,6 +1,6 @@
-﻿using Shop.Builders;
+﻿using Newtonsoft.Json;
+using Shop.Builders;
 using Shop.Services;
-using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace Shop.Managers
             _builder = builder ?? throw new ArgumentNullException(nameof(_builder));
             _sent = sent ?? throw new ArgumentNullException(nameof(_sent));
         }
-        
+
 
         public async Task<string> PatchRequest<T>(string uri, T entity)
         {

@@ -12,7 +12,7 @@ namespace Shop.Handlers
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
         }
-        
+
         public bool AddBalance(Balance Balance)
         {
             _repository.Add(Balance);
@@ -20,7 +20,7 @@ namespace Shop.Handlers
             return true;
         }
 
-        public Balance GetLastBalance() => 
+        public Balance GetLastBalance() =>
             _repository.GetAll()
             .Where(o => o.Id == _repository.GetAll().Count())
             .FirstOrDefault();

@@ -1,10 +1,7 @@
-﻿using Shop.Handlers;
-using Shop.ViewModels;
-using System;
-using System.Net;
-using AutoMapper;
-using Shop.Entities;
+﻿using AutoMapper;
+using Shop.Handlers;
 using Shop.Models;
+using Shop.ViewModels;
 
 namespace Shop.Managers
 {

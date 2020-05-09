@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Shop.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,6 +54,30 @@ namespace Shop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Csvs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UnicId = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    CapatalisedFullName = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    CapatalisedUserName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    CapatalisedEmail = table.Column<string>(nullable: true),
+                    MobileNo = table.Column<long>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,7 +210,7 @@ namespace Shop.Migrations
             migrationBuilder.InsertData(
                 table: "Balances",
                 columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
-                values: new object[] { 1, 500m, new DateTime(2020, 4, 18, 12, 53, 42, 814, DateTimeKind.Local).AddTicks(9271), 500m, 0m, 2, null, 0L });
+                values: new object[] { 1, 500m, new DateTime(2020, 5, 9, 4, 37, 4, 119, DateTimeKind.Local).AddTicks(514), 500m, 0m, 2, null, 0L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_PaymentTypeId",
@@ -231,6 +255,9 @@ namespace Shop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Csvs");
+
+            migrationBuilder.DropTable(
+                name: "Employers");
 
             migrationBuilder.DropTable(
                 name: "ProductWholeSales");

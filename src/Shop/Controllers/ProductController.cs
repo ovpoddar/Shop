@@ -20,8 +20,8 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult Index(int categoryId, int pageNumber)
         {
-            return View(categoryId == 0 ? 
-                _productManager.GetModel(pageNumber) : 
+            return View(categoryId == 0 ?
+                _productManager.GetModel(pageNumber) :
                 _productManager.GetFilteredModel(categoryId, pageNumber));
         }
 

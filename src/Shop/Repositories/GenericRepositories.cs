@@ -1,8 +1,10 @@
-﻿using Shop.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Data;
+using Shop.Entities;
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Shop.Data;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Shop.Repositories
 {
@@ -19,11 +21,17 @@ namespace Shop.Repositories
         public void Delete(T model) =>
             _dbContext.Remove(model);
 
+        public Task<T> FindAsync(Expression<Func<T, bool>> expression) =>
+            _dbContext.Set<T>().SingleOrDefaultAsync(expression);
+
         public IQueryable<T> GetAll() =>
             _dbContext.Set<T>();
 
         public void Save() =>
             _dbContext.SaveChanges();
+
+        public Task<int> SaveAsync() =>
+            _dbContext.SaveChangesAsync();
 
         public void Update(T model)
         {

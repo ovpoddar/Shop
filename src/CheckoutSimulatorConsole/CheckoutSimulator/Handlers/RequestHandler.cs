@@ -54,7 +54,7 @@ namespace CheckoutSimulator.Handlers
         }
 
         public async Task<string> DeleteRequest(string uri)
-        { 
+        {
             var request = _requestBuilder.BuildDeleteRequest(uri);
             var result = await _httpService.SendAsync(request);
 
@@ -85,7 +85,7 @@ namespace CheckoutSimulator.Handlers
         }
 
         public async Task<HttpResponseMessage> PatchRequest<T>(string uri, T entity)
-        { 
+        {
             var content = JsonConvert.SerializeObject(entity);
             var request = _requestBuilder.BuildInsertRequest(uri, content, HttpMethod.Patch);
             return await _httpService.SendAsync(request);

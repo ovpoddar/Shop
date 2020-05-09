@@ -1,8 +1,9 @@
 ﻿@model CsvViewModel
-@{
+@{ 
     ViewData["Title"] = "Index";
+    ViewData["con"] = "Csv";
+    ViewData["ac"] = "Index";
 }
-
 <form method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <span asp-validation-for="Csv"></span>

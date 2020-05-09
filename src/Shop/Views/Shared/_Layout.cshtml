@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IValidatorHandler user
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -31,6 +32,14 @@
         </div>
         <div class="nav-item float-right bg-dark h-100">
             <a asp-action="Index" asp-controller="Checkout" class="display-4 btn btn-secondary">Checkout</a>
+            @if (user.User() == null)
+            {
+                <a asp-action="LogIn" asp-controller="Authentication" asp-route-con="@ViewBag.con"  asp-route-ac="@ViewBag.ac" class="display-4 btn btn-secondary">Login</a>
+            }
+            else
+            {
+                <a asp-action="LogOut" asp-controller="Authentication" asp-route-con="@ViewBag.con"  asp-route-ac="@ViewBag.ac" class="display-4 btn btn-secondary">LogOut</a>
+            }
         </div>
     </header>
     <section style="width: auto; height: auto;" class="card-body">

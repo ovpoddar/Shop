@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Handlers;
 using Shop.Managers;
 using Shop.Models;
 using Shop.ViewModels;
@@ -11,26 +12,32 @@ namespace Shop.Controllers
     public class PaymentController : Controller
     {
         private readonly IPaymentManager _manager;
+        private readonly ICookieHandler _cookie;
+        private readonly IValidatorHandler _validator;
 
-        public PaymentController(IPaymentManager manager)
+        public PaymentController(IPaymentManager manager, ICookieHandler cookie, IValidatorHandler validator)
         {
             _manager = manager ?? throw new ArgumentNullException(nameof(_manager));
+            _cookie = cookie ?? throw new ArgumentNullException(nameof(_cookie));
+            _validator = validator ?? throw new ArgumentNullException(nameof(_validator));
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (Request.Cookies.Keys.Count == 1)
+            if (!await _validator.IsMember())
+                return RedirectToAction("LogIn", "Authentication");
+            if (_cookie.GetAll().Count == 1)
                 return RedirectToAction("Index", "Checkout");
             var model = new PaymentViewModel()
             {
                 Items = new List<ItemModel>(),
                 Total = 0
             };
-            for (var i = 0; i < Request.Cookies.Keys.Count; i++)
+            for (var i = 0; i < _cookie.GetAll().Count; i++)
             {
                 try
                 {
-                    var cookie = Get(i.ToString()).Split("=");
+                    var cookie = _cookie.Get(i.ToString()).Split("=");
                     model.Items.Add(_manager.CreateModel(cookie[0], cookie[1], cookie[2], cookie[3], cookie[4], cookie[5]));
                     model.Total += decimal.Parse(cookie[5]);
                 }
@@ -47,11 +54,11 @@ namespace Shop.Controllers
         {
             if (!await _manager.MakeingPaymentAsync(Items, Payment))
                 return View("ErrView");
-            for (var i = 0; i < Request.Cookies.Keys.Count; i++)
+            for (var i = 0; i < _cookie.GetAll().Count; i++)
             {
                 try
                 {
-                    Delete(i.ToString());
+                    _cookie.Delete(i.ToString());
                 }
                 catch
                 {
@@ -65,11 +72,5 @@ namespace Shop.Controllers
         {
             return View();
         }
-
-        private string Get(string cName) =>
-            HttpContext.Request.Cookies[cName];
-
-        private void Delete(string cName) =>
-            Response.Cookies.Delete(cName);
     }
 }

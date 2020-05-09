@@ -9,7 +9,7 @@ namespace CheckoutSimulator.Handlers
     {
         private readonly IRequestHandler _requestHandler;
 
-        public ProductHandler(IRequestHandler requestHandler) => 
+        public ProductHandler(IRequestHandler requestHandler) =>
             _requestHandler = requestHandler;
 
         public async Task PostExample(string uri)
@@ -26,7 +26,7 @@ namespace CheckoutSimulator.Handlers
             Console.WriteLine("The code will use Newtonsoft Json to Serialize the Object into Json");
             Console.WriteLine("The Json will be added as content to the post request httpRequestMessage");
             Console.WriteLine("The httpRequestMessage POST is sent using the httpClient send Method");
-           
+
             var json = await _requestHandler.PostRequest(apiUri, brand);
 
             Console.WriteLine("The code will check for a 200 success messsage if this exists it will retrieve the contents of the return  message");
@@ -72,12 +72,12 @@ namespace CheckoutSimulator.Handlers
 
             var apiUri = $"{uri}Products/StockLevel";
 
-            if(throwError)
+            if (throwError)
                 apiUri = $"{uri}Products/StockLevels";
 
             Console.WriteLine("Create new SaleProduct Object");
 
-            var saleProduct = new SaleProduct {ProductId = 1, SaleQuantity = 5};
+            var saleProduct = new SaleProduct { ProductId = 1, SaleQuantity = 5 };
 
             Console.WriteLine("The httpRequestMessage PATCH is sent using the httpClient send Method");
 
@@ -91,8 +91,8 @@ namespace CheckoutSimulator.Handlers
                 Console.WriteLine($"{responseMessage.StatusCode}");
                 return;
             }
-            
-            
+
+
             Console.WriteLine("The return message should be json and can in this case be converted back to a SaleProduct object as we know this is what is returned");
 
             var json = await responseMessage.Content.ReadAsStringAsync();

@@ -12,7 +12,7 @@ namespace CheckoutSimulator.Services
 
         public HttpService(IHttpClientFactory httpClientFactory) =>
             _httpClientFactory = httpClientFactory;
-        
+
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
             var httpClient = _httpClientFactory.CreateClient();

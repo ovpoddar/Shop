@@ -10,8 +10,8 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200418115343_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200508230704_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace Shop.Migrations
                         {
                             Id = 1,
                             Ammount = 500m,
-                            Date = new DateTime(2020, 4, 18, 12, 53, 42, 814, DateTimeKind.Local).AddTicks(9271),
+                            Date = new DateTime(2020, 5, 9, 4, 37, 4, 119, DateTimeKind.Local).AddTicks(514),
                             Incoming = 500m,
                             Outgoing = 0m,
                             PaymentTypeId = 2,
@@ -127,6 +127,54 @@ namespace Shop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Csvs");
+                });
+
+            modelBuilder.Entity("Shop.Entities.Employer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CapatalisedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CapatalisedFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CapatalisedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("MobileNo")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UnicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employers");
                 });
 
             modelBuilder.Entity("Shop.Entities.PaymentType", b =>

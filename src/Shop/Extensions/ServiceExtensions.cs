@@ -17,6 +17,7 @@ namespace Shop.Extensions
         {
             services.AddTransient<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
             services.AddTransient<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
+            services.AddTransient<IGenericRepository<Employer>, GenericRepositories<Employer>>();
             services.AddTransient<IGenericRepository<Category>, GenericRepositories<Category>>();
             services.AddTransient<IGenericRepository<Product>, GenericRepositories<Product>>();
             services.AddTransient<IGenericRepository<Balance>, GenericRepositories<Balance>>();
@@ -34,6 +35,11 @@ namespace Shop.Extensions
             services.AddTransient<IPaymentHandler, PaymentHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
+            services.AddTransient<ICookieHandler, CookieHandler>();
+            services.AddTransient<IUserHandler, UserHandler>();
+            services.AddTransient<ISignHandler, SignHandler>();
+            services.AddTransient<IProtectorHandler, ProtectorHandler>();
+            services.AddTransient<IValidatorHandler, ValidatorHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<IRequestManger, RequestManger>();
@@ -41,12 +47,15 @@ namespace Shop.Extensions
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
             services.AddTransient<IItemManager, ItemManager>();
+            services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<ISignManager, SignManager>();
 
             services.AddTransient<IRequestBuilder, RequestBuilder>();
 
             services.AddTransient<ISentRequestService, SentRequestService>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
+            services.AddTransient<IUserHelper, UserHelper>();
 
             return services;
         }

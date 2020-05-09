@@ -15,7 +15,7 @@ namespace Shop.Handlers
 
         public bool AddBrand(Brand brand)
         {
-            if (_repository.GetAll().Any(p => p.BrandName.ToUpper()== brand.BrandName.ToUpper()))
+            if (_repository.GetAll().Any(p => p.BrandName.ToUpper() == brand.BrandName.ToUpper()))
                 return false;
             _repository.Add(brand);
             _repository.Save();

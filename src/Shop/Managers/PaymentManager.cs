@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using Shop.Entities;
-using Shop.Handlers;
+﻿using Shop.Handlers;
 using Shop.Models;
-using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +16,7 @@ namespace Shop.Managers
             _balance = balance ?? throw new ArgumentNullException(nameof(_balance));
             _payment = payment ?? throw new ArgumentNullException(nameof(_payment));
         }
-        public ItemModel CreateModel(string id, string name, string brand, string quantity, string price, string totalPrice) => 
+        public ItemModel CreateModel(string id, string name, string brand, string quantity, string price, string totalPrice) =>
             new ItemModel
             {
                 Id = int.Parse(id),

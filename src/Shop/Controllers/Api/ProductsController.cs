@@ -12,7 +12,7 @@ namespace Shop.Controllers.Api
     {
         private readonly IProductManager _productManager;
 
-        public ProductsController(IProductManager productManager) => 
+        public ProductsController(IProductManager productManager) =>
             _productManager = productManager;
 
         [HttpPatch("StockLevel")]

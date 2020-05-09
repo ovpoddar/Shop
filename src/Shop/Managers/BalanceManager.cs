@@ -25,7 +25,7 @@ namespace Shop.Managers
 
         public void Purchase(List<ItemModel> items, uint purchaseType)
         {
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 var product = _product.GetProduct(item.Name);
                 _balance.AddBalance(new Balance

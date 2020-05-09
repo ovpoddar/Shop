@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace CheckoutSimulator.Models
+﻿namespace CheckoutSimulator.Models
 {
-    public class Product 
+    public class Product
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
@@ -13,6 +11,6 @@ namespace CheckoutSimulator.Models
         public double OrderLevel { get; set; }
         public double MinimumWholesaleOrder { get; set; }
         public int CategoriesId { get; set; }
-       
+
     }
 }

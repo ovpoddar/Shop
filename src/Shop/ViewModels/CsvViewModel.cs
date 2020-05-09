@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
 using Shop.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.ViewModels
 {

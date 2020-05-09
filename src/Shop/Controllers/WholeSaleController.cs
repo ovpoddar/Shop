@@ -22,7 +22,7 @@ namespace Shop.Controllers
         public IActionResult Index(WholeSaleViewModel model)
         {
             return ModelState.IsValid || _wholesaleHandler.Add(model) ?
-                RedirectToAction("Index", "Product") : 
+                RedirectToAction("Index", "Product") :
                 (IActionResult)View();
         }
     }

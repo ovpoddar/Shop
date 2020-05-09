@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
-using Shop.Entities;
+﻿using Newtonsoft.Json;
 using Shop.Managers;
 using Shop.Models;
 using System;
@@ -23,14 +21,14 @@ namespace Shop.Handlers
         public List<SaleProduct> GetProducts(List<ItemModel> items)
         {
             var products = new List<SaleProduct>();
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 var check = _product.GetProduct(item.Name);
                 if (check.Price == item.Price)
                     products.Add(new SaleProduct
                     {
                         BarCode = check.BarCode,
-                        ProductId        =check.Id,
+                        ProductId = check.Id,
                         ProductName = check.ProductName,
                         Price = check.Price,
                         StockLevel = check.StockLevel,

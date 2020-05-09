@@ -11,7 +11,6 @@ using Microsoft.OpenApi.Models;
 using Shop.Data;
 using Shop.Extensions;
 using Shop.Utilities;
-using System.Reflection;
 
 namespace Shop
 {
@@ -39,7 +38,7 @@ namespace Shop
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
                 options.HttpOnly = HttpOnlyPolicy.None;
-                options.Secure= CookieSecurePolicy.SameAsRequest;
+                options.Secure = CookieSecurePolicy.SameAsRequest;
                 options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
                 options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
             });
@@ -54,6 +53,7 @@ namespace Shop
                     ));
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             services.AddDependencies();
             services.RegisterActionFilters();
 

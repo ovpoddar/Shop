@@ -1,5 +1,4 @@
-﻿using Shop.Entities;
-using Shop.Models;
+﻿using Shop.Models;
 using Shop.ViewModels;
 
 namespace Shop.Managers

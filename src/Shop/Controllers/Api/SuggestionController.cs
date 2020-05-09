@@ -13,7 +13,7 @@ namespace Shop.Controllers.Api
 
         public SuggestionController(ISuggestionHandler suggestion) =>
             _suggestion = suggestion;
-        
+
         [HttpGet("{name}")]
         public List<Suggestion> Get(string name)
         {

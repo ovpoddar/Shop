@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Entities;
+using Shop.Models;
 using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Shop.Models;
 
 namespace Shop.Handlers
 {
@@ -29,7 +29,7 @@ namespace Shop.Handlers
 
                 _repository.Delete(oldProduct.FirstOrDefault());
 
-                var  stockLevel = oldProduct.Select(o => o.StockLevel).FirstOrDefault() + product.StockLevel;
+                var stockLevel = oldProduct.Select(o => o.StockLevel).FirstOrDefault() + product.StockLevel;
 
                 _repository.Add(new Product()
                 {
@@ -97,8 +97,8 @@ namespace Shop.Handlers
             {
                 var product = _repository.GetAll().FirstOrDefault(p => p.Id == saleProduct.ProductId);
 
-                if(product == null) throw new ArgumentNullException(); 
-                
+                if (product == null) throw new ArgumentNullException();
+
                 var newStockLevel = product.StockLevel - saleProduct.SaleQuantity;
                 product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
 
@@ -111,12 +111,12 @@ namespace Shop.Handlers
                 if (product.StockLevel <= 0) saleProduct.Message = MessageValues.NoStock;
 
                 return new Results<SaleProduct>
-                    {HttpStatusCode = HttpStatusCode.OK, Success = true, Result = saleProduct};
+                { HttpStatusCode = HttpStatusCode.OK, Success = true, Result = saleProduct };
             }
             catch (Exception exception)
             {
                 saleProduct.Message = "Product does not exist";
-                return new Results<SaleProduct> {Exception = exception.Message, Result = saleProduct};
+                return new Results<SaleProduct> { Exception = exception.Message, Result = saleProduct };
             }
         }
 

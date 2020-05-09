@@ -9,7 +9,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace Shop.Managers
 {
@@ -20,14 +19,16 @@ namespace Shop.Managers
         private readonly IGenericRepository<Csv> _repository;
         private readonly IProductHandler _product;
         private readonly ICsvHelper _csvHelper;
+        private readonly IProtectorHandler _protector;
 
-        public CsvManager(IWebHostEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IProductHandler product, ICsvHelper function)
+        public CsvManager(IWebHostEnvironment hosting, ICsvHandler csv, IGenericRepository<Csv> repository, IProductHandler product, ICsvHelper function, IProtectorHandler protector)
         {
             _hosting = hosting ?? throw new ArgumentNullException(nameof(_hosting));
             _csvHandler = csv ?? throw new ArgumentNullException(nameof(_csvHandler));
             _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
             _product = product ?? throw new ArgumentNullException(nameof(_product));
             _csvHelper = function ?? throw new ArgumentNullException(nameof(_csvHelper));
+            _protector = protector ?? throw new ArgumentNullException(nameof(_protector));
         }
 
         public void Update(string csv)
@@ -60,27 +61,24 @@ namespace Shop.Managers
             var fullPath = Path.Combine(_hosting.WebRootPath, relativePath);
             _csvHandler.StoreCsvAsFile(fullPath, csv.Csv);
 
-            using (var stream = new FileStream(fullPath, FileMode.Open))
+            using var stream = new FileStream(fullPath, FileMode.Open);
+            var hashValue = _protector.HashMd5(stream);
+            if (!_repository.GetAll().Any(p => p.HashName == hashValue))
             {
-                var hashValue = BitConverter.ToString(MD5.Create().ComputeHash(stream));
-                if (!_repository.GetAll().Any(p => p.HashName == hashValue))
-                {
-                    _csvHandler.SaveCsv(csv.Csv.FileName, relativePath, hashValue, DateTime.Now.ToString(CultureInfo.InvariantCulture));
-                    return new Upload()
-                    {
-                        Path = fullPath,
-                        Success = true
-                    };
-                }
-                stream.Close();
-                _csvHandler.Delete(fullPath);
+                _csvHandler.SaveCsv(csv.Csv.FileName, relativePath, hashValue, DateTime.Now.ToString(CultureInfo.InvariantCulture));
                 return new Upload()
                 {
-                    Path = null,
-                    Success = false
+                    Path = fullPath,
+                    Success = true
                 };
-                
             }
+            stream.Close();
+            _csvHandler.Delete(fullPath);
+            return new Upload()
+            {
+                Path = null,
+                Success = false
+            };
         }
     }
 }

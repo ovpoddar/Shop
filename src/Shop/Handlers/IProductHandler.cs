@@ -1,6 +1,6 @@
 ﻿using Shop.Entities;
-using System.Collections.Generic;
 using Shop.Models;
+using System.Collections.Generic;
 
 namespace Shop.Handlers
 {

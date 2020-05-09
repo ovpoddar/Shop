@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Shop.Repositories
 {
@@ -9,5 +12,7 @@ namespace Shop.Repositories
         void Delete(T model);
         void Save();
         void Update(T model);
+        Task<int> SaveAsync();
+        Task<T> FindAsync(Expression<Func<T, bool>> expression);
     }
 }

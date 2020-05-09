@@ -10,11 +10,13 @@ namespace Shop.Controllers
     {
         private readonly IItemManager _item;
         private readonly IProductHandler _product;
+        private readonly ICookieHandler _cookie;
 
-        public CheckoutController(IItemManager item, IProductHandler product)
+        public CheckoutController(IItemManager item, IProductHandler product, ICookieHandler cookie)
         {
             _item = item ?? throw new System.ArgumentNullException(nameof(_item));
             _product = product ?? throw new System.ArgumentNullException(nameof(_product));
+            _cookie = cookie ?? throw new System.ArgumentNullException(nameof(_cookie));
         }
         [HttpGet]
         public IActionResult Index()
@@ -38,8 +40,7 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Update(string Name)
         {
-            var model = _item.model(Name);
-            return View(model);
+            return View(_item.model(Name));
         }
         [HttpPost]
         public IActionResult Update(ItemViewModel model)
@@ -54,14 +55,9 @@ namespace Shop.Controllers
         {
             for (var i = 0; i < id.Count; i++)
             {
-                var val = $"{id[i]}={name[i]}={brand[i]}={quantity[i]}={price[i]}={totalPrice[i]}";
-                Create(i.ToString(), val);
+                _cookie.Create(i.ToString(), $"{id[i]}={name[i]}={brand[i]}={quantity[i]}={price[i]}={totalPrice[i]}");
             }
             return RedirectToAction("Index", "Payment");
         }
-
-        public void Create(string cName, string cValue) =>
-            Response.Cookies.Append(cName, cValue);
-
     }
 }

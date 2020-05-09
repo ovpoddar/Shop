@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Data;
 
 namespace Shop.Repositories
 {

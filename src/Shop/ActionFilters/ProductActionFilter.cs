@@ -22,7 +22,7 @@ namespace Shop.ActionFilters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-           
+
         }
 
     }
