@@ -2,7 +2,6 @@
 
 @{    
     ViewData["Title"] = "SignIn";
-    ViewData["con"] = "Authentication";
     ViewData["ac"] = "SignIn";
 }
 
@@ -71,6 +70,6 @@
 </div>
 
 <div class="text-center mt-5">
-    <a asp-action="LogIn" asp-route-con="@ViewBag.con"  asp-route-ac="@ViewBag.ac">Already An Empolyee</a>
+    <a asp-action="LogIn" asp-route-con="@this.ViewContext.RouteData.Values["controller"].ToString()"  asp-route-ac="@ViewBag.ac">Already An Empolyee</a>
 </div>
 
