@@ -35,28 +35,21 @@ namespace Shop.Handlers
                     status.Success = false;
                     status.Error.Add("username is already in use");
                 }
-                else
-                {
-                    status.Success = true;
-                }
+
                 if (_repository.GetAll().Any(_ => _.MobileNo == model.MobileNo))
                 {
                     status.Success = false;
                     status.Error.Add("mobile No is already in use");
                 }
-                else
-                {
-                    status.Success = true;
-                }
+
                 if (_repository.GetAll().Any(_ => _.Email == model.Email))
                 {
                     status.Success = false;
                     status.Error.Add("email is already in use");
                 }
+
                 else
-                {
                     status.Success = true;
-                }
             }
             finally
             {

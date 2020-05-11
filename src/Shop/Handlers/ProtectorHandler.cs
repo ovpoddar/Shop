@@ -27,18 +27,8 @@ namespace Shop.Handlers
         public string HashMd5(string name) =>
             BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(name)));
 
-        public string Hashpbkdf2(string name, int length)
-        {
-            using var random = RandomNumberGenerator.Create();
-            random.GetBytes(new byte[length]);
-            return $"{Convert.ToBase64String(new byte[length])}:{Convert.ToBase64String(KeyDerivation.Pbkdf2(name, new byte[length], KeyDerivationPrf.HMACSHA512, 10000, 16))}";
-        }
-
         public string Hashsha512(string name) =>
             BitConverter.ToString(SHA512.Create().ComputeHash(Encoding.UTF8.GetBytes(name)));
-
-        public string HashSha256(string name) =>
-            BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(name)));
 
         public string Protect(string name)
         {
