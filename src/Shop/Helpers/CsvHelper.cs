@@ -36,11 +36,12 @@ namespace Shop.Helpers
             });
             return _category.GetId(name);
         }
-        public void Categoryauto(string underName, string name) => _category.AddCategory(new CategoryViewModel
-        {
-            Id = _category.GetId(underName),
-            Name = name
-        });
+        public void Categoryauto(string underName, string name) =>
+            _category.AddCategory(new CategoryViewModel
+            {
+                Id = _category.GetId(underName),
+                Name = name
+            });
 
         public int BrandId(string value)
         {

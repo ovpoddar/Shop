@@ -30,7 +30,7 @@ namespace Shop.Handlers
                 Size = details.Size,
             });
 
-            _genericRepository.Save();
+            _repository.Save();
 
             return true;
         }

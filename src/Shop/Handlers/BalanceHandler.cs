@@ -13,11 +13,10 @@ namespace Shop.Handlers
             _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
         }
 
-        public bool AddBalance(Balance Balance)
+        public void AddBalance(Balance Balance)
         {
             _repository.Add(Balance);
             _repository.Save();
-            return true;
         }
 
         public Balance GetLastBalance() =>

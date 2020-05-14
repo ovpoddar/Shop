@@ -46,10 +46,13 @@ namespace Shop.Handlers
         }
 
         public List<Category> Categories() =>
-            _repository.GetAll().Where(category => category.ParentId == null)
-                .Include(p => p.SubCategories).ToList();
+            _repository.GetAll()
+            .Where(category => category.ParentId == null)
+            .Include(p => p.SubCategories).ToList();
 
-        public List<Category> GetAll() => _repository.GetAll().ToList();
+        public List<Category> GetAll() =>
+            _repository.GetAll()
+            .ToList();
 
         public int GetId(string name) =>
             _repository.GetAll()
