@@ -26,35 +26,33 @@ namespace Shop.Handlers
             var status = new Status
             {
                 Error = new List<string>(),
-                Success = new bool()
+                Success = true
             };
             try
             {
-                if (_repository.GetAll().Any(_ => _.UserName == model.UserName))
+                if (_repository.GetAll().Any(e => e.UserName == model.UserName))
                 {
                     status.Success = false;
                     status.Error.Add("username is already in use");
                 }
-
-                if (_repository.GetAll().Any(_ => _.MobileNo == model.MobileNo))
+                if (_repository.GetAll().Any(e => e.MobileNo == model.MobileNo))
                 {
                     status.Success = false;
                     status.Error.Add("mobile No is already in use");
                 }
 
-                if (_repository.GetAll().Any(_ => _.Email == model.Email))
+                if (_repository.GetAll().Any(e => e.Email == model.Email))
                 {
                     status.Success = false;
                     status.Error.Add("email is already in use");
                 }
-
-                else
-                    status.Success = true;
             }
             finally
             {
-                if (status.Success)
+                if (!status.Success)
                     _userHelper.CreateEmployer(model);
+                else
+                    status.Success = true;
             }
             return status;
         }
@@ -86,19 +84,20 @@ namespace Shop.Handlers
             }
             return status;
         }
+
         public Employer GetEmployerByEmail(string email) =>
-            _repository.GetAll().Where(_ => _.Email == email).FirstOrDefault();
+            _repository.GetAll().FirstOrDefault(e => e.Email == email);
 
         public Employer GetEmployerByNumber(long number) =>
-            _repository.GetAll().Where(_ => _.MobileNo == number).FirstOrDefault();
+            _repository.GetAll().FirstOrDefault(e => e.MobileNo == number);
 
         public Employer GetEmployerByUserName(string username) =>
-            _repository.GetAll().Where(_ => _.UserName == username).FirstOrDefault();
+            _repository.GetAll().FirstOrDefault(e => e.UserName == username);
 
         public Employer GetEmployerByUnicId(string username) =>
-            _repository.GetAll().Where(_ => _.UnicId == username).FirstOrDefault();
+            _repository.GetAll().FirstOrDefault(e => e.UnicId == username);
 
         public async Task<Employer> FindEmployerAsync(string userId, string password) =>
-            await _repository.FindAsync(_ => _.UserName == userId && _.Password == password);
+            await _repository.FindAsync(e => e.UserName == userId && e.Password == password);
     }
 }

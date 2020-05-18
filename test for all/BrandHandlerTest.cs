@@ -24,7 +24,7 @@ namespace test_for_all
         public void GetLastBalance_Balance(string existingName, string addingname, bool type)
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<Brand>
                 {
                     new Brand()
@@ -36,7 +36,7 @@ namespace test_for_all
                 }.AsQueryable());
 
             _mock
-                .Setup(_ => _.Add(It.IsAny<Brand>()));
+                .Setup(e => e.Add(It.IsAny<Brand>()));
 
             if (type)
                 Assert.True(_brandHandler.AddBrand(new Brand()
@@ -58,7 +58,7 @@ namespace test_for_all
         public void AddBrandWithReturn_Balance(string existingName, string addingname, string returningbrand)
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<Brand>
                 {
                     new Brand()
@@ -70,7 +70,7 @@ namespace test_for_all
                 }.AsQueryable());
 
             _mock
-                .Setup(_ => _.Add(It.IsAny<Brand>()));
+                .Setup(e => e.Add(It.IsAny<Brand>()));
 
             var result = _brandHandler.AddBrandWithReturn(new Brand
             {
@@ -85,7 +85,7 @@ namespace test_for_all
         {
             var id = 1;
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<Brand>
                 {
                     new Brand()

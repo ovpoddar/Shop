@@ -1,9 +1,9 @@
 ﻿window.onload = function () {
-    let x = document.getElementById("toggle");
+    var x = document.getElementById("toggle");
     x.onclick = function ()
     {
-        let y = x.getElementsByTagName("div")[1];
-        if (y.className == "dropdown-menu")
+        var y = x.getElementsByTagName("div")[1];
+        if (y.className === "dropdown-menu")
         {
             y.className = "d-block";
         }
@@ -29,14 +29,14 @@ function getCookie(cname) {
     return "";
 }
 function addsuggestion(e) {
-    let t = document.getElementById("suggesstion");
+    var t = document.getElementById("suggesstion");
     t.innerHTML = "";
     for (let i = 0; i < e.length; i++) {
-        let s = document.createElement("span");
+        var s = document.createElement("span");
         s.append(e[i].name);
         t.appendChild(s);
     }
-    let s = t.querySelectorAll("span");
+    var s = t.querySelectorAll("span");
     for (let i = 0; i < s.length; i++) {
         s[i].addEventListener("dblclick", function () {
             document.getElementById("suggst").value = this.innerHTML;

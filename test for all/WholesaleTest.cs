@@ -3,11 +3,8 @@ using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
 using Shop.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace test_for_all
@@ -29,7 +26,7 @@ namespace test_for_all
         public void GetId_ReturnAll(int id, int size, int pack)
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<WholesaleSize>
                 {
                     new WholesaleSize()
@@ -50,7 +47,7 @@ namespace test_for_all
         public void Add_checkingbothSituation(int addsi, int addpa ,bool type)
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<WholesaleSize>
                 {
                     new WholesaleSize()
@@ -69,7 +66,7 @@ namespace test_for_all
                 }.AsQueryable());
 
             _mock
-                .Setup(_ => _.Add(It.IsAny<WholesaleSize>()));
+                .Setup(e => e.Add(It.IsAny<WholesaleSize>()));
 
             if (type)
                 Assert.True(_wholesaleHandler.Add(new WholeSaleViewModel()

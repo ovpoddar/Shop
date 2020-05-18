@@ -85,7 +85,7 @@
                 document.getElementById("pay").innerHTML = "";
             }
          });
-        let pt = document.getElementsByName("Payment");
+        var pt = document.getElementsByName("Payment");
         for (let j = 0; j < pt.length; j++) {
             pt[j].onclick = function () {
                 if (Total < document.getElementById("pdp").value || Total == document.getElementById("pdp").value) {

@@ -23,7 +23,7 @@ namespace test_for_all
         public void GetLastBalance_Balance_one()
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(GetOneData());
 
             _balanceHandler.GetLastBalance().Should().BeEquivalentTo(GetOneData().ToList()[^1]);
@@ -32,7 +32,7 @@ namespace test_for_all
         public void GetLastBalance_Balance_Multipal()
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(GetMoreThanData());
 
             _balanceHandler.GetLastBalance().Should().BeEquivalentTo(GetMoreThanData().ToList()[^1]);
@@ -42,10 +42,10 @@ namespace test_for_all
         public void AddBalance_void_wrking()
         {
             _mock
-                .Setup(_ => _.Add(It.IsAny<Balance>()));
+                .Setup(e => e.Add(It.IsAny<Balance>()));
             _balanceHandler.AddBalance(It.IsAny<Balance>());
-            _mock.Verify(_ => _.Add(It.IsAny<Balance>()), Times.Once());
-            _mock.Verify(_ => _.Save(), Times.Once());
+            _mock.Verify(e => e.Add(It.IsAny<Balance>()), Times.Once());
+            _mock.Verify(e => e.Save(), Times.Once());
         }
 
         private IQueryable<Balance> GetOneData() =>

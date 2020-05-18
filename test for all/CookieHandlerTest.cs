@@ -5,7 +5,6 @@ using Shop.Controllers;
 using Shop.Handlers;
 using System.Web.Mvc;
 using Xunit;
-using static test_for_all.CookieHandlerTest;
 
 namespace test_for_all
 {
@@ -21,27 +20,33 @@ namespace test_for_all
         [Fact]
         public void Create_Check()
         {
-            _mock.Setup(_ => _.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()));
+            _mock.Setup(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()));
             _cookieHandler.Create(It.IsAny<string>(), It.IsAny<string>());
-            _mock.Verify(_ => _.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()));
+            _mock.Verify(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()));
         }
 
         [Fact]
         public void Delete_Check()
         {
-            _mock.Setup(_ => _.HttpContext.Response.Cookies.Delete(It.IsAny<string>()));
+            _mock.Setup(e => e.HttpContext.Response.Cookies.Delete(It.IsAny<string>()));
             _cookieHandler.Delete(It.IsAny<string>());
-            _mock.Verify(_ => _.HttpContext.Response.Cookies.Delete(It.IsAny<string>()));
+            _mock.Verify(e => e.HttpContext.Response.Cookies.Delete(It.IsAny<string>()));
         }
 
         [Fact]
         public void Create_Check_with_outher_parameter()
         {
-            _mock.Setup(_ => _.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
+            _mock.Setup(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
             _cookieHandler.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>());
-            _mock.Verify(_ => _.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
+            _mock.Verify(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
         }
-        //no idea how to mock the rest of the code
-
+        ////no idea how to mock the rest of the code
+        //[Fact]
+        //public void allinOneCheck()
+        //{
+        //    _cookieHandler.Create("bb", "cc");
+        //    var res = _cookieHandler.Get("bb");
+        //    Assert.False(res == "cc");
+        //}
     }
 }

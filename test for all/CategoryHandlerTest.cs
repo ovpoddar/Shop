@@ -26,7 +26,7 @@ namespace test_for_all
         {
             var id = 2;
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<Category>
                 {
                     new Category()
@@ -45,7 +45,7 @@ namespace test_for_all
         public void Categories_gettingall()
         {
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(new List<Category>
             {
                 new Category
@@ -90,7 +90,7 @@ namespace test_for_all
             }.AsQueryable();
 
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(expected);
 
             _categoryHandler.GetAll().Should().BeEquivalentTo(expected);
@@ -117,11 +117,11 @@ namespace test_for_all
             }.AsQueryable();
 
             _mock
-                .Setup(_ => _.GetAll())
+                .Setup(e => e.GetAll())
                 .Returns(lists);
 
             _mock
-                .Setup(_ => _.Add(It.IsAny<Category>()));
+                .Setup(e => e.Add(It.IsAny<Category>()));
 
             var result = _categoryHandler.AddCategory(new CategoryViewModel 
             {
