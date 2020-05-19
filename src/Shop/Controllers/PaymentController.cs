@@ -6,6 +6,7 @@ using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {

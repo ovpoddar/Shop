@@ -2,6 +2,7 @@
 using Shop.Repositories;
 using System;
 using System.Linq;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {

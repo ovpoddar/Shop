@@ -4,6 +4,7 @@ using Shop.Repositories;
 using System;
 using System.IO;
 using System.Text;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {

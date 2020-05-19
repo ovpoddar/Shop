@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface ICookieHandler
     {

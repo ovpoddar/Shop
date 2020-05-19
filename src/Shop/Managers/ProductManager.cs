@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
 

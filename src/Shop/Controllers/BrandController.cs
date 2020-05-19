@@ -2,6 +2,7 @@
 using Shop.Entities;
 using Shop.Handlers;
 using System;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {

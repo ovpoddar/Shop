@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
 using Xunit;

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface IProtectorHandler
     {

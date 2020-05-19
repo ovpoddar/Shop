@@ -3,6 +3,7 @@ using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Managers
 {

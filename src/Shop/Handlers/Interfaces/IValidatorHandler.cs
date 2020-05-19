@@ -1,7 +1,7 @@
-﻿using Shop.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Shop.Entities;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface IValidatorHandler
     {

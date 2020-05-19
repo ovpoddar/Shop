@@ -1,7 +1,7 @@
-﻿using Shop.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Shop.Entities;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface IItemHandler<T>
     {

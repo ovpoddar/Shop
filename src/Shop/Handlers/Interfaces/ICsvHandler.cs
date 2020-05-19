@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface ICsvHandler
     {

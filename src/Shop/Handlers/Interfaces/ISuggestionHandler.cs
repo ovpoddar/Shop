@@ -1,7 +1,7 @@
-﻿using Shop.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Shop.Models;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface ISuggestionHandler
     {

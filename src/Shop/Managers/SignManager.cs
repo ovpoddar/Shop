@@ -4,6 +4,7 @@ using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Threading.Tasks;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Managers
 {

@@ -1,6 +1,6 @@
 ﻿using Shop.ViewModels;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface IWholesaleHandler
     {

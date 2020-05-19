@@ -1,6 +1,6 @@
 ﻿using Shop.Entities;
 
-namespace Shop.Handlers
+namespace Shop.Handlers.Interfaces
 {
     public interface IBalanceHandler
     {

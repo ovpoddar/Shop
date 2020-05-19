@@ -3,6 +3,7 @@ using Shop.Handlers;
 using Shop.Managers;
 using Shop.ViewModels;
 using System.Collections.Generic;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {
