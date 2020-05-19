@@ -10,11 +10,9 @@ namespace Shop.Handlers
     {
         private readonly IUserManager _userManager;
 
-        public SignHandler(IUserManager userManager)
-        {
+        public SignHandler(IUserManager userManager) =>
             _userManager = userManager ?? throw new System.ArgumentNullException(nameof(_userManager));
-        }
-
+        
         public async Task<LoginStatus> LogInAsync(string user, string password)
         {
             var username = _userManager.GetUserName(user);
@@ -27,8 +25,10 @@ namespace Shop.Handlers
                         },
                     Success = false
                 };
+            //else is not needed
             else
             {
+                //TODO -- Handlers should not look up to managers - this is a really bad design this really needs reworking - managers call handlers - handler never call maanagers!!!!
                 var result = await _userManager.FindEmployerAsync(username, password);
                 return result == null ?
                 new LoginStatus

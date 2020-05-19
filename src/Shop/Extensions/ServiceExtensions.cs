@@ -51,13 +51,12 @@ namespace Shop.Extensions
             services.AddTransient<IItemManager, ItemManager>();
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<ISignManager, SignManager>();
-
             services.AddTransient<IRequestBuilder, RequestBuilder>();
-
             services.AddTransient<ISentRequestService, SentRequestService>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddTransient<IUserHelper, UserHelper>();
+            services.AddSingleton<IProtectionHelper, ProtectionHelper>();
 
             return services;
         }

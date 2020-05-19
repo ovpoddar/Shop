@@ -10,19 +10,21 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Shop.Handlers.Interfaces;
+using Shop.Helpers;
 
 namespace Shop.Handlers
 {
     public class ProtectorHandler : IProtectorHandler
     {
+        private readonly IDataProtectionProvider _dataProtectionProvider;
+        private readonly IProtectionHelper _protectionHelper;
+        private readonly IConfiguration _configuration;
 
-        private readonly IDataProtector _dataProtector;
-        private readonly IConfigurationRoot _configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                                                                                       .AddJsonFile("appsettings.Development.json")
-                                                                                       .Build();
-        public ProtectorHandler(IDataProtectionProvider provider)
+        public ProtectorHandler(IDataProtectionProvider dataProtectionProvider, IProtectionHelper protectionHelper, IConfiguration configuration)
         {
-            _dataProtector = provider.CreateProtector(_configuration["dataprotector"]);
+            _dataProtectionProvider = dataProtectionProvider;
+            _protectionHelper = protectionHelper;
+            _configuration = configuration;
         }
 
         public string HashMd5(string name) =>
@@ -33,30 +35,19 @@ namespace Shop.Handlers
 
         public string Protect(string name)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            return _dataProtector.Protect(tokenHandler.WriteToken(tokenHandler.CreateToken(new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, name)
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(double.Parse(_configuration.GetSection("jwt")["expDate"])),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("jwt")["secret"])),
-                    SecurityAlgorithms.HmacSha256Signature)
-            })));
+            var  dataProtector = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]);
+            return dataProtector.Protect(_protectionHelper.BuildToken(name));
         }
 
         public string UnProtect(string name)
         {
-            var token = _dataProtector.Unprotect(name);
+            var dataProtector = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]);
+            var token = dataProtector.Unprotect(name);
             var handler = new JwtSecurityTokenHandler();
-            if (handler.CanReadToken(token))
-            {
-                return handler.ReadJwtToken(token).Claims.First().Value;
-            }
-            return null;
+
+            return handler.CanReadToken(token) 
+                ? handler.ReadJwtToken(token).Claims.First().Value
+                : null;
         }
 
         public string HashMd5(Stream name) =>
