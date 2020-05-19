@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Shop.Entities;
-using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.Helpers;
+using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;
 using Shop.ViewModels;
@@ -9,8 +10,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {

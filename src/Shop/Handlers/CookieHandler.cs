@@ -10,10 +10,9 @@ namespace Shop.Handlers
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public CookieHandler(IHttpContextAccessor contextAccessor)
-        {
+        public CookieHandler(IHttpContextAccessor contextAccessor) =>
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(_contextAccessor));
-        }
+        
         public void Create(string name, string value) =>
             _contextAccessor.HttpContext.Response.Cookies.Append(name, value);
 

@@ -1,11 +1,10 @@
 ﻿using Shop.Entities;
-using Shop.Handlers;
+using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Threading.Tasks;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {
