@@ -4,6 +4,7 @@ using Shop.Models;
 using System;
 using System.Collections.Generic;
 using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {

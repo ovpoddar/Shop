@@ -1,7 +1,7 @@
 ﻿using Shop.Models;
 using Shop.ViewModels;
 
-namespace Shop.Managers
+namespace Shop.Managers.Interfaces
 {
     public interface IProductManager
     {

@@ -1,7 +1,7 @@
-﻿using Shop.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Shop.Models;
 
-namespace Shop.Managers
+namespace Shop.Managers.Interfaces
 {
     public interface IBalanceManager
     {

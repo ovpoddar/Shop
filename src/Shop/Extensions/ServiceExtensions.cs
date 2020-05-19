@@ -6,6 +6,7 @@ using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Managers;
+using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;
 using Shop.Services;

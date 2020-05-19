@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Shop.Managers
+namespace Shop.Managers.Interfaces
 {
     public interface IRequestManger
     {

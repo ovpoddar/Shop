@@ -1,8 +1,8 @@
-﻿using Shop.Models;
+﻿using System.Threading.Tasks;
+using Shop.Models;
 using Shop.ViewModels;
-using System.Threading.Tasks;
 
-namespace Shop.Managers
+namespace Shop.Managers.Interfaces
 {
     public interface ISignManager
     {

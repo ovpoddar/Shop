@@ -3,6 +3,7 @@ using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Managers;
+using Shop.Managers.Interfaces;
 using Xunit;
 
 namespace Shop.Tests.HandlerTests

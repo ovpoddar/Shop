@@ -3,6 +3,7 @@ using Shop.ActionFilters;
 using Shop.Managers;
 using Shop.Models;
 using System.Net;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Controllers.Api
 {

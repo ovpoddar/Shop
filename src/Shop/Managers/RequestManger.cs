@@ -4,6 +4,7 @@ using Shop.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {

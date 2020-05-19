@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Handlers
 {

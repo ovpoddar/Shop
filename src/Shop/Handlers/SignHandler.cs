@@ -1,8 +1,8 @@
-﻿using Shop.Managers;
+﻿using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 using Shop.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {
