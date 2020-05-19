@@ -26,7 +26,6 @@ namespace Shop.Handlers
             var oldProduct = _repository.GetAll().Where(o => o.ProductName.ToUpper() == product.ProductName.ToUpper() && o.Price == product.Price).ToList();
             if (oldProduct.Any())
             {
-
                 _repository.Delete(oldProduct.FirstOrDefault());
 
                 var stockLevel = oldProduct.Select(o => o.StockLevel).FirstOrDefault() + product.StockLevel;
@@ -85,7 +84,7 @@ namespace Shop.Handlers
             return _repository.GetAll()
                 .Include(p => p.Brands)
                 .Include(p => p.Categories)
-                .Where(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId))
+                .Where(p => _productRepositories.GetCategoryIds(id).Contains(p.CategoriesId))
                 .Skip(pageNumber * _pageSize)
                 .Take(_pageSize)
                 .ToList();
@@ -121,9 +120,9 @@ namespace Shop.Handlers
         }
 
         public int TotalCount(int id) =>
-            (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) % _pageSize) == 0 ?
-            (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) :
-            (_repository.GetAll().Count(p => _productRepositories.GetGetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) + 1;
+            (_repository.GetAll().Count(p => _productRepositories.GetCategoryIds(id).Contains(p.CategoriesId)) % _pageSize) == 0 ?
+            (_repository.GetAll().Count(p => _productRepositories.GetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) :
+            (_repository.GetAll().Count(p => _productRepositories.GetCategoryIds(id).Contains(p.CategoriesId)) / _pageSize) + 1;
 
         public int TotalCount() =>
             (_repository.GetAll().Count() % _pageSize) == 0 ?

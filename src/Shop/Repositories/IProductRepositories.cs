@@ -4,6 +4,6 @@ namespace Shop.Repositories
 {
     public interface IProductRepositories
     {
-        IEnumerable<int> GetGetCategoryIds(int id);
+        IEnumerable<int> GetCategoryIds(int id);
     }
 }

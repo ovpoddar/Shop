@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop", "src\Shop\Shop.cspro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckoutSimulator", "src\CheckoutSimulatorConsole\CheckoutSimulator\CheckoutSimulator.csproj", "{4A6E0453-9EB5-43AE-8A5A-68DB6810C2E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test for all", "test for all\test for all.csproj", "{013B13D7-067B-4E44-9265-9412B1CADF13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test for all", "test for all\test for all.csproj", "{013B13D7-067B-4E44-9265-9412B1CADF13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

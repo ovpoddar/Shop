@@ -29,23 +29,23 @@ namespace Shop.Handlers
             else
             {
                 var result = await _userManager.FindEmployerAsync(username, password);
-                if (result == null)
-                    return new LoginStatus
+                return result == null ?
+                new LoginStatus
+                {
+                    Success = false,
+                    Error = new List<string>()
                     {
-                        Success = false,
-                        Error = new List<string>()
-                        {
-                            new string("use a valid password")
-                        },
-                        Employer = null
-                    };
-                else
-                    return new LoginStatus
-                    {
-                        Employer = result,
-                        Error = null,
-                        Success = true
-                    };
+                        new string("use a valid password")
+                    },
+                    Employer = null
+                }
+                :
+                new LoginStatus
+                {
+                    Employer = result,
+                    Error = null,
+                    Success = true
+                };
             }
         }
     }

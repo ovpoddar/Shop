@@ -14,7 +14,7 @@ namespace Shop.Repositories
         public ProductRepositories(ApplicationDbContext applicationDbContext) =>
             _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(_applicationDbContext));
 
-        public IEnumerable<int> GetGetCategoryIds(int id) =>
+        public IEnumerable<int> GetCategoryIds(int id) =>
             _applicationDbContext.Categories.FromSqlRaw($"exec spGetCategoryIds @id = {id}").Select(p => p.Id).ToList();
     }
 }
