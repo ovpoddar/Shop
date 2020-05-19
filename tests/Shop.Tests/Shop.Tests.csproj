@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Moq" Version="4.14.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -24,6 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\CheckoutSimulatorConsole\CheckoutSimulator\CheckoutSimulator.csproj" />
+    <ProjectReference Include="..\..\src\Shop\Shop.csproj" />
     <ProjectReference Include="..\src\CheckoutSimulatorConsole\CheckoutSimulator\CheckoutSimulator.csproj" />
     <ProjectReference Include="..\src\Shop\Shop.csproj" />
   </ItemGroup>
