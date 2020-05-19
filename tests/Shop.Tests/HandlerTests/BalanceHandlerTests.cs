@@ -19,6 +19,7 @@ namespace Shop.Tests.HandlerTests
             _mock = new Mock<IGenericRepository<Balance>>();
             _balanceHandler = new BalanceHandler(_mock.Object);
         }
+
         [Fact]
         public void GetLastBalance_Balance_one()
         {
