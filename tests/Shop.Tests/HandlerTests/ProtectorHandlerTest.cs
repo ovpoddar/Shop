@@ -33,13 +33,13 @@ namespace Shop.Tests.HandlerTests
             _configuration.SetupGet(config => config[It.Is<string>(s => s == "dataprotector")]).Returns("string");
             _dataProtectionProvider.Setup(method => method.CreateProtector(It.IsAny<string>()))
                 .Returns(_dataProtector.Object);
-            _dataProtector.Setup(method => method.Protect(It.IsAny<string>())).Returns("Token");
+        
             _protectionHelper.Setup(method => method.BuildToken(It.IsAny<string>())).Returns("AnotherToken");
-            var output = _protectorHandler.Protect("test");
+            _protectorHandler.Protect("test");
 
             _configuration.Verify(config => config[It.Is<string>(s => s == "dataprotector")], Times.Once);
             _dataProtectionProvider.Verify(method => method.CreateProtector(It.IsAny<string>()), Times.Once);
-            _dataProtector.Verify(method => method.Protect(It.IsAny<string>()), Times.Once);
+           
             _protectionHelper.Verify(method => method.BuildToken(It.IsAny<string>()), Times.Once);
         }
     }
