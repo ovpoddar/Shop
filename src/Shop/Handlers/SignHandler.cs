@@ -1,5 +1,4 @@
 ﻿using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 using Shop.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,14 +7,16 @@ namespace Shop.Handlers
 {
     public class SignHandler : ISignHandler
     {
-        private readonly IUserManager _userManager;
+        private readonly IUserHandler _userHandler;
 
-        public SignHandler(IUserManager userManager) =>
-            _userManager = userManager ?? throw new System.ArgumentNullException(nameof(_userManager));
+        public SignHandler(IUserHandler userHandler)
+        {
+            _userHandler = userHandler ?? throw new System.ArgumentNullException(nameof(_userHandler));
+        }
         
         public async Task<LoginStatus> LogInAsync(string user, string password)
         {
-            var username = _userManager.GetUserName(user);
+            var username = _userHandler.GetUserName(user);
             if (string.IsNullOrWhiteSpace(username))
                 return new LoginStatus
                 {
@@ -25,29 +26,24 @@ namespace Shop.Handlers
                         },
                     Success = false
                 };
-            //else is not needed
-            else
+            var result = await _userHandler.FindEmployerAsync(username, password);
+            return result == null ?
+            new LoginStatus
             {
-                //TODO -- Handlers should not look up to managers - this is a really bad design this really needs reworking - managers call handlers - handler never call maanagers!!!!
-                var result = await _userManager.FindEmployerAsync(username, password);
-                return result == null ?
-                new LoginStatus
+                Success = false,
+                Error = new List<string>()
                 {
-                    Success = false,
-                    Error = new List<string>()
-                    {
-                        new string("use a valid password")
-                    },
-                    Employer = null
-                }
-                :
-                new LoginStatus
-                {
-                    Employer = result,
-                    Error = null,
-                    Success = true
-                };
+                    new string("use a valid password")
+                },
+                Employer = null
             }
+            :
+            new LoginStatus
+            {
+                Employer = result,
+                Error = null,
+                Success = true
+            };
         }
     }
 }

@@ -1,23 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers;
-using Shop.Managers;
+using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 using Shop.ViewModels;
 using System;
 using System.Threading.Tasks;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 
 namespace Shop.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IUserManager _userManager;
+        private readonly IUserHandler _userHandler;
         private readonly ISignManager _signManager;
         private readonly IValidatorHandler _validator;
 
-        public AuthenticationController(IUserManager userManager, ISignManager signManager, IValidatorHandler validator)
+        public AuthenticationController(IUserHandler userHandler, ISignManager signManager, IValidatorHandler validator)
         {
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
+            _userHandler = userHandler ?? throw new ArgumentNullException(nameof(_userHandler));
             _signManager = signManager ?? throw new ArgumentNullException(nameof(_signManager));
             _validator = validator ?? throw new ArgumentNullException(nameof(_validator));
         }
@@ -61,7 +59,7 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateUserAsync(model);
+                var result = await _userHandler.CreateUserAsync(model);
                 if (result.Success)
                     return RedirectToAction("LogIn");
                 foreach (var error in result.Error)

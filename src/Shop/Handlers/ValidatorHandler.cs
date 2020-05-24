@@ -1,9 +1,8 @@
 ﻿using Shop.Entities;
-using Shop.Managers;
+using Shop.Handlers.Interfaces;
+using Shop.Helpers;
 using System;
 using System.Threading.Tasks;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 
 namespace Shop.Handlers
 {
@@ -13,30 +12,29 @@ namespace Shop.Handlers
         private readonly ISignHandler _signHandler;
         private readonly IProtectorHandler _protectorHandler;
         private readonly IUserHandler _userHandler;
-        private readonly IUserManager _userManager;
+        private readonly IUserHelper _userHelper;
 
-        public ValidatorHandler(ICookieHandler cookie, ISignHandler signHandler, IProtectorHandler protectorHandler, IUserManager userManager, IUserHandler userHandler)
+        public ValidatorHandler(ICookieHandler cookie, ISignHandler signHandler, IProtectorHandler protectorHandler, IUserHandler userHandler, IUserHelper userHelper)
         {
             _cookie = cookie ?? throw new ArgumentNullException(nameof(_cookie));
             _signHandler = signHandler ?? throw new ArgumentNullException(nameof(_signHandler));
             _protectorHandler = protectorHandler ?? throw new ArgumentNullException(nameof(_protectorHandler));
             _userHandler = userHandler ?? throw new ArgumentNullException(nameof(_userHandler));
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
+            _userHelper = userHelper ?? throw new ArgumentNullException(nameof(_userHelper));
         }
-
 
         public async Task<bool> IsMember()
         {
             if (BeasicCheck())
             {
-                if ((await _signHandler.LogInAsync(_userManager.GetUserName(_cookie.Get("User")), _protectorHandler.UnProtect(_cookie.Get("jd")))).Success)
+                if ((await _signHandler.LogInAsync(_userHandler.GetUserName(_cookie.Get("User")), _protectorHandler.UnProtect(_cookie.Get("jd")))).Success)
                     return true;
             }
             return false;
         }
 
         public Employer User() =>
-            _userHandler.GetEmployerByUnicId(_cookie.Get("User"));
+            _userHelper.GetEmployerByUnicId(_cookie.Get("User"));
 
         private bool BeasicCheck() =>
            !string.IsNullOrWhiteSpace(_cookie.Get("User")) &&

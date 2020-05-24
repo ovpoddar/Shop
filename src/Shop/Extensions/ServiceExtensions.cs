@@ -38,10 +38,10 @@ namespace Shop.Extensions
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
             services.AddTransient<ICookieHandler, CookieHandler>();
-            services.AddTransient<IUserHandler, UserHandler>();
             services.AddTransient<ISignHandler, SignHandler>();
             services.AddTransient<IProtectorHandler, ProtectorHandler>();
             services.AddTransient<IValidatorHandler, ValidatorHandler>();
+            services.AddTransient<IUserHandler, UserHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<IRequestManger, RequestManger>();
@@ -49,14 +49,13 @@ namespace Shop.Extensions
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
             services.AddTransient<IItemManager, ItemManager>();
-            services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<ISignManager, SignManager>();
             services.AddTransient<IRequestBuilder, RequestBuilder>();
             services.AddTransient<ISentRequestService, SentRequestService>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
+            services.AddTransient<IProtectionHelper, ProtectionHelper>();
             services.AddTransient<IUserHelper, UserHelper>();
-            services.AddSingleton<IProtectionHelper, ProtectionHelper>();
 
             return services;
         }

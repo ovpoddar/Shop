@@ -7,12 +7,8 @@ namespace Shop.Handlers.Interfaces
 {
     public interface IUserHandler
     {
-        Status CreateEmployer(SignInViewModel model);
-        Task<Status> SaveAsync(Status status);
-        Employer GetEmployerByUserName(string username);
-        Employer GetEmployerByEmail(string email);
-        Employer GetEmployerByNumber(long number);
-        Employer GetEmployerByUnicId(string number);
+        Task<Status> CreateUserAsync(SignInViewModel model);
         Task<Employer> FindEmployerAsync(string userId, string password);
+        string GetUserName(string query);
     }
 }

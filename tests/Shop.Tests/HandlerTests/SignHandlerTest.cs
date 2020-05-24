@@ -2,6 +2,7 @@
 using Moq;
 using Shop.Entities;
 using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
 using Xunit;
@@ -10,22 +11,22 @@ namespace Shop.Tests.HandlerTests
 {
     public class SignHandlerTest
     {
-        private readonly Mock<IUserManager> _userManager;
+        private readonly Mock<IUserHandler> _userHandler;
         private readonly SignHandler _signHandler;
         public SignHandlerTest()
         {
-            _userManager = new Mock<IUserManager>();
-            _signHandler = new SignHandler(_userManager.Object);
+            _userHandler = new Mock<IUserHandler>();
+            _signHandler = new SignHandler(_userHandler.Object);
         }
 
         [Fact]
         public async Task LogInAsync_test_true()
         {
-            _userManager
+            _userHandler
                 .Setup(e => e.GetUserName(It.IsAny<string>()))
                 .Returns(Get().UserName);
 
-            _userManager
+            _userHandler
                 .Setup(e => e.FindEmployerAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(Get()));
 
@@ -39,11 +40,11 @@ namespace Shop.Tests.HandlerTests
         [Fact]
         public async Task LogInAsync_test_false_2()
         {
-            _userManager
+            _userHandler
                 .Setup(e => e.GetUserName(It.IsAny<string>()))
                 .Returns(Get().UserName);
 
-            _userManager
+            _userHandler
                 .Setup(e => e.FindEmployerAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(It.IsAny<Employer>()));
 
@@ -56,11 +57,11 @@ namespace Shop.Tests.HandlerTests
         [Fact]
         public async Task LogInAsync_test_false_1()
         {
-            _userManager
+            _userHandler
                 .Setup(e => e.GetUserName(It.IsAny<string>()))
                 .Returns(It.IsAny<string>());
 
-            _userManager
+            _userHandler
                 .Setup(e => e.FindEmployerAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(It.IsAny<Employer>()));
 

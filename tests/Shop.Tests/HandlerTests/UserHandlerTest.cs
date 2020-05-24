@@ -5,6 +5,7 @@ using FluentAssertions;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Models;
 using Shop.Repositories;
@@ -16,14 +17,14 @@ namespace Shop.Tests.HandlerTests
     public class UserHandlerTest
     {
         private readonly Mock<IGenericRepository<Employer>> _mock;
-        private readonly Mock<IUserHelper> _userHelper;
-        private readonly UserHandler _userHandler;
+        private readonly Mock<IProtectorHandler> _userHelper;
+        private readonly UserHelper _userHandler;
 
         public UserHandlerTest()
         {
             _mock = new Mock<IGenericRepository<Employer>>();
-            _userHelper = new Mock<IUserHelper>();
-            _userHandler = new UserHandler(_mock.Object, _userHelper.Object);
+            _userHelper = new Mock<IProtectorHandler>();
+            _userHandler = new UserHelper(_mock.Object,_userHelper.Object);
         }
 
         [Theory]
@@ -50,8 +51,6 @@ namespace Shop.Tests.HandlerTests
                 .Setup(e => e.GetAll())
                 .Returns(Getall());
 
-            _userHelper
-                .Setup(e => e.CreateEmployer(It.IsAny<SignInViewModel>()));
             var result = _userHandler.CreateEmployer(model);
             if (success)
             {
