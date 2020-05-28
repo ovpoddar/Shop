@@ -7,7 +7,7 @@ using Shop.Managers;
 using Shop.Managers.Interfaces;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class SignHandlerTest
     {

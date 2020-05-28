@@ -33,16 +33,14 @@ namespace Shop.Handlers
         public string Hashsha512(string name) =>
             BitConverter.ToString(SHA512.Create().ComputeHash(Encoding.UTF8.GetBytes(name)));
 
-        public string Protect(string name)
-        {
-            var  dataProtector = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]);
-            return dataProtector.Protect(_protectionHelper.BuildToken(name));
-        }
+        public string Protect(string name) =>
+            _dataProtectionProvider
+            .CreateProtector(_configuration["dataprotector"])
+            .Protect(_protectionHelper.BuildToken(name));
 
         public string UnProtect(string name)
         {
-            var dataProtector = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]);
-            var token = dataProtector.Unprotect(name);
+            var token = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]).Unprotect(name);
             var handler = new JwtSecurityTokenHandler();
 
             return handler.CanReadToken(token) 

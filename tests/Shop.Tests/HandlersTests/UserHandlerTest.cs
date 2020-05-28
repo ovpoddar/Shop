@@ -12,7 +12,7 @@ using Shop.Repositories;
 using Shop.ViewModels;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class UserHandlerTest
     {

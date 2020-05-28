@@ -7,6 +7,6 @@ namespace Shop.Handlers.Interfaces
     {
         List<T> List { get; set; }
         void addItem(Product product, int quantity);
-        void updateItem(Product old, int quantity);
+        void RemoveItem(Product old);
     }
 }

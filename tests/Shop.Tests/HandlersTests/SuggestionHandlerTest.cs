@@ -8,7 +8,7 @@ using Shop.Models;
 using Shop.Repositories;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class SuggestionHandlerTest
     {

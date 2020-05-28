@@ -8,7 +8,7 @@ using Shop.Repositories;
 using Shop.ViewModels;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class CategoryHandlerTest
     {
@@ -134,6 +134,5 @@ namespace Shop.Tests.HandlerTests
             else
                 Assert.False(result.Success);
         }
-        // check the list
     }
 }

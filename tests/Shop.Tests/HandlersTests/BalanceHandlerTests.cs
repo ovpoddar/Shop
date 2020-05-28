@@ -8,7 +8,7 @@ using Shop.Handlers;
 using Shop.Repositories;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class BalanceHandlerTests
     {

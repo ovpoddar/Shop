@@ -3,7 +3,7 @@ using Moq;
 using Shop.Handlers;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class CookieHandlerTest
     {
@@ -38,6 +38,8 @@ namespace Shop.Tests.HandlerTests
             _mock.Verify(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
         }
         ////no idea how to mock the rest of the code
+        /// get and get all left
+
         //[Fact]
         //public void allinOneCheck()
         //{

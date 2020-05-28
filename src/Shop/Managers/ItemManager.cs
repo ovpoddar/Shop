@@ -23,7 +23,7 @@ namespace Shop.Managers
             if (product == null)
                 return;
             if (_item.List.Any(e => e.Name.ToLower() == model.Name.ToLower()))
-                _item.updateItem(product, model.Quantity);
+                _item.RemoveItem(product);
             _item.addItem(product, model.Quantity);
         }
 

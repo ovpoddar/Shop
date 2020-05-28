@@ -49,9 +49,7 @@ namespace Shop.Handlers
         {
             foreach (var product in products)
             {
-                var responce = await _request.PatchRequest("http://localhost:59616/api/Products/StockLevel", product);
-                var obj = JsonConvert.DeserializeObject<Results<SaleProduct>>(responce);
-                if (!obj.Success)
+                if (!JsonConvert.DeserializeObject<Results<SaleProduct>>(await _request.PatchRequest("http://localhost:59616/api/Products/StockLevel", product)).Success)
                     return false;
             }
             return true;

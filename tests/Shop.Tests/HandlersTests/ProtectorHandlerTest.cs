@@ -5,7 +5,7 @@ using Shop.Handlers;
 using Shop.Helpers;
 using Xunit;
 
-namespace Shop.Tests.HandlerTests
+namespace Shop.Tests.HandlersTests
 {
     public class ProtectorHandlerTests
     {
@@ -28,7 +28,7 @@ namespace Shop.Tests.HandlerTests
         }
 
         [Fact]
-        public void ProtectAndUnprotect()
+        public void ProtectTest()
         {
             _configuration.SetupGet(config => config[It.Is<string>(s => s == "dataprotector")]).Returns("string");
             _dataProtectionProvider.Setup(method => method.CreateProtector(It.IsAny<string>()))
@@ -41,6 +41,19 @@ namespace Shop.Tests.HandlerTests
             _dataProtectionProvider.Verify(method => method.CreateProtector(It.IsAny<string>()), Times.Once);
            
             _protectionHelper.Verify(method => method.BuildToken(It.IsAny<string>()), Times.Once);
+        }
+        [Fact]
+        public void UnProtectTest()
+        {
+            _configuration.SetupGet(config => config[It.Is<string>(s => s == "dataprotector")])
+                .Returns("asvlavsadpoasdnsavasdhasdhapclasp");
+            _dataProtectionProvider.Setup(method => method.CreateProtector(It.IsAny<string>()))
+                .Returns(_dataProtector.Object);
+
+            var output = _protectorHandler.UnProtect("string");
+
+            _configuration.Verify(config => config[It.Is<string>(s => s == "dataprotector")], Times.Once);
+            _dataProtectionProvider.Verify(method => method.CreateProtector(It.IsAny<string>()), Times.Once);
         }
     }
 }

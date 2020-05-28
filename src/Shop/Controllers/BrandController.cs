@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Entities;
-using Shop.Handlers;
-using System;
 using Shop.Handlers.Interfaces;
+using System;
 
 namespace Shop.Controllers
 {
