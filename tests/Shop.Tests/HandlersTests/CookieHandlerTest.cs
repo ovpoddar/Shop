@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Shop.Handlers;
 using Xunit;
@@ -37,15 +38,22 @@ namespace Shop.Tests.HandlersTests
             _cookieHandler.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>());
             _mock.Verify(e => e.HttpContext.Response.Cookies.Append(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()));
         }
-        ////no idea how to mock the rest of the code
-        /// get and get all left
 
-        //[Fact]
-        //public void allinOneCheck()
-        //{
-        //    _cookieHandler.Create("bb", "cc");
-        //    var res = _cookieHandler.Get("bb");
-        //    Assert.False(res == "cc");
-        //}
+        [Fact]
+        public void GetTest()
+        {
+            _mock
+                .Setup(e => e.HttpContext.Request.Cookies[It.IsAny<string>()])
+                .Returns("something");
+
+            var output = _cookieHandler.Get("xx");
+            output.Should().NotBeNullOrEmpty();
+        }
+        // dont know how to test
+        [Fact]
+        public void GetAllTest()
+        {
+
+        }
     }
 }
