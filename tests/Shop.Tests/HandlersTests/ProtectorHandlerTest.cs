@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Shop.Handlers;
-using Shop.Helpers;
+using Shop.Helpers.Interfaces;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -30,7 +30,9 @@ namespace Shop.Tests.HandlersTests
         [Fact]
         public void ProtectTest()
         {
-            _configuration.SetupGet(config => config[It.Is<string>(s => s == "dataprotector")]).Returns("string");
+            _configuration
+                .SetupGet(config => config[It.Is<string>(s => s == "dataprotector")])
+                .Returns("string");
             _dataProtectionProvider.Setup(method => method.CreateProtector(It.IsAny<string>()))
                 .Returns(_dataProtector.Object);
         

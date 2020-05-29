@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
-using Shop.Helpers;
+using Shop.Helpers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;

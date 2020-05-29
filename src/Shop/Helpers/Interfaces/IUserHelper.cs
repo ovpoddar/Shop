@@ -3,7 +3,7 @@ using Shop.Models;
 using Shop.ViewModels;
 using System.Threading.Tasks;
 
-namespace Shop.Helpers
+namespace Shop.Helpers.Interfaces
 {
     public interface IUserHelper
     {
@@ -14,6 +14,5 @@ namespace Shop.Helpers
         Employer GetEmployerByNumber(long number);
         Employer GetEmployerByUnicId(string number);
         Task<Employer> FindEmployerAsync(string userId, string password);
-        //Task<Status> CreateUserAsync(SignInViewModel model);
     }
 }

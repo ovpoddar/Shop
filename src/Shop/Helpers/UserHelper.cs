@@ -1,5 +1,6 @@
 ﻿using Shop.Entities;
 using Shop.Handlers.Interfaces;
+using Shop.Helpers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;
 using Shop.ViewModels;
@@ -113,10 +114,5 @@ namespace Shop.Helpers
 
         public async Task<Employer> FindEmployerAsync(string userId, string password) =>
             await _repository.FindAsync(e => e.UserName == userId && e.Password == password);
-
-        public Task<Status> CreateUserAsync(SignInViewModel model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

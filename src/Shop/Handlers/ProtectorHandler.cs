@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Shop.Handlers.Interfaces;
-using Shop.Helpers;
+using Shop.Helpers.Interfaces;
 
 namespace Shop.Handlers
 {

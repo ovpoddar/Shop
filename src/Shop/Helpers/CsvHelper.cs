@@ -1,8 +1,8 @@
 ﻿using Shop.Entities;
-using Shop.Handlers;
+using Shop.Handlers.Interfaces;
+using Shop.Helpers.Interfaces;
 using Shop.ViewModels;
 using System;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Helpers
 {
@@ -37,6 +37,7 @@ namespace Shop.Helpers
             });
             return _category.GetId(name);
         }
+
         public void Categoryauto(string underName, string name) =>
             _category.AddCategory(new CategoryViewModel
             {

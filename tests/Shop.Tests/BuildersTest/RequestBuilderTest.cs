@@ -30,19 +30,19 @@ namespace Shop.Tests.BuildersTest
             output.Method.Should().Be(method);
         }
 
-        //[Theory]
-        //[InlineData()]
-        //public void BuildRequestWithParameterTest(HttpMethod method)
-        //{
-        //    var uri = "myServer/api/location/guid";
-        //    const string content = "Content";
+        [Fact]
+        public void BuildRequestWithParameterTest()
+        {
+            var uri = "myServer/api/location/guid";
+            var method = HttpMethod.Patch;
+            const string content = "Content";
 
-        //    var output = _requestBuilder.BuildRequest(method, uri, content);
+            var output = _requestBuilder.BuildRequest(method, uri, content);
 
-        //    output.Method.Should().Be(method);
-        //    output.RequestUri.Should().Be(uri);
-        //    output.Content.ReadAsStringAsync().Result.Should().Be(content);
-        //}
+            output.Method.Should().Be(method);
+            output.RequestUri.Should().Be(uri);
+            output.Content.ReadAsStringAsync().Result.Should().Be(content);
+        }
 
     }
 }

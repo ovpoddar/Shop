@@ -1,6 +1,6 @@
 ﻿using Shop.Entities;
 using Shop.Handlers.Interfaces;
-using Shop.Helpers;
+using Shop.Helpers.Interfaces;
 using System;
 using System.Threading.Tasks;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Shop.Helpers.Interfaces;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,8 +18,7 @@ namespace Shop.Helpers
         public string BuildToken(string name)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-
-            var securityToken = tokenHandler.CreateToken(new SecurityTokenDescriptor
+            return tokenHandler.WriteToken(tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
@@ -28,9 +28,7 @@ namespace Shop.Helpers
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("jwt")["secret"])),
                     SecurityAlgorithms.HmacSha256Signature)
-            });
-
-            return tokenHandler.WriteToken(securityToken);
+            }));
         }
     }
 }

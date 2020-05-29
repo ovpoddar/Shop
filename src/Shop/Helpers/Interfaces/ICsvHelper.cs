@@ -1,4 +1,4 @@
-﻿namespace Shop.Helpers
+﻿namespace Shop.Helpers.Interfaces
 {
     public interface ICsvHelper
     {
