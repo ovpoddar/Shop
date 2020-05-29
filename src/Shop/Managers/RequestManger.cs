@@ -20,12 +20,7 @@ namespace Shop.Managers
         }
 
 
-        public async Task<string> PatchRequest<T>(string uri, T entity)
-        {
-            var request = _builder.BuildRequest(HttpMethod.Patch, uri, JsonConvert.SerializeObject(entity));
-            var responce = await _sent.SendAsync(request);
-            responce.EnsureSuccessStatusCode();
-            return await responce.Content.ReadAsStringAsync();
-        }
+        public async Task<string> PatchRequest<T>(string uri, T entity) => 
+            await (await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Patch, uri, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
     }
 }

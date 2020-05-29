@@ -28,13 +28,14 @@ namespace Shop.Managers
         }
 
         public ItemModel GetItem(string name) =>
-            _item.List.Find(e => e.Name == name);
+            _item.GetItem(name);
 
-        public ItemViewModel model(string name) => new ItemViewModel
-        {
-            Name = _product.GetProduct(name).ProductName,
-            Quantity = GetItem(name).Quantity
-        };
+        public ItemViewModel Model(string name) => 
+            new ItemViewModel
+            {
+                Name = _product.GetProduct(name).ProductName,
+                Quantity = _item.GetItem(name).Quantity
+            };
 
         public void remove(int id)
         {

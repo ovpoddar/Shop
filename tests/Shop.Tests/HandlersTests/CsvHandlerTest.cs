@@ -53,6 +53,6 @@ namespace Shop.Tests.HandlersTests
             _mock.Verify(method => method.Save(), Times.Once);
         }
 
-        /// stroing left
+        ///can not mock the csv file
     }
 }

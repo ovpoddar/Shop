@@ -1,5 +1,8 @@
-﻿using Shop.Entities;
+﻿using FluentAssertions;
+using Shop.Entities;
 using Shop.Handlers;
+using Shop.Models;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -54,6 +57,26 @@ namespace Shop.Tests.HandlersTests
             _itemHandler.RemoveItem(newData);
 
             Assert.Single(_itemHandler.List);
+        }
+
+
+        [Fact]
+        public void GetItemTest()
+        {
+            var newData = new Product()
+            {
+                ProductName = "mint",
+                Price = (decimal).1,
+                Brands = new Brand()
+                {
+                    BrandName = "coloromint",
+                    Id = 1
+                }
+            };
+            _itemHandler.addItem(newData, 60);
+            var result = _itemHandler.GetItem("mint");
+
+            result.Should().BeEquivalentTo(_itemHandler.List[1]);
         }
     }
 }

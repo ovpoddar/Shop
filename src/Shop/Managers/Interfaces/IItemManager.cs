@@ -8,6 +8,6 @@ namespace Shop.Managers.Interfaces
         void add(ItemViewModel model);
         void remove(int id);
         ItemModel GetItem(string name);
-        ItemViewModel model(string name);
+        ItemViewModel Model(string name);
     }
 }

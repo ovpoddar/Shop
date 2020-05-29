@@ -21,6 +21,9 @@ namespace Shop.Handlers
                 TotalPrice = (double)product.Price * quantity
             });
 
+        public ItemModel GetItem(string name) =>
+            List.Find(e => e.Name == name);
+
         public void RemoveItem(Product old) => 
             List.Remove(List.Where(e => e.Name.ToUpper() == old.ProductName.ToUpper() && e.Price == old.Price).FirstOrDefault());
     }

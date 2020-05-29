@@ -158,6 +158,8 @@ namespace Shop.Tests.HelpersTests
             var result = _userHelper.GetEmployerByUserName("ayan");
             result.Should().BeEquivalentTo(Getall().ToList()[0]);
         }
+
+        //cannot mock the async method
         [Theory]
         [InlineData("ayan", "2400966653065", 0)]
         public async Task FindEmployerAsyncTestAsync(string username, string password, int index)

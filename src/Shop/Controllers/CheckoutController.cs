@@ -42,7 +42,7 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Update(string Name)
         {
-            return View(_item.model(Name));
+            return View(_item.Model(Name));
         }
         [HttpPost]
         public IActionResult Update(ItemViewModel model)
