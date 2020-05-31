@@ -25,9 +25,11 @@ namespace Shop.Handlers
 
         public async Task<bool> IsMember()
         {
-            if (BeasicCheck())
+            var user = _cookie.Get("User");
+            var password = _cookie.Get("jd");
+            if (!string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(password))
             {
-                if ((await _signHandler.LogInAsync(_userHandler.GetUserName(_cookie.Get("User")), _protectorHandler.UnProtect(_cookie.Get("jd")))).Success)
+                if ((await _signHandler.LogInAsync(_userHandler.GetUserName(user), _protectorHandler.UnProtect(password))).Success)
                     return true;
             }
             return false;
@@ -36,8 +38,5 @@ namespace Shop.Handlers
         public Employer User() =>
             _userHelper.GetEmployerByUnicId(_cookie.Get("User"));
 
-        private bool BeasicCheck() =>
-           !string.IsNullOrWhiteSpace(_cookie.Get("User")) &&
-           !string.IsNullOrWhiteSpace(_cookie.Get("jd"));
     }
 }
