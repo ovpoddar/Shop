@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Shop.Models;
+﻿using Shop.Models;
 using Shop.ViewModels;
+using System.Threading.Tasks;
 
 namespace Shop.Managers.Interfaces
 {

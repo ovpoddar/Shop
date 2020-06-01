@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Shop.Handlers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {
@@ -12,7 +12,7 @@ namespace Shop.Handlers
 
         public CookieHandler(IHttpContextAccessor contextAccessor) =>
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(_contextAccessor));
-        
+
         public void Create(string name, string value) =>
             _contextAccessor.HttpContext.Response.Cookies.Append(name, value);
 

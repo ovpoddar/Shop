@@ -13,7 +13,7 @@ namespace Shop.Handlers
         {
             _userHandler = userHandler ?? throw new System.ArgumentNullException(nameof(_userHandler));
         }
-        
+
         public async Task<LoginStatus> LogInAsync(string user, string password)
         {
             var username = _userHandler.GetUserName(user);

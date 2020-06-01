@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Shop.Entities;
+﻿using Shop.Entities;
 using Shop.Models;
 using Shop.ViewModels;
+using System.Threading.Tasks;
 
 namespace Shop.Handlers.Interfaces
 {

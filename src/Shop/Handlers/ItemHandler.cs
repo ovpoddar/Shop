@@ -1,8 +1,8 @@
 ﻿using Shop.Entities;
+using Shop.Handlers.Interfaces;
 using Shop.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {
@@ -24,7 +24,7 @@ namespace Shop.Handlers
         public ItemModel GetItem(string name) =>
             List.Find(e => e.Name == name);
 
-        public void RemoveItem(Product old) => 
+        public void RemoveItem(Product old) =>
             List.Remove(List.Where(e => e.Name.ToUpper() == old.ProductName.ToUpper() && e.Price == old.Price).FirstOrDefault());
     }
 }
