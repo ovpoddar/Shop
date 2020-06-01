@@ -4,6 +4,7 @@ using Shop.Entities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shop.Repositories
@@ -21,8 +22,8 @@ namespace Shop.Repositories
         public void Delete(T model) =>
             _dbContext.Remove(model);
 
-        public Task<T> FindAsync(Expression<Func<T, bool>> expression) =>
-            _dbContext.Set<T>().SingleOrDefaultAsync(expression);
+        public async Task<T> FindAsync(Expression<Func<T, bool>> expression) =>
+            await _dbContext.Set<T>().SingleOrDefaultAsync(expression);
 
         public IQueryable<T> GetAll() =>
             _dbContext.Set<T>();
@@ -30,8 +31,8 @@ namespace Shop.Repositories
         public void Save() =>
             _dbContext.SaveChanges();
 
-        public Task<int> SaveAsync() =>
-            _dbContext.SaveChangesAsync();
+        public async Task<int> SaveAsync() =>
+            await _dbContext.SaveChangesAsync();
 
         public void Update(T model)
         {

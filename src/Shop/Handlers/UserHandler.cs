@@ -24,8 +24,11 @@ namespace Shop.Handlers
         public async Task<Employer> FindEmployerAsync(string userId, string password) =>
             await _userHelper.FindEmployerAsync(userId, password);
 
-        public Task<Status> CreateUserAsync(SignInViewModel model) =>
-            _userHelper.SaveAsync(_userHelper.CreateEmployer(model));
+        public Task<Status> CreateUserAsync(SignInViewModel model)
+        {
+            var adding = _userHelper.CreateEmployer(model);
+            return _userHelper.SaveAsync(adding);
+        }
 
         public string GetUserName(string query)
         {

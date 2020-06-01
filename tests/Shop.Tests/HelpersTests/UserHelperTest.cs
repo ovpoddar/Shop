@@ -159,18 +159,19 @@ namespace Shop.Tests.HelpersTests
             result.Should().BeEquivalentTo(Getall().ToList()[0]);
         }
 
-        //cannot mock the async method
         [Theory]
         [InlineData("ayan", "2400966653065", 0)]
+        [InlineData("loka", "240095465465132", 2)]
         public async Task FindEmployerAsyncTestAsync(string username, string password, int index)
         {
             var output = Getall().ToList()[index];
             _mock
-                .Setup(e => e.FindAsync(e => e.UserName == It.IsAny<string>() && e.Password == It.IsAny<string>()))
+                .Setup(e => e.FindAsync(It.IsAny< Expression<Func<Employer, bool>>>()))
                 .Returns(Task.FromResult(output));
 
-            await _userHelper.FindEmployerAsync(username, password);
-            _mock.Verify(e => e.FindAsync((e => e.UserName == It.IsAny<string>() && e.Password == It.IsAny<string>())), Times.Once);
+            var result = await _userHelper.FindEmployerAsync(username, password);
+            _mock.Verify(e => e.FindAsync(It.IsAny<Expression<Func<Employer, bool>>>()), Times.Once);
+            result.Should().BeEquivalentTo(output);
         }
 
         private IQueryable<Employer> Getall() =>
