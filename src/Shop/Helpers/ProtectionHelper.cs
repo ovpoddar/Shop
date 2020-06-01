@@ -14,7 +14,7 @@ namespace Shop.Helpers
 
         public ProtectionHelper(IConfiguration configuration) =>
             _configuration = configuration;
-
+        
         public string BuildToken(string name)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

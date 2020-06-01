@@ -42,8 +42,4 @@
     <Folder Include="WWWROOT\Userfile\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Checkout\Checkout.csproj" />
-  </ItemGroup>
-
 </Project>

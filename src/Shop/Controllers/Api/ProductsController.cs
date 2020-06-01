@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.ActionFilters;
-using Shop.Managers.Interfaces;
+using Shop.Managers;
 using Shop.Models;
 using System.Net;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Controllers.Api
 {

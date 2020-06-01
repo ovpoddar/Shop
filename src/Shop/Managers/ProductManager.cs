@@ -1,4 +1,5 @@
-﻿using Shop.Handlers.Interfaces;
+﻿using AutoMapper;
+using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
@@ -16,7 +17,7 @@ namespace Shop.Managers
             _productHandler = productHandler;
         }
 
-        public ProductListViewModel GetFilteredModel(int id, int pageNumber) =>
+        public ProductListViewModel GetFilteredModel(int id, int pageNumber) => 
             new ProductListViewModel
             {
                 Categories = _categoryHandler.Categories(),

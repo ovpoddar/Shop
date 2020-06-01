@@ -30,7 +30,7 @@ namespace Shop.Managers
         public ItemModel GetItem(string name) =>
             _item.GetItem(name);
 
-        public ItemViewModel Model(string name) =>
+        public ItemViewModel Model(string name) => 
             new ItemViewModel
             {
                 Name = _product.GetProduct(name).ProductName,

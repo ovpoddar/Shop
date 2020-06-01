@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
+using Shop.Handlers;
+using Shop.Managers;
 using Shop.ViewModels;
 using System.Collections.Generic;
+using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Controllers
 {
     public class CheckoutController : Controller
     {
         private readonly IItemManager _item;
+        private readonly IProductHandler _product;
         private readonly ICookieHandler _cookie;
 
-        public CheckoutController(IItemManager item, ICookieHandler cookie)
+        public CheckoutController(IItemManager item, IProductHandler product, ICookieHandler cookie)
         {
             _item = item ?? throw new System.ArgumentNullException(nameof(_item));
+            _product = product ?? throw new System.ArgumentNullException(nameof(_product));
             _cookie = cookie ?? throw new System.ArgumentNullException(nameof(_cookie));
         }
         [HttpGet]

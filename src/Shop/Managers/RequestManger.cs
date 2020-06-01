@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Shop.Builders;
-using Shop.Managers.Interfaces;
 using Shop.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {
@@ -20,7 +20,7 @@ namespace Shop.Managers
         }
 
 
-        public async Task<string> PatchRequest<T>(string uri, T entity) =>
+        public async Task<string> PatchRequest<T>(string uri, T entity) => 
             await (await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Patch, uri, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
     }
 }

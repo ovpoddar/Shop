@@ -1,9 +1,9 @@
 ﻿using Shop.Entities;
-using Shop.Handlers.Interfaces;
 using Shop.Repositories;
 using Shop.ViewModels;
 using System;
 using System.Linq;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {

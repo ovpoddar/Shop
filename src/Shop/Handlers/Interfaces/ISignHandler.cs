@@ -1,5 +1,5 @@
-﻿using Shop.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Shop.Models;
 
 namespace Shop.Handlers.Interfaces
 {

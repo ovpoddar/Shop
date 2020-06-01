@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Shop.Entities;
-using Shop.Handlers.Interfaces;
 using Shop.Repositories;
 using System;
 using System.IO;
 using System.Text;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {
