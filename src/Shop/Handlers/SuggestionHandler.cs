@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Shop.Entities;
+using Shop.Handlers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Handlers
 {

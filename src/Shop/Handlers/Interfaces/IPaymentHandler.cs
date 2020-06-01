@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Shop.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shop.Models;
 
 namespace Shop.Handlers.Interfaces
 {

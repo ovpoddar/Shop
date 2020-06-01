@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Shop.Entities;
+﻿using Shop.Entities;
 using Shop.Models;
 using Shop.ViewModels;
+using System.Collections.Generic;
 
 namespace Shop.Handlers.Interfaces
 {

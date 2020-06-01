@@ -14,7 +14,7 @@ namespace Shop
                 .ConfigureWebHostDefaults(webHostBuilder =>
                 {
                     webHostBuilder.UseStartup<Startup>();
-                    webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory()); 
+                    webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory());
                     webHostBuilder.UseIISIntegration();
                 });
     }

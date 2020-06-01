@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 using Shop.ViewModels;
 using System;
 using System.Linq;
-using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {

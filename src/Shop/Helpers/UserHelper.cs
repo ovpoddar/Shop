@@ -21,7 +21,7 @@ namespace Shop.Helpers
             _repository = repository ?? throw new ArgumentNullException(nameof(_repository));
             _protector = protector ?? throw new ArgumentNullException(nameof(_protector));
         }
-                  
+
         public Status CreateEmployer(SignInViewModel model)
         {
             var status = new Status

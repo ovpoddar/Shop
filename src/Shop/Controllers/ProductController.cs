@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
-using System;
 using Shop.Managers.Interfaces;
+using System;
 
 namespace Shop.Controllers
 {

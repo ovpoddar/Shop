@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Shop.Handlers.Interfaces;
+using Shop.Helpers.Interfaces;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Shop.Handlers.Interfaces;
-using Shop.Helpers.Interfaces;
 
 namespace Shop.Handlers
 {
@@ -43,7 +40,7 @@ namespace Shop.Handlers
             var token = _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]).Unprotect(name);
             var handler = new JwtSecurityTokenHandler();
 
-            return handler.CanReadToken(token) 
+            return handler.CanReadToken(token)
                 ? handler.ReadJwtToken(token).Claims.First().Value
                 : null;
         }
