@@ -50,7 +50,7 @@ namespace Shop.Helpers
             }
             finally
             {
-                if (!status.Success)
+                if (status.Success)
                     _repository.Add(new Employer
                     {
                         CapatalisedEmail = model.Email.ToUpper(),
@@ -66,8 +66,6 @@ namespace Shop.Helpers
                         Password = _protector.HashMd5(model.ConfirmPassword),
                         UnicId = _protector.Hashsha512(model.UserName + model.Password)
                     });
-                else
-                    status.Success = true;
             }
             return status;
         }

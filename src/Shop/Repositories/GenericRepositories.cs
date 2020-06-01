@@ -31,8 +31,11 @@ namespace Shop.Repositories
         public void Save() =>
             _dbContext.SaveChanges();
 
-        public async Task<int> SaveAsync() =>
-            await _dbContext.SaveChangesAsync();
+        public async Task<int> SaveAsync()
+        {
+            _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+            return await _dbContext.SaveChangesAsync();
+        }
 
         public void Update(T model)
         {
