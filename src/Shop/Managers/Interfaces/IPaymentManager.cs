@@ -6,7 +6,6 @@ namespace Shop.Managers.Interfaces
 {
     public interface IPaymentManager
     {
-        ItemModel CreateModel(string id, string name, string brand, string quantity, string price, string totalPrice);
-        Task<bool> MakeingPaymentAsync(List<ItemModel> Items, uint type);
+        Task<bool> MakeingPurchaseAsync(List<ItemModel> Items, uint type);
     }
 }

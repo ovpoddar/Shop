@@ -3,6 +3,7 @@ using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shop.Managers
@@ -27,6 +28,24 @@ namespace Shop.Managers
             _item.addItem(product, model.Quantity);
         }
 
+        public List<ItemModel> CreateItemModels(List<string> ids, List<string> names, List<string> brands, List<string> quantitys, List<string> prices, List<string> totalPrices)
+        {
+            var items = new List<ItemModel>();
+            for (var i = 0; i < ids.Count; i++)
+            {
+                items.Add(new ItemModel()
+                {
+                    Id = int.Parse(ids[i]),
+                    Name = names[i],
+                    Brand = brands[i],
+                    Price = decimal.Parse(prices[i]),
+                    Quantity = int.Parse(quantitys[i]),
+                    TotalPrice = double.Parse(totalPrices[i])
+                });
+            }
+            return items;
+        }
+
         public ItemModel GetItem(string name) =>
             _item.GetItem(name);
 
@@ -37,9 +56,7 @@ namespace Shop.Managers
                 Quantity = _item.GetItem(name).Quantity
             };
 
-        public void remove(int id)
-        {
-            _item.List.Remove(_item.List.Find(e => e.Id == id));
-        }
+        public void remove(int id) =>
+            _item.RemoveItem(id);
     }
 }

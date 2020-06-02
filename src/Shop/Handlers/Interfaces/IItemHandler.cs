@@ -9,6 +9,8 @@ namespace Shop.Handlers.Interfaces
         List<T> List { get; set; }
         void addItem(Product product, int quantity);
         void RemoveItem(Product old);
+        void RemoveItem(int id);
         ItemModel GetItem(string name);
+        double Total();
     }
 }

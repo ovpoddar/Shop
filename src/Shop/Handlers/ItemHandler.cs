@@ -24,7 +24,20 @@ namespace Shop.Handlers
         public ItemModel GetItem(string name) =>
             List.Find(e => e.Name == name);
 
+        public void RemoveItem(int id) =>
+            List.Remove(List.Find(e => e.Id == id));
+
         public void RemoveItem(Product old) =>
             List.Remove(List.Where(e => e.Name.ToUpper() == old.ProductName.ToUpper() && e.Price == old.Price).FirstOrDefault());
+
+        public double Total()
+        {
+            double total = 0;
+            foreach(var item in List)
+            {
+                total += item.TotalPrice;
+            }
+            return total;
+        }
     }
 }

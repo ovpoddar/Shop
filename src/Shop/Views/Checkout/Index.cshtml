@@ -51,6 +51,22 @@
             }
         </div>
     </div>
+    <div class="card" style="margin-top: 40px; border: 2px solid black; overflow: hidden">
+        <div class="card card-deck">
+            <div class="card card-columns">Total</div>
+            <div class="card card-columns text-right">
+                @items.Total()
+            </div>
+        </div>
+        <div class="card card-deck">
+            <div class="card card-columns">Paid</div>
+            <div class="card card-columns text-right"><input id="pdp" type="text" /></div>
+        </div>
+        <div class="card card-deck">
+            <div class="card card-columns">Change</div>
+            <div class="card card-columns text-right" id="change"></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -64,19 +80,52 @@
 @section footer
 {
     <form method="post" asp-action="Payment">
+        <div id="Payment-type" class="d-none">
+            <span>
+                Select Payment Type:
+                <input type="radio" value="1" name="Payment" /><span>Card</span>
+                <input type="radio" value="2" name="Payment" /><span>Cash</span>
+            </span>
+        </div>
         @for (var i = 1; i < items.List.Count; i++)
         {
-            <input type="hidden" value="@items.List[i].Id" name="id" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].Name" name="name" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].Brand" name="brand" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].Price" name="price" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].Quantity" name="Quantity" formmethod="post"/>
-            <input type="hidden" value="@items.List[i].TotalPrice" name="totalPrice" formmethod="post"/>
+            <input type="hidden" value="@items.List[i].Id" name="id" formmethod="post" />
+            <input type="hidden" value="@items.List[i].Name" name="name" formmethod="post" />
+            <input type="hidden" value="@items.List[i].Brand" name="brand" formmethod="post" />
+            <input type="hidden" value="@items.List[i].Price" name="price" formmethod="post" />
+            <input type="hidden" value="@items.List[i].Quantity" name="Quantity" formmethod="post" />
+            <input type="hidden" value="@items.List[i].TotalPrice" name="totalPrice" formmethod="post" />
         }
-        <div class="card-footer bg-dark">
-            <div style="margin-left: calc(100% - 150px)">
-                <button class="btn-primary btn btn-success">Payment Now</button>
+        <div class="card card-footer bg-dark">
+            <div style="margin-left: calc(100% - 150px)" id="pay">
             </div>
         </div>
     </form>
+
+
+    <script>
+        var Total = @items.Total();
+         document.getElementById("pdp").addEventListener("keyup", function () {
+            if (Total < this.value || Total == this.value) {
+                document.getElementById("change").innerHTML = (this.value - Total);
+                document.getElementById("Payment-type").className = "";
+            }
+            else {
+                document.getElementById("change").innerHTML = "";
+                document.getElementById("Payment-type").className = "d-none";
+                document.getElementById("pay").innerHTML = "";
+            }
+         });
+        var pt = document.getElementsByName("Payment");
+        for (let j = 0; j < pt.length; j++) {
+            pt[j].onclick = function () {
+                if (Total < document.getElementById("pdp").value || Total == document.getElementById("pdp").value) {
+                    document.getElementById("pay").innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
+                }
+                else {
+                    document.getElementById("pay").innerHTML = "";
+                }
+            };
+        }
+    </script>
 }

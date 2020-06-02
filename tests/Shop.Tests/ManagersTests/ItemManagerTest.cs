@@ -123,13 +123,13 @@ namespace Shop.Tests.ManagersTests
         public void removeTest()
         {
             _itemHandler
-                .Setup(e => e.List)
-                .Returns(new List<ItemModel>() { new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 } });
+                .Setup(e => e.RemoveItem(It.IsAny<int>()))
+                .Verifiable();
 
             _itemManager.remove(1);
 
             _itemHandler
-                .Verify(e => e.List, Times.AtLeast(2));
+                .Verify(e => e.RemoveItem(It.IsAny<int>()), Times.AtLeast(1));
         }
     }
 }
