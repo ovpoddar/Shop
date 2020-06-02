@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Shop.Entities;
 using Shop.Handlers;
-using Shop.Models;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests

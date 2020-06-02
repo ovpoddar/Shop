@@ -12,8 +12,8 @@ namespace Shop.Managers
 
         public ProductManager(ICategoryHandler categoryHandler, IProductHandler productHandler)
         {
-            _categoryHandler = categoryHandler;
-            _productHandler = productHandler;
+            _categoryHandler = categoryHandler ?? throw new System.ArgumentNullException(nameof(_categoryHandler));
+            _productHandler = productHandler ?? throw new System.ArgumentNullException(nameof(_productHandler));
         }
 
         public ProductListViewModel GetFilteredModel(int id, int pageNumber) =>

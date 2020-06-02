@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Models;
 using Shop.Repositories;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -133,11 +133,11 @@ namespace Shop.Tests.HandlersTests
                .Setup(e => e.GetAll())
                .Returns(Getsome());
 
-            var result = _productHandler.Products(1,0);
+            var result = _productHandler.Products(1, 0);
 
             Assert.NotNull(result);
         }
-        
+
         [Fact]
         public void RemoveProduct_test_with_id()
         {
@@ -155,12 +155,12 @@ namespace Shop.Tests.HandlersTests
                 Brand = It.IsAny<string>(),
                 BrandId = It.IsAny<int>(),
                 CategoriesId = It.IsAny<int>(),
-                 Category = It.IsAny<string>(),
-                 OrderLevel= It.IsAny<double>(),
-                 Price = It.IsAny<decimal>(),
-                 ProductId = 1,
-                 ProductName = "cola",
-                 SaleQuantity =20
+                Category = It.IsAny<string>(),
+                OrderLevel = It.IsAny<double>(),
+                Price = It.IsAny<decimal>(),
+                ProductId = 1,
+                ProductName = "cola",
+                SaleQuantity = 20
             });
             result.Success.Should().BeTrue();
             result.HttpStatusCode.Should().Be(HttpStatusCode.OK);

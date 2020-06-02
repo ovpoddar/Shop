@@ -6,9 +6,6 @@ using Shop.Helpers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;
 using Shop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -81,7 +78,7 @@ namespace Shop.Tests.HandlersTests
             {
                 FirstName = "a",
                 LastName = "p",
-                UserName ="ap"
+                UserName = "ap"
             };
 
             _userHelper

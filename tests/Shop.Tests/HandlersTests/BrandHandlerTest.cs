@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests

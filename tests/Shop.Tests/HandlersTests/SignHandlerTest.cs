@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Handlers.Interfaces;
-using Shop.Managers;
-using Shop.Managers.Interfaces;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests

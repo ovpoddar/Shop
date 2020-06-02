@@ -9,6 +9,5 @@ namespace Shop.Handlers.Interfaces
         void Create(string name, string value, CookieOptions options);
         string Get(string name);
         void Delete(string name);
-        List<string> GetAll();
     }
 }

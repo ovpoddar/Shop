@@ -8,7 +8,6 @@ using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
-using Shop.Models;
 using Shop.Repositories;
 using Shop.Services;
 
@@ -30,7 +29,7 @@ namespace Shop.Extensions
             services.AddTransient<IProductRepositories, ProductRepositories>();
 
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
-            services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
+            services.AddSingleton<IItemHandler, ItemHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();

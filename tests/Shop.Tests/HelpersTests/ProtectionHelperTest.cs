@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Moq;
 using Shop.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.HelpersTests

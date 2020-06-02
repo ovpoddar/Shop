@@ -22,7 +22,7 @@ namespace Shop.Tests.HandlersTests
             _configuration = new Mock<IConfiguration>();
             _dataProtector = new Mock<IDataProtector>();
             _protectorHandler = new ProtectorHandler(
-                _dataProtectionProvider.Object, 
+                _dataProtectionProvider.Object,
                 _protectionHelper.Object,
                 _configuration.Object);
         }
@@ -35,13 +35,13 @@ namespace Shop.Tests.HandlersTests
                 .Returns("string");
             _dataProtectionProvider.Setup(method => method.CreateProtector(It.IsAny<string>()))
                 .Returns(_dataProtector.Object);
-        
+
             _protectionHelper.Setup(method => method.BuildToken(It.IsAny<string>())).Returns("AnotherToken");
             _protectorHandler.Protect("test");
 
             _configuration.Verify(config => config[It.Is<string>(s => s == "dataprotector")], Times.Once);
             _dataProtectionProvider.Verify(method => method.CreateProtector(It.IsAny<string>()), Times.Once);
-           
+
             _protectionHelper.Verify(method => method.BuildToken(It.IsAny<string>()), Times.Once);
         }
         [Fact]

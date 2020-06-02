@@ -24,8 +24,5 @@ namespace Shop.Handlers
 
         public string Get(string name) =>
             _contextAccessor.HttpContext.Request.Cookies[name];
-
-        public List<string> GetAll() =>
-            _contextAccessor.HttpContext.Request.Cookies.Keys.ToList();
     }
 }

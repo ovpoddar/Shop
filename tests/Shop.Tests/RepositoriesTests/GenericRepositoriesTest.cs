@@ -1,16 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Data;
-using Shop.Entities;
-using Shop.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using FluentAssertions;
-using Xunit;
-
-
-namespace Shop.Tests.RepositoriesTests
+﻿namespace Shop.Tests.RepositoriesTests
 {
     public class GenericRepositoriesTest
     {

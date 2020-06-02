@@ -1,4 +1,5 @@
-﻿using Shop.Models;
+﻿using Checkout.Models;
+using Shop.Models;
 using System.Collections.Generic;
 
 namespace Shop.Managers.Interfaces

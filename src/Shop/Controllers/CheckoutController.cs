@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
-using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> Index()
         {
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             return View();
         }
         [HttpPost]
@@ -33,7 +32,7 @@ namespace Shop.Controllers
         {
 
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             if (!ModelState.IsValid)
                 return View();
             _item.add(model);
@@ -42,7 +41,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             _item.remove(id);
             return Redirect("../Index");
         }
@@ -51,14 +50,14 @@ namespace Shop.Controllers
         public async Task<IActionResult> Update(string Name)
         {
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             return View(_item.Model(Name));
         }
         [HttpPost]
         public async Task<IActionResult> Update(ItemViewModel model)
         {
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             if (!ModelState.IsValid)
                 return View(model);
             _item.add(model);
@@ -68,9 +67,9 @@ namespace Shop.Controllers
         public async Task<IActionResult> PaymentAsync(List<string> id, List<string> name, List<string> brand, List<string> quantity, List<string> price, List<string> totalPrice, uint Payment)
         {
             if (!await _validator.IsMember())
-                return RedirectToAction("LogIn", "Authentication");
+                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
             if (!await _manager.MakeingPurchaseAsync(_item.CreateItemModels(id, name, brand, quantity, price, totalPrice), Payment))
-                  return View("ErrView");
+                return View("ErrView");
             return RedirectToAction("Index", "Product");
         }
 

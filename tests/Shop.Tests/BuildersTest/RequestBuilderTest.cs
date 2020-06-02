@@ -1,12 +1,7 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Shop.Builders;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Shop.Tests.BuildersTest
 {

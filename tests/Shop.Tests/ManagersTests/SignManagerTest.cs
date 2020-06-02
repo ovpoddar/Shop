@@ -1,15 +1,11 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
 using Shop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,14 +27,15 @@ namespace Shop.Tests.ManagersTests
         [Fact]
         public async Task LoginAsyncMethodTestAsync()
         {
-            var user = new LogInViewModel() {
+            var user = new LogInViewModel()
+            {
                 UserName = "a",
-                Password= "p"
+                Password = "p"
             };
             var password = "p";
             _signHandler
                 .Setup(e => e.LogInAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync(new LoginStatus() { Employer = new Employer() { FirstName = "a", LastName = "p"},Error =null ,Success= true })
+                .ReturnsAsync(new LoginStatus() { Employer = new Employer() { FirstName = "a", LastName = "p" }, Error = null, Success = true })
                 .Verifiable();
             _protectorHandler
                 .Setup(e => e.HashMd5(It.IsAny<string>()))
@@ -49,7 +46,7 @@ namespace Shop.Tests.ManagersTests
                 .Returns("another recoraverable enctipted string")
                 .Verifiable();
             _cookieHandler
-                .Setup(e => e.Create(It.IsAny<string>(), It.IsAny<string>(),It.IsAny<CookieOptions>()))
+                .Setup(e => e.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CookieOptions>()))
                 .Verifiable();
 
             var result = await _signInManager

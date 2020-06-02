@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Checkout.Models;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Handlers.Interfaces;
-using Shop.Managers;
 using Shop.Managers.Interfaces;
 using Shop.Models;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -156,7 +153,7 @@ namespace Shop.Tests.HandlersTests
                 Brands = new Brand()
                 {
                     BrandName = "xoxo",
-                    Id= It.IsAny<int>(),
+                    Id = It.IsAny<int>(),
                 },
                 Categories = new Category()
                 {

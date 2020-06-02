@@ -1,4 +1,5 @@
-﻿using Shop.Models;
+﻿using Checkout.Models;
+using Shop.Models;
 using Shop.ViewModels;
 using System.Collections.Generic;
 

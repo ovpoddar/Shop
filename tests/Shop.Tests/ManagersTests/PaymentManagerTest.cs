@@ -1,12 +1,11 @@
-﻿using FluentAssertions;
+﻿using Checkout.Models;
+using FluentAssertions;
 using Moq;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
 using Shop.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,7 +20,7 @@ namespace Shop.Tests.ManagersTests
         {
             _balanceManager = new Mock<IBalanceManager>();
             _paymentHandler = new Mock<IPaymentHandler>();
-            _paymentManager = new PaymentManager(_balanceManager.Object,_paymentHandler.Object);
+            _paymentManager = new PaymentManager(_balanceManager.Object, _paymentHandler.Object);
         }
 
         [Fact]

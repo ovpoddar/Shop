@@ -1,4 +1,5 @@
-﻿using Shop.Handlers.Interfaces;
+﻿using Checkout.Models;
+using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
@@ -11,9 +12,9 @@ namespace Shop.Managers
     public class ItemManager : IItemManager
     {
         private readonly IProductHandler _product;
-        private readonly IItemHandler<ItemModel> _item;
+        private readonly IItemHandler _item;
 
-        public ItemManager(IProductHandler product, IItemHandler<ItemModel> item)
+        public ItemManager(IProductHandler product, IItemHandler item)
         {
             _product = product ?? throw new ArgumentNullException(nameof(_product));
             _item = item ?? throw new ArgumentNullException(nameof(_item));

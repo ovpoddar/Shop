@@ -4,10 +4,8 @@ using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
-using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.ManagersTests
@@ -28,15 +26,15 @@ namespace Shop.Tests.ManagersTests
         {
             _categoryHandler
                 .Setup(e => e.Categories())
-                .Returns(new List<Category>() { new Category {Name ="akon" } });
+                .Returns(new List<Category>() { new Category { Name = "akon" } });
             _productHandler
-                .Setup( e=> e.Products(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new List<Product>() { new Product() { ProductName ="coke"} });
+                .Setup(e => e.Products(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(new List<Product>() { new Product() { ProductName = "coke" } });
             _productHandler
-                .Setup( e => e.TotalCount(It.IsAny<int>()))
+                .Setup(e => e.TotalCount(It.IsAny<int>()))
                 .Returns(1);
 
-            var result = _productManager.GetFilteredModel(1,1);
+            var result = _productManager.GetFilteredModel(1, 1);
 
             result.Should().NotBeNull();
             _categoryHandler

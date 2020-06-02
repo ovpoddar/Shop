@@ -1,12 +1,13 @@
-﻿using Shop.Entities;
+﻿using Checkout.Models;
+using Shop.Entities;
 using Shop.Models;
 using System.Collections.Generic;
 
 namespace Shop.Handlers.Interfaces
 {
-    public interface IItemHandler<T>
+    public interface IItemHandler
     {
-        List<T> List { get; set; }
+        List<ItemModel> List { get; set; }
         void addItem(Product product, int quantity);
         void RemoveItem(Product old);
         void RemoveItem(int id);

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
 using Shop.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -21,8 +21,8 @@ namespace Shop.Tests.HandlersTests
             _wholesaleHandler = new WholesaleHandler(_mock.Object, _mockcon.Object);
         }
         [Theory]
-        [InlineData(1,1,6)]
-        [InlineData(5,40,90)]
+        [InlineData(1, 1, 6)]
+        [InlineData(5, 40, 90)]
         public void GetId_ReturnAll(int id, int size, int pack)
         {
             _mock
@@ -37,14 +37,14 @@ namespace Shop.Tests.HandlersTests
                     }
 
                 }.AsQueryable());
-            var result = _wholesaleHandler.GetId(size,pack);
+            var result = _wholesaleHandler.GetId(size, pack);
             Assert.Equal(result, id);
         }
 
         [Theory]
-        [InlineData(1 ,1, false)]
+        [InlineData(1, 1, false)]
         [InlineData(6, 25, true)]
-        public void Add_checkingbothSituation(int addsi, int addpa ,bool type)
+        public void Add_checkingbothSituation(int addsi, int addpa, bool type)
         {
             _mock
                 .Setup(e => e.GetAll())

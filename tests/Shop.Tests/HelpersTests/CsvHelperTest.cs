@@ -1,14 +1,9 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualBasic.CompilerServices;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.HelpersTests
@@ -56,7 +51,7 @@ namespace Shop.Tests.HelpersTests
                 .Setup(e => e.GetId(It.IsAny<string>()))
                 .Returns(output);
 
-            var result  = _csvHelper.Categoryauto("name");
+            var result = _csvHelper.Categoryauto("name");
 
             result.Should().Be(output);
             _categoryHandler.Verify(e => e.AddCategory(It.IsAny<CategoryViewModel>()), Times.Once);

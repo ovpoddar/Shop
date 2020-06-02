@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.EntityFrameworkCore.Internal;
-using Moq;
+﻿using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
@@ -33,7 +31,7 @@ namespace Shop.Tests.HandlersTests
             {
                 Directory.EnumerateFiles(path);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.NotNull(ex.Message);
                 Assert.Equal("System.IO.FileSystem", ex.Source);

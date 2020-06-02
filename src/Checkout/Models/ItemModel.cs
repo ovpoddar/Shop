@@ -1,4 +1,6 @@
-﻿namespace Shop.Models
+﻿using System;
+
+namespace Checkout.Models
 {
     public class ItemModel
     {

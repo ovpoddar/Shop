@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Checkout.Models;
+using Newtonsoft.Json;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;

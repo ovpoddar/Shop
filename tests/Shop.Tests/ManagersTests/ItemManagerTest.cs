@@ -1,13 +1,11 @@
-﻿using FluentAssertions;
+﻿using Checkout.Models;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
 using Shop.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.ManagersTests
@@ -15,12 +13,12 @@ namespace Shop.Tests.ManagersTests
     public class ItemManagerTest
     {
         private readonly Mock<IProductHandler> _productHandler;
-        private readonly Mock<IItemHandler<ItemModel>> _itemHandler;
+        private readonly Mock<IItemHandler> _itemHandler;
         private readonly ItemManager _itemManager;
         public ItemManagerTest()
         {
             _productHandler = new Mock<IProductHandler>();
-            _itemHandler = new Mock<IItemHandler<ItemModel>>();
+            _itemHandler = new Mock<IItemHandler>();
             _itemManager = new ItemManager(_productHandler.Object, _itemHandler.Object);
         }
 

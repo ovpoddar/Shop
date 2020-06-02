@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Moq;
 using Shop.Handlers;
+using System.Collections;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -48,12 +49,6 @@ namespace Shop.Tests.HandlersTests
 
             var output = _cookieHandler.Get("xx");
             output.Should().NotBeNullOrEmpty();
-        }
-        // dont know how to test
-        [Fact]
-        public void GetAllTest()
-        {
-
         }
     }
 }

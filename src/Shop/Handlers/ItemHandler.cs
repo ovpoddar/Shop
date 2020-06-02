@@ -1,4 +1,5 @@
-﻿using Shop.Entities;
+﻿using Checkout.Models;
+using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Shop.Handlers
 {
-    public class ItemHandler : IItemHandler<ItemModel>
+    public class ItemHandler : IItemHandler
     {
         public List<ItemModel> List { get; set; } = new List<ItemModel> { new ItemModel { Id = 0, Name = "", Brand = "", Price = 0, Quantity = 0, TotalPrice = 0 } };
 
@@ -33,7 +34,7 @@ namespace Shop.Handlers
         public double Total()
         {
             double total = 0;
-            foreach(var item in List)
+            foreach (var item in List)
             {
                 total += item.TotalPrice;
             }

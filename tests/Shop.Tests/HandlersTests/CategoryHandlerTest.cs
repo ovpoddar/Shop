@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers;
 using Shop.Repositories;
 using Shop.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests
@@ -98,7 +98,7 @@ namespace Shop.Tests.HandlersTests
         }
 
         [Theory]
-        [InlineData(1,"drink1", false)]
+        [InlineData(1, "drink1", false)]
         [InlineData(null, "drink8", true)]
         public void AddCategory_checkingsuccess(int? id, string name, bool expected)
         {
@@ -124,10 +124,10 @@ namespace Shop.Tests.HandlersTests
             _mock
                 .Setup(e => e.Add(It.IsAny<Category>()));
 
-            var result = _categoryHandler.AddCategory(new CategoryViewModel 
+            var result = _categoryHandler.AddCategory(new CategoryViewModel
             {
                 Id = id,
-                Name =name
+                Name = name
             });
             if (expected)
                 Assert.True(result.Success);

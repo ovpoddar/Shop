@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.VisualBasic;
 using Moq;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Repositories;
-using System;
+using Shop.ViewModels;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Tests.ManagersTests
@@ -57,13 +59,45 @@ namespace Shop.Tests.ManagersTests
             _csvHelper
                 .Verify(e => e.Categoryauto(It.IsAny<string>()), Times.AtLeastOnce);
             _csvHelper
-                .Verify(e => e.BrandId(It.IsAny<string>()),Times.AtLeastOnce);
+                .Verify(e => e.BrandId(It.IsAny<string>()), Times.AtLeastOnce);
             _csvHelper
                 .Verify(e => e.WholesaleID(It.IsAny<int>(), It.IsAny<int>()), Times.AtLeastOnce);
             _csvHelper
                 .Verify(e => e.Categoryauto(It.IsAny<string>(), It.IsAny<string>()), Times.AtLeastOnce);
         }
 
-        //csv need to copy
+        [Fact]
+        public void UploadTest()
+        {
+            var file = new CsvViewModel()
+            {
+                Csv = It.IsAny<IFormFile>(),
+            };
+            _webHostEnvironment
+                .Setup(e => e.WebRootPath)
+                .Returns(It.IsAny<string>())
+                .Verifiable();
+            _csvHandler
+                .Setup(e => e.StoreCsvAsFile(It.IsAny<string>(), It.IsAny<IFormFile>()))
+                .Verifiable();
+            _csvHandler
+                .Setup(e => e.SaveCsv(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Verifiable();
+            _csvHandler
+                .Setup(e => e.Delete(It.IsAny<string>()))
+                .Verifiable();
+            _genericRepository
+                .Setup(e => e.GetAll())
+                .Returns(new List<Csv> { new Csv() { FileName = "coco", Filepath= "path", HashName ="secratename", Id = 1, UpdateDate=DateAndTime.Now.ToLongDateString()} }.AsQueryable())
+                .Verifiable();
+            _protectorHandler
+                .Setup(e => e.HashMd5(It.IsAny<string>()))
+                .Returns(It.IsAny<string>())
+                .Verifiable();
+
+            _csvManager.Upload(file);
+        }
+
+
     }
 }

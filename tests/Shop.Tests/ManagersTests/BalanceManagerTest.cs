@@ -1,11 +1,10 @@
-﻿using Moq;
+﻿using Checkout.Models;
+using Moq;
 using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.ManagersTests

@@ -48,8 +48,7 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> SignIn()
         {
-            var membercheck = await _validator.IsMember();
-            if (membercheck)
+            if (await _validator.IsMember())
                 return RedirectToAction("Index", "Product");
             return View();
         }

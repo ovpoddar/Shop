@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -166,7 +165,7 @@ namespace Shop.Tests.HelpersTests
         {
             var output = Getall().ToList()[index];
             _mock
-                .Setup(e => e.FindAsync(It.IsAny< Expression<Func<Employer, bool>>>()))
+                .Setup(e => e.FindAsync(It.IsAny<Expression<Func<Employer, bool>>>()))
                 .Returns(Task.FromResult(output));
 
             var result = await _userHelper.FindEmployerAsync(username, password);

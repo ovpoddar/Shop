@@ -1,17 +1,11 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Moq;
-using Moq.Protected;
 using Shop.Builders;
 using Shop.Entities;
 using Shop.Managers;
 using Shop.Services;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 

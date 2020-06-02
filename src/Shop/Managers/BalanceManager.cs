@@ -1,4 +1,5 @@
-﻿using Shop.Entities;
+﻿using Checkout.Models;
+using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
