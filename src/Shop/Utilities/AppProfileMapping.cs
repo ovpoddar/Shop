@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Shop.Entities;
+using DataAccess.Entities;
 using Shop.Models;
 
 namespace Shop.Utilities

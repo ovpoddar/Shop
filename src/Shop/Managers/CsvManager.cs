@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Shop.Entities;
+﻿using DataAccess.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.Managers.Interfaces;

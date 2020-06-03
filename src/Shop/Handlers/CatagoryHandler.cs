@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Entities;
+﻿using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;

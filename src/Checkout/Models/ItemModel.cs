@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Checkout.Models
+﻿namespace Checkout.Models
 {
     public class ItemModel
     {

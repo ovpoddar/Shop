@@ -1,4 +1,4 @@
-﻿using Shop.Entities;
+﻿using DataAccess.Entities;
 
 namespace Shop.Models
 {

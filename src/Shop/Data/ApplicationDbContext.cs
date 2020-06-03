@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Entities;
+﻿using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Data
 {

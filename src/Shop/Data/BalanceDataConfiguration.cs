@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Shop.Entities;
 
 namespace Shop.Data
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using Shop.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
 using Shop.Repositories;

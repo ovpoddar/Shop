@@ -1,4 +1,4 @@
-﻿using Shop.Entities;
+﻿using DataAccess.Entities;
 using System.Threading.Tasks;
 
 namespace Shop.Handlers.Interfaces

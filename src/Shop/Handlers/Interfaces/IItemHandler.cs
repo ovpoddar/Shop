@@ -1,6 +1,5 @@
 ﻿using Checkout.Models;
-using Shop.Entities;
-using Shop.Models;
+using DataAccess.Entities;
 using System.Collections.Generic;
 
 namespace Shop.Handlers.Interfaces

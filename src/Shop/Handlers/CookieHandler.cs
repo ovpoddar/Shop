@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Shop.Handlers.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Shop.Handlers
 {

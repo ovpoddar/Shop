@@ -1,7 +1,6 @@
 ﻿using Checkout.Models;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
-using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;

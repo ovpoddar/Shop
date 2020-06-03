@@ -1,7 +1,6 @@
 ﻿using Checkout.Models;
-using Shop.Entities;
+using DataAccess.Entities;
 using Shop.Handlers.Interfaces;
-using Shop.Models;
 using System.Collections.Generic;
 using System.Linq;
 

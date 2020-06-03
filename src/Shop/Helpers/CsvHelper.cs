@@ -1,4 +1,4 @@
-﻿using Shop.Entities;
+﻿using DataAccess.Entities;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.ViewModels;

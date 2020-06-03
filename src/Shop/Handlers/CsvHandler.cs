@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Shop.Entities;
+﻿using DataAccess.Entities;
+using Microsoft.AspNetCore.Http;
 using Shop.Handlers.Interfaces;
 using Shop.Repositories;
 using System;

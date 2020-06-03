@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data;
-using Shop.Entities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

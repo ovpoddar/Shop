@@ -1,5 +1,4 @@
 ﻿using Checkout.Models;
-using Shop.Models;
 using System.Collections.Generic;
 
 namespace Shop.ViewModels
