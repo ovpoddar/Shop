@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shop.Repositories
+namespace DataAccess.Repositories
 {
     public interface IProductRepositories
     {

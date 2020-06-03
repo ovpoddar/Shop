@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Moq;
 using Shop.Handlers;
-using Shop.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;

@@ -1,10 +1,10 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using FluentAssertions;
 using Moq;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Models;
-using Shop.Repositories;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;

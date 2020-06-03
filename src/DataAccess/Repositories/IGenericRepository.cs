@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Shop.Repositories
+namespace DataAccess.Repositories
 {
     public interface IGenericRepository<T>
     {

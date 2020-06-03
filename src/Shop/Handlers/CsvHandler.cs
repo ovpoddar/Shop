@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Http;
 using Shop.Handlers.Interfaces;
-using Shop.Repositories;
 using System;
 using System.IO;
 using System.Text;

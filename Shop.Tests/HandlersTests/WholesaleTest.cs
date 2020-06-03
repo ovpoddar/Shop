@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Moq;
 using Shop.Handlers;
-using Shop.Repositories;
 using Shop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;

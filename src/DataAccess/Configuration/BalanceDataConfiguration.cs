@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Shop.Data
+namespace DataAccess.Configuration
 {
     public class BalanceDataConfiguration : IEntityTypeConfiguration<PaymentType>
     {

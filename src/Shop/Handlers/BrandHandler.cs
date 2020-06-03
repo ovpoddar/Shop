@@ -1,6 +1,6 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Shop.Handlers.Interfaces;
-using Shop.Repositories;
 using System;
 using System.Linq;
 

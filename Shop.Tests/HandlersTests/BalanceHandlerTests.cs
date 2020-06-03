@@ -1,8 +1,8 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using FluentAssertions;
 using Moq;
 using Shop.Handlers;
-using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

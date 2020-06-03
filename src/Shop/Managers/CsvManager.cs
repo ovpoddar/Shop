@@ -1,10 +1,10 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
-using Shop.Repositories;
 using Shop.ViewModels;
 using System;
 using System.Globalization;

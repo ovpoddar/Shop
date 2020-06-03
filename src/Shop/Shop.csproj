@@ -34,7 +34,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="Views\Product\" />
     <Folder Include="WWWROOT\Images\" />
     <Folder Include="WWWROOT\Userfile\" />

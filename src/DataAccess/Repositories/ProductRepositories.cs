@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shop.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shop.Repositories
+namespace DataAccess.Repositories
 {
     public class ProductRepositories : IProductRepositories
 

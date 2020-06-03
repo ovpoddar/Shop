@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DataAccess.Entities;
+using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
-using Shop.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

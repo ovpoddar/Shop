@@ -1,12 +1,11 @@
 ﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using Shop.Data;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Shop.Repositories
+namespace DataAccess.Repositories
 {
     public class GenericRepositories<T> : IGenericRepository<T> where T : BaseEntity
     {

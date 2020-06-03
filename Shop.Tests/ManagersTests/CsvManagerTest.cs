@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.VisualBasic;
@@ -6,7 +7,6 @@ using Moq;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
-using Shop.Repositories;
 using Shop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;

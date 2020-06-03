@@ -1,8 +1,8 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers.Interfaces;
 using Shop.Models;
-using Shop.Repositories;
 using Shop.ViewModels;
 using System;
 using System.Threading.Tasks;

@@ -1,7 +1,8 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess.Configuration;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Shop.Data
+namespace DataAccess
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Builders;
@@ -8,7 +9,6 @@ using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
-using Shop.Repositories;
 using Shop.Services;
 
 namespace Shop.Extensions
