@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using Checkout.Handlers;
+using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;

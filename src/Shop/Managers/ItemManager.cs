@@ -1,4 +1,5 @@
-﻿using Checkout.Models;
+﻿using Checkout.Handlers;
+using Checkout.Models;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.ViewModels;

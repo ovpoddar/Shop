@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using Checkout.Handlers;
+using DataAccess.Entities;
 using FluentAssertions;
 using Shop.Handlers;
 using Xunit;

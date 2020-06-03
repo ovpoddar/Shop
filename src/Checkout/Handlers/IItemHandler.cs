@@ -1,8 +1,10 @@
 ﻿using Checkout.Models;
 using DataAccess.Entities;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Shop.Handlers.Interfaces
+namespace Checkout.Handlers
 {
     public interface IItemHandler
     {

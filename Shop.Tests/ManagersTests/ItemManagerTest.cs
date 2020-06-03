@@ -1,4 +1,5 @@
-﻿using Checkout.Models;
+﻿using Checkout.Handlers;
+using Checkout.Models;
 using DataAccess.Entities;
 using Moq;
 using Shop.Handlers.Interfaces;
