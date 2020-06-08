@@ -1,81 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
-using Shop.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {
     public class CheckoutController : Controller
     {
-        private readonly IItemManager _item;
-        private readonly IPaymentManager _manager;
-        private readonly IValidatorHandler _validator;
+        private readonly IValidatorHandler _validatorHandler;
 
-        public CheckoutController(IItemManager item, IPaymentManager manager, IValidatorHandler validator)
+        public CheckoutController(IValidatorHandler validatorHandler)
         {
-            _item = item ?? throw new ArgumentNullException(nameof(_item));
-            _manager = manager ?? throw new ArgumentNullException(nameof(_manager));
-            _validator = validator ?? throw new ArgumentNullException(nameof(_validator));
+            _validatorHandler = validatorHandler ?? throw new ArgumentNullException(nameof(_validatorHandler));
         }
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Index(ItemViewModel model)
-        {
-
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            if (!ModelState.IsValid)
+            if (await _validatorHandler.IsMember())
                 return View();
-            _item.add(model);
-            return View();
-        }
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            _item.remove(id);
-            return Redirect("../Index");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Update(string Name)
-        {
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            return View(_item.Model(Name));
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(ItemViewModel model)
-        {
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            if (!ModelState.IsValid)
-                return View(model);
-            _item.add(model);
-            return Redirect("Index");
-        }
-
-        public async Task<IActionResult> PaymentAsync(List<string> id, List<string> name, List<string> brand, List<string> quantity, List<string> price, List<string> totalPrice, uint Payment)
-        {
-            if (!await _validator.IsMember())
-                return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
-            if (!await _manager.MakeingPurchaseAsync(_item.CreateItemModels(id, name, brand, quantity, price, totalPrice), Payment))
-                return View("ErrView");
-            return RedirectToAction("Index", "Product");
-        }
-
-        public IActionResult ErrView()
-        {
-            return View();
+            return RedirectToActionPermanent("LogIn", "Authentication", new { con = ControllerContext.RouteData.Values["controller"].ToString(), ac = ControllerContext.RouteData.Values["action"].ToString() });
         }
     }
 }

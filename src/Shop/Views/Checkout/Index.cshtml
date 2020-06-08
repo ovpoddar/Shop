@@ -1,131 +1,36 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    ViewData["ac"] = "Index";
 }
-@using Checkout.Handlers
-@model ItemViewModel
-@inject IItemHandler items
-<form method="post">
-    <div asp-validation-summary="All" class="text-danger bg-light"></div>
+
+
+    <div class="text-danger bg-light"></div>
     <div>
         <div class="card-deck input-group-text">
             <label class="float-left">Product Name:</label>
             <div class="col-md float-left">
-                <input type="text" class="w-100" asp-for="Name" autocomplete="off" id="suggst" />
+                <input type="text" class="w-100" autocomplete="off" id="suggst" />
                 <div id="suggesstion"></div>
             </div>
 
             <label class="float-left">Product Quantity:</label>
             <div class="col-md float-left">
-                <input type="text" class="w-100" asp-for="Quantity" autocomplete="off" />
+                <input type="text" class="w-100" autocomplete="off" id="amt"/>
             </div>
-            <button class="float-right">Add</button>
+            <button class="float-right" id="add">Add</button>
         </div>
     </div>
-</form>
-
-<div>
-    <div class="card" style="margin-top: 10px">
-        <div class="card card-deck">
-            <div class="card card-columns ">Name</div>
-            <div class="card card-columns">Brand</div>
-            <div class="card card-columns">Price Per Unit</div>
-            <div class="card card-columns">Quantity</div>
-            <div class="card card-columns">Total</div>
-            <div class="card card-columns">Modify</div>
-        </div>
-    </div>
-    <div class="card" style="margin-top: 10px" id="Container">
-        <div>
-            @for (var i = 1; i < items.List.Count; i++)
-            {
-                <div class="card card-deck">
-                    <div class="card card-columns">@items.List[i].Name</div>
-                    <div class="card card-columns">@items.List[i].Brand</div>
-                    <div class="card card-columns">@items.List[i].Price</div>
-                    <div class="card card-columns">@items.List[i].Quantity</div>
-                    <div class="card card-columns">@items.List[i].TotalPrice</div>
-                    <div class="card card-columns d-inline-block"><a class="btn btn-link p-2 align-content-between" asp-action="update" asp-route-Name="@items.List[i].Name">edit</a><a class="btn btn-link p-2 align-content-between" asp-action="Delete" asp-route-id="@items.List[i].Id">delete</a></div>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="card" style="margin-top: 40px; border: 2px solid black; overflow: hidden">
-        <div class="card card-deck">
-            <div class="card card-columns">Total</div>
-            <div class="card card-columns text-right">
-                @items.Total()
-            </div>
-        </div>
-        <div class="card card-deck">
-            <div class="card card-columns">Paid</div>
-            <div class="card card-columns text-right"><input id="pdp" type="text" /></div>
-        </div>
-        <div class="card card-deck">
-            <div class="card card-columns">Change</div>
-            <div class="card card-columns text-right" id="change"></div>
-        </div>
-    </div>
-</div>
-
-<script>
+    <script>
     var c = document.getElementById("suggst");
+    var a = document.getElementById("add");
+    var t = document.getElementById("amt");
 
     c.addEventListener("keyup", call);
     c.addEventListener("paste", call);
-
-</script>
-
-@section footer
-{
-    <form method="post" asp-action="Payment">
-        <div id="Payment-type" class="d-none">
-            <span>
-                Select Payment Type:
-                <input type="radio" value="1" name="Payment" /><span>Card</span>
-                <input type="radio" value="2" name="Payment" /><span>Cash</span>
-            </span>
-        </div>
-        @for (var i = 1; i < items.List.Count; i++)
-        {
-            <input type="hidden" value="@items.List[i].Id" name="id" formmethod="post" />
-            <input type="hidden" value="@items.List[i].Name" name="name" formmethod="post" />
-            <input type="hidden" value="@items.List[i].Brand" name="brand" formmethod="post" />
-            <input type="hidden" value="@items.List[i].Price" name="price" formmethod="post" />
-            <input type="hidden" value="@items.List[i].Quantity" name="Quantity" formmethod="post" />
-            <input type="hidden" value="@items.List[i].TotalPrice" name="totalPrice" formmethod="post" />
-        }
-        <div class="card card-footer bg-dark">
-            <div style="margin-left: calc(100% - 150px)" id="pay">
-            </div>
-        </div>
-    </form>
-
-
-    <script>
-        var Total = @items.Total();
-         document.getElementById("pdp").addEventListener("keyup", function () {
-            if (Total < this.value || Total == this.value) {
-                document.getElementById("change").innerHTML = (this.value - Total);
-                document.getElementById("Payment-type").className = "";
-            }
-            else {
-                document.getElementById("change").innerHTML = "";
-                document.getElementById("Payment-type").className = "d-none";
-                document.getElementById("pay").innerHTML = "";
-            }
-         });
-        var pt = document.getElementsByName("Payment");
-        for (let j = 0; j < pt.length; j++) {
-            pt[j].onclick = function () {
-                if (Total < document.getElementById("pdp").value || Total == document.getElementById("pdp").value) {
-                    document.getElementById("pay").innerHTML = "<button class=\"btn-primary btn btn-success\" id=\"pay\">Payment Now</button>";
-                }
-                else {
-                    document.getElementById("pay").innerHTML = "";
-                }
-            };
-        }
+    a.onclick = function () {
+        $.ajax("https://localhost:44301/api/Checkout?productName=" + c.value + "&Quentati=" + t.value)
+            .done(function (data) {
+                console.log(data);
+            })
+    };
     </script>
-}
