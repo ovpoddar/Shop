@@ -25,6 +25,12 @@ namespace Checkout
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // This lambda will add cors profile name All.
+            // we can add as many options as we want.
+            services.AddCors(options =>
+            {
+                options.AddPolicy("All", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
             services.AddControllers();
         }
 
@@ -39,6 +45,9 @@ namespace Checkout
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // this will add cors into project.
+            app.UseCors();
 
             app.UseAuthorization();
 

@@ -28,9 +28,13 @@
     c.addEventListener("keyup", call);
     c.addEventListener("paste", call);
     a.onclick = function () {
-        $.ajax("https://localhost:44301/api/Checkout?productName=" + c.value + "&Quentati=" + t.value)
-            .done(function (data) {
+        $.ajax({
+            url: "https://localhost:44301/api/Checkout?productName=" + c.value + "&Quentati=" + t.value,
+            dataType: "json",
+            contentType: "application/json utf",
+            success: function (data) {
                 console.log(data);
-            })
+            }
+        })
     };
     </script>

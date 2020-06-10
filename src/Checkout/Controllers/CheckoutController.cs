@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,11 @@ namespace Checkout.Controllers
     public class CheckoutController : ControllerBase
     {
         [HttpGet]
-        public string AddItem(string productName, int Quentati)
+        [EnableCors("All")]
+        public IActionResult AddItem(string productName, int Quentati)
         {
 
-            return "kusum";
+            return $"{productName} + {Quentati}";
         }
     }
 }
