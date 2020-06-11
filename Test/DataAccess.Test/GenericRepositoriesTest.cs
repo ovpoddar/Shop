@@ -297,7 +297,6 @@ namespace DataAccess.Test
             var result = await _repository.SaveAsync();
 
             _context.Products.ToList().Count().Should().Be(1);
-            Assert.NotNull(result);
         }
     }
 }

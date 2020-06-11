@@ -1,8 +1,8 @@
-﻿using Checkout.Models;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using Moq;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;
+using Shop.Models;
 using System.Collections.Generic;
 using Xunit;
 

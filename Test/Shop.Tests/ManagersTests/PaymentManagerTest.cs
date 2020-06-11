@@ -1,5 +1,4 @@
-﻿using Checkout.Models;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using Shop.Handlers.Interfaces;
 using Shop.Managers;

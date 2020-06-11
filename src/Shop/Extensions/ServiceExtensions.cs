@@ -1,10 +1,9 @@
-﻿using Checkout.Handlers;
+﻿using Shop.Handlers;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Builders;
-using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Helpers.Interfaces;
@@ -18,19 +17,18 @@ namespace Shop.Extensions
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            services.AddTransient<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
-            services.AddTransient<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
-            services.AddTransient<IGenericRepository<Employer>, GenericRepositories<Employer>>();
-            services.AddTransient<IGenericRepository<Category>, GenericRepositories<Category>>();
-            services.AddTransient<IGenericRepository<Product>, GenericRepositories<Product>>();
-            services.AddTransient<IGenericRepository<Balance>, GenericRepositories<Balance>>();
-            services.AddTransient<IGenericRepository<Brand>, GenericRepositories<Brand>>();
-            services.AddTransient<IGenericRepository<Csv>, GenericRepositories<Csv>>();
+            services.AddScoped<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
+            services.AddScoped<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
+            services.AddScoped<IGenericRepository<Employer>, GenericRepositories<Employer>>();
+            services.AddScoped<IGenericRepository<Category>, GenericRepositories<Category>>();
+            services.AddScoped<IGenericRepository<Product>, GenericRepositories<Product>>();
+            services.AddScoped<IGenericRepository<Balance>, GenericRepositories<Balance>>();
+            services.AddScoped<IGenericRepository<Brand>, GenericRepositories<Brand>>();
+            services.AddScoped<IGenericRepository<Csv>, GenericRepositories<Csv>>();
 
-            services.AddTransient<IProductRepositories, ProductRepositories>();
+            services.AddScoped<IProductRepositories, ProductRepositories>();
 
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
-            services.AddSingleton<IItemHandler, ItemHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();

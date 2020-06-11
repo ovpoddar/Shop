@@ -1,4 +1,4 @@
-﻿namespace Checkout.Models
+﻿namespace Shop.Models
 {
     public class ItemModel
     {

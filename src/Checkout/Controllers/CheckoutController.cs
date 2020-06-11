@@ -17,7 +17,7 @@ namespace Checkout.Controllers
         public IActionResult AddItem(string productName, int Quentati)
         {
 
-            return $"{productName} + {Quentati}";
+            return null;
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using Checkout.Models;
+﻿using Shop.Models;
 using Newtonsoft.Json;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
-using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

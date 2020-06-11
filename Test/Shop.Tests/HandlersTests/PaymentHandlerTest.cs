@@ -1,5 +1,4 @@
-﻿using Checkout.Models;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
