@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="GenericRepositoriesTest.cs~RF58de4e2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />

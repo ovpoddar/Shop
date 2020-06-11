@@ -1,9 +1,9 @@
-﻿using Shop.Handlers;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Builders;
+using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Helpers.Interfaces;

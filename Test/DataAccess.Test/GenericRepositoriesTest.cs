@@ -1,12 +1,11 @@
+using DataAccess.Entities;
+using DataAccess.Repositories;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Xunit;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
-using DataAccess.Repositories;
-using DataAccess.Entities;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace DataAccess.Test
 {
@@ -117,7 +116,7 @@ namespace DataAccess.Test
             _repository.Delete(product1);
             _context.SaveChanges();
 
-            _context.Products.Count().Should().Be(totalCount +  1);
+            _context.Products.Count().Should().Be(totalCount + 1);
             _context.Set<Product>().ToList().First(e => e.Id == product2.Id).Should().BeEquivalentTo(product2);
 
         }
@@ -243,7 +242,7 @@ namespace DataAccess.Test
             _repository.Update(product1);
             _context.SaveChanges();
 
-            _context.Products.FirstOrDefault(e => e.Id== product1.Id ).ProductName.Should().Be("product2");
+            _context.Products.FirstOrDefault(e => e.Id == product1.Id).ProductName.Should().Be("product2");
         }
 
         [Fact]
@@ -298,7 +297,7 @@ namespace DataAccess.Test
 
             var result = await _repository.SaveAsync();
 
-            _context.Products.ToList().Count().Should().Be(totalCount+ 1);
+            _context.Products.ToList().Count().Should().Be(totalCount + 1);
             result.Should().BeGreaterThan(1);
         }
     }

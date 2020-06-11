@@ -1,9 +1,7 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace DataAccess.Test
@@ -38,7 +36,7 @@ namespace DataAccess.Test
                 Parent = new Category(),
                 Products = new List<Product>(),
                 SubCategories = new List<Category>(),
-                ParentId= 0
+                ParentId = 0
             };
             _context.Add(cateorie1);
             _context.Add(cateorie2);
