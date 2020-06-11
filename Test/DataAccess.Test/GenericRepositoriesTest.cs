@@ -47,7 +47,7 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "scvahvfsiuohnkndvoij5451324654",
-                BrandId = 1,
+                BrandId = 2,
                 Brands = new Brand(),
                 Categories = new Category(),
                 CategoriesId = 2,
@@ -75,15 +75,16 @@ namespace DataAccess.Test
         [Fact]
         public void DeleteTest()
         {
+            var totalCount = _context.Products.Count();
             var product1 = new Product()
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 3,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 3,
+                Id = 3,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -96,11 +97,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "scvahvfsiuohnkndvoij5451324654",
-                BrandId = 1,
+                BrandId = 4,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 2,
-                Id = 2,
+                CategoriesId = 4,
+                Id = 4,
                 MinimumWholesaleOrder = 30,
                 OrderLevel = 600,
                 Price = 80,
@@ -116,8 +117,8 @@ namespace DataAccess.Test
             _repository.Delete(product1);
             _context.SaveChanges();
 
-            _context.Products.Count().Should().Be(1);
-            _context.Set<Product>().ToList().First().Should().BeEquivalentTo(product2);
+            _context.Products.Count().Should().Be(totalCount +  1);
+            _context.Set<Product>().ToList().First(e => e.Id == product2.Id).Should().BeEquivalentTo(product2);
 
         }
 
@@ -128,11 +129,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 5,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 5,
+                Id = 5,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -145,11 +146,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "scvahvfsiuohnkndvoij5451324654",
-                BrandId = 1,
+                BrandId = 6,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 2,
-                Id = 2,
+                CategoriesId = 6,
+                Id = 6,
                 MinimumWholesaleOrder = 30,
                 OrderLevel = 600,
                 Price = 80,
@@ -162,22 +163,23 @@ namespace DataAccess.Test
             _context.Add(product2);
             _context.SaveChanges();
 
-            var result = await _repository.FindAsync(e => e.ProductName == product1.ProductName);
+            var result = await _repository.FindAsync(e => e.Id == product1.Id);
             result.Should().BeEquivalentTo(product1);
         }
 
         [Fact]
         public void GetAllTest()
         {
+            var totalCount = _context.Products.Count();
             var product1 = new Product()
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 7,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 7,
+                Id = 7,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -190,11 +192,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "scvahvfsiuohnkndvoij5451324654",
-                BrandId = 1,
+                BrandId = 8,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 2,
-                Id = 2,
+                CategoriesId = 8,
+                Id = 8,
                 MinimumWholesaleOrder = 30,
                 OrderLevel = 600,
                 Price = 80,
@@ -209,7 +211,7 @@ namespace DataAccess.Test
 
             var result = _repository.GetAll().ToList();
 
-            result.Count().Should().Be(2);
+            result.Count().Should().Be(totalCount + 2);
             result.Should().Contain(product1);
             result.Should().Contain(product2);
         }
@@ -221,11 +223,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 9,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 9,
+                Id = 9,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -241,7 +243,7 @@ namespace DataAccess.Test
             _repository.Update(product1);
             _context.SaveChanges();
 
-            _context.Products.FirstOrDefault().ProductName.Should().Be("product2");
+            _context.Products.FirstOrDefault(e => e.Id== product1.Id ).ProductName.Should().Be("product2");
         }
 
         [Fact]
@@ -251,11 +253,11 @@ namespace DataAccess.Test
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 10,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 10,
+                Id = 10,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -274,16 +276,16 @@ namespace DataAccess.Test
         [Fact]
         public async Task SaveAsyncTestAsync()
         {
-
+            var totalCount = _context.Products.Count();
             var product1 = new Product()
             {
                 Balances = new List<Balance>(),
                 BarCode = "ghasvuiykhvbdsuagg65621356",
-                BrandId = 1,
+                BrandId = 11,
                 Brands = new Brand(),
                 Categories = new Category(),
-                CategoriesId = 1,
-                Id = 1,
+                CategoriesId = 11,
+                Id = 11,
                 MinimumWholesaleOrder = 20,
                 OrderLevel = 200,
                 Price = 60,
@@ -296,7 +298,8 @@ namespace DataAccess.Test
 
             var result = await _repository.SaveAsync();
 
-            _context.Products.ToList().Count().Should().Be(1);
+            _context.Products.ToList().Count().Should().Be(totalCount+ 1);
+            result.Should().BeGreaterThan(1);
         }
     }
 }
