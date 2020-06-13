@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Shop.Handlers;
+using Shop.Handlers.Interfaces;
 
 namespace Checkout
 {
@@ -25,6 +28,10 @@ namespace Checkout
                 options.AddPolicy("All", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             services.AddControllers();
+
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Checkout", Version = "v1" }); });
+            //services.AddTransient<IItemHandler, ItemHandler>();
+            services.AddTransient<IProductHandler, ProductHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +39,11 @@ namespace Checkout
         {
             if (env.IsDevelopment())
             {
+               app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Checkout");
+                });
                 app.UseDeveloperExceptionPage();
             }
 

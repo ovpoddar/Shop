@@ -52,13 +52,6 @@ namespace Shop.Handlers
             return true;
         }
 
-        public Product GetProduct(int id) => _repository.GetAll()
-            .Where(o => o.Id == id)
-            .Include(o => o.Brands)
-            .Include(o => o.Categories)
-            .ToList()
-            .FirstOrDefault();
-
         public Product GetProduct(string name) => _repository.GetAll()
             .Where(o => o.ProductName == name)
             .Include(o => o.Brands)

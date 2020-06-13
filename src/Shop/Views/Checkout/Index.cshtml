@@ -29,9 +29,9 @@
     c.addEventListener("paste", call);
     a.onclick = function () {
         $.ajax({
-            url: "https://localhost:44301/api/Checkout?productName=" + c.value + "&Quentati=" + t.value,
+            url: "https://localhost:44301/api/Checkout/AddProduct?productName=" + c.value + "&Quentati=" + t.value,
             dataType: "json",
-            contentType: "application/json utf",
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
                 console.log(data);
             }

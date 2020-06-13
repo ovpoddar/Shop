@@ -12,7 +12,6 @@ namespace Shop.Handlers.Interfaces
         int TotalCount();
         bool AddProduct(Product product);
         Results<SaleProduct> RemoveProduct(SaleProduct saleProduct);
-        Product GetProduct(int id);
         Product GetProduct(string name);
     }
 }
