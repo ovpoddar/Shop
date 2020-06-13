@@ -91,18 +91,6 @@ namespace Shop.Tests.HandlersTests
         }
 
         [Fact]
-        public void GetProduct_id_test()
-        {
-            _mock
-                .Setup(e => e.GetAll())
-                .Returns(Getsome());
-
-            var result = _productHandler.GetProduct(1);
-
-            result.Should().BeEquivalentTo(Getsome().ToList()[0]);
-        }
-
-        [Fact]
         public void GetProduct_name_test()
         {
             _mock

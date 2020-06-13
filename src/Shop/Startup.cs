@@ -16,19 +16,10 @@ namespace Shop
 {
     public class Startup
     {
-        private IConfigurationRoot Configuration { get; }
-
-        public Startup(IWebHostEnvironment webHostEnvironment)
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration)
         {
-            var appSettings = $"appsettings.{webHostEnvironment.EnvironmentName}.json";
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(webHostEnvironment.ContentRootPath)
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile(appSettings, true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+            _configuration = configuration ?? throw new System.ArgumentNullException(nameof(_configuration));
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -48,7 +39,7 @@ namespace Shop
             var migrationsAssembly = typeof(Startup).Namespace;
 
             services.AddDbContext<ApplicationDbContext>(builder =>
-                builder.UseSqlServer(Configuration.GetConnectionString("database"),
+                builder.UseSqlServer(_configuration.GetConnectionString("database"),
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)
                     ));
 
@@ -64,9 +55,7 @@ namespace Shop
 
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment)
         {
-            var environment = Configuration["Environment"];
-
-            if (environment.ToLowerInvariant() != "prod")
+            if (webHostEnvironment.IsEnvironment("Environment"))
             {
                 applicationBuilder.UseSwagger();
                 applicationBuilder.UseSwaggerUI(c =>
