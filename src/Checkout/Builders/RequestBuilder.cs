@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
 
-namespace Shop.Builders
+namespace Checkout.Builders
 {
     public class RequestBuilder : IRequestBuilder
     {

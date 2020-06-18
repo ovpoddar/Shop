@@ -28,7 +28,7 @@ namespace Shop.Managers
         {
             foreach (var item in items)
             {
-                var product = _product.GetProduct(item.Name);
+                var product = _product.GetProduct(item.Name).Result;
                 _balance.AddBalance(new Balance
                 {
                     Date = DateTime.Now,

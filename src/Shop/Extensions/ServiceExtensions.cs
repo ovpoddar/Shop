@@ -2,14 +2,12 @@
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
-using Shop.Builders;
 using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
-using Shop.Services;
 
 namespace Shop.Extensions
 {
@@ -41,15 +39,13 @@ namespace Shop.Extensions
             services.AddTransient<IProtectorHandler, ProtectorHandler>();
             services.AddTransient<IValidatorHandler, ValidatorHandler>();
             services.AddTransient<IUserHandler, UserHandler>();
+            services.AddTransient<IItemHandler, ItemHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
-            services.AddTransient<IRequestManger, RequestManger>();
             services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
             services.AddTransient<ISignManager, SignManager>();
-            services.AddTransient<IRequestBuilder, RequestBuilder>();
-            services.AddTransient<ISentRequestService, SentRequestService>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddTransient<IProtectionHelper, ProtectionHelper>();

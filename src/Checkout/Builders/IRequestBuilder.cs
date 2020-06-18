@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Shop.Builders
+namespace Checkout.Builders
 {
     public interface IRequestBuilder
     {

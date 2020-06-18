@@ -209,7 +209,7 @@ namespace Shop.Migrations
 
             migrationBuilder.InsertData(
                 table: "Balances",
-                columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
+                columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "Id", "Quantity" },
                 values: new object[] { 1, 500m, new DateTime(2020, 5, 9, 4, 37, 4, 119, DateTimeKind.Local).AddTicks(514), 500m, 0m, 2, null, 0L });
 
             migrationBuilder.CreateIndex(
@@ -220,7 +220,7 @@ namespace Shop.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_ProductId",
                 table: "Balances",
-                column: "ProductId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
@@ -240,7 +240,7 @@ namespace Shop.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductWholeSales_ProductId",
                 table: "ProductWholeSales",
-                column: "ProductId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductWholeSales_WholesaleSizeId",

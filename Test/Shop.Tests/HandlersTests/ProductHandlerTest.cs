@@ -97,7 +97,7 @@ namespace Shop.Tests.HandlersTests
                 .Setup(e => e.GetAll())
                 .Returns(Getsome());
 
-            var result = _productHandler.GetProduct("cola");
+            var result = _productHandler.GetProduct("cola").Result;
 
             result.Should().BeEquivalentTo(Getsome().ToList()[0]);
         }

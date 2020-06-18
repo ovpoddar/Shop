@@ -40,7 +40,7 @@ namespace Shop.Migrations
                     b.Property<int>("PaymentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int?>("Id")
                         .HasColumnType("int");
 
                     b.Property<long>("Quantity")
@@ -50,7 +50,7 @@ namespace Shop.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Id");
 
                     b.ToTable("Balances");
 
@@ -251,7 +251,7 @@ namespace Shop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("WholesaleSizeId")
@@ -259,7 +259,7 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("WholesaleSizeId");
 
@@ -294,7 +294,7 @@ namespace Shop.Migrations
 
                     b.HasOne("Shop.Entities.Product", "Product")
                         .WithMany("Balances")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("Id");
                 });
 
             modelBuilder.Entity("Shop.Entities.Category", b =>
@@ -323,7 +323,7 @@ namespace Shop.Migrations
                 {
                     b.HasOne("Shop.Entities.Product", "Product")
                         .WithMany("ProductWholeSales")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,9 +1,9 @@
-﻿using DataAccess.Entities;
+﻿using Checkout.Builders;
+using Checkout.Managers;
+using Checkout.Services;
+using DataAccess.Entities;
 using FluentAssertions;
 using Moq;
-using Shop.Builders;
-using Shop.Managers;
-using Shop.Services;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;

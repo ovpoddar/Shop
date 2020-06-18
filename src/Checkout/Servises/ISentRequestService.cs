@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Shop.Services
+namespace Checkout.Services
 {
     public interface ISentRequestService
     {

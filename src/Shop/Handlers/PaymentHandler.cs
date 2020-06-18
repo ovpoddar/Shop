@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Shop.Handlers.Interfaces;
-using Shop.Managers.Interfaces;
 using Shop.Models;
 using System;
 using System.Collections.Generic;
@@ -10,12 +9,13 @@ namespace Shop.Handlers
 {
     public class PaymentHandler : IPaymentHandler
     {
-        private readonly IRequestManger _request;
+        //private readonly IRequestManger _request;
         private readonly IProductHandler _product;
 
-        public PaymentHandler(IRequestManger request, IProductHandler product)
+        public PaymentHandler(//IRequestManger request,
+            IProductHandler product)
         {
-            _request = request ?? throw new ArgumentNullException(nameof(_request));
+            //_request = request ?? throw new ArgumentNullException(nameof(_request));
             _product = product ?? throw new ArgumentNullException(nameof(_product));
         }
 
@@ -24,7 +24,7 @@ namespace Shop.Handlers
             var products = new List<SaleProduct>();
             foreach (var item in items)
             {
-                var check = _product.GetProduct(item.Name);
+                var check = _product.GetProduct(item.Name).Result;
                 if (check.Price == item.Price)
                     products.Add(new SaleProduct
                     {
@@ -48,7 +48,7 @@ namespace Shop.Handlers
         {
             foreach (var product in products)
             {
-                if (!JsonConvert.DeserializeObject<Results<SaleProduct>>(await _request.PatchRequest("http://localhost:59616/api/Products/StockLevel", product)).Success)
+                //if (!JsonConvert.DeserializeObject<Results<SaleProduct>>(await _request.PatchRequest("http://localhost:59616/api/Products/StockLevel", product)).Success)
                     return false;
             }
             return true;

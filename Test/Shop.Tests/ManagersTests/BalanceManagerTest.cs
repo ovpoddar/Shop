@@ -33,7 +33,7 @@ namespace Shop.Tests.ManagersTests
             };
 
             _productHandler
-                .Setup(e => e.GetProduct(It.IsAny<string>()))
+                .Setup(e => e.GetProduct(It.IsAny<string>()).Result)
                 .Returns(product);
 
             _balanceHandler

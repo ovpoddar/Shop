@@ -1,5 +1,5 @@
-﻿using FluentAssertions;
-using Shop.Builders;
+﻿using Checkout.Builders;
+using FluentAssertions;
 using System.Net.Http;
 using Xunit;
 

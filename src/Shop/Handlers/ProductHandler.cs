@@ -52,12 +52,28 @@ namespace Shop.Handlers
             return true;
         }
 
-        public Product GetProduct(string name) => _repository.GetAll()
+        public Results<Product> GetProduct(string name)
+        {
+            var product = _repository.GetAll()
             .Where(o => o.ProductName == name)
             .Include(o => o.Brands)
             .Include(o => o.Categories)
             .ToList()
             .FirstOrDefault();
+
+            return product == null ?
+                new Results<Product>()
+                {
+                    Exception = "The Product is not found",
+                    Result = null
+                } :
+                new Results<Product>()
+                {
+                    Success = true,
+                    Result = product,
+                    HttpStatusCode = HttpStatusCode.OK,
+                };
+        }
 
         public List<Product> Products(int pageNumber)
         {

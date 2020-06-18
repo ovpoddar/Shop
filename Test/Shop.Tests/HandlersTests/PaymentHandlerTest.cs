@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using Checkout.Managers;
+using DataAccess.Entities;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
@@ -22,14 +23,19 @@ namespace Shop.Tests.HandlersTests
         {
             _mock = new Mock<IRequestManger>();
             _mock1 = new Mock<IProductHandler>();
-            _productHandler = new PaymentHandler(_mock.Object, _mock1.Object);
+            _productHandler = new PaymentHandler(
+                
+                // _mock.Object,
+                _mock1.Object
+                
+                );
         }
 
         [Fact]
         public void GetProducts_test()
         {
             _mock1
-                .Setup(e => e.GetProduct(It.IsAny<string>()))
+                .Setup(e => e.GetProduct(It.IsAny<string>()).Result)
                 .Returns(Getsome());
 
             var input = new List<ItemModel>()

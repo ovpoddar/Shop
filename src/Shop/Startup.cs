@@ -43,11 +43,13 @@ namespace Shop
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)
                     ));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddHttpContextAccessor();
             services.AddDependencies();
             services.RegisterActionFilters();
-
+            services.AddCors(options => options.AddPolicy("All", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddSingleton(
                 new MapperConfiguration(e => { e.AddProfile(new AppProfileMapping()); }).CreateMapper());
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" }); });
@@ -55,26 +57,23 @@ namespace Shop
 
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment)
         {
-            if (webHostEnvironment.IsEnvironment("Environment"))
-            {
-                applicationBuilder.UseSwagger();
-                applicationBuilder.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop");
-                });
-
-                if (webHostEnvironment.IsDevelopment())
-                    applicationBuilder.UseDeveloperExceptionPage();
-            }
-
+            if (webHostEnvironment.IsDevelopment())
+                applicationBuilder.UseDeveloperExceptionPage();
             else
                 applicationBuilder.UseExceptionHandler("/Error");
 
+
             InitializeDb(applicationBuilder);
 
+            applicationBuilder.UseSwagger();
+            applicationBuilder.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop");
+            });
             applicationBuilder.UseCookiePolicy();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();
+            applicationBuilder.UseCors();
             applicationBuilder.UseEndpoints(endpoints =>
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Product}/{action=index}/{id?}"));
         }
