@@ -9,7 +9,7 @@ namespace Checkout.Handlers
 {
     public class ItemHandler : IItemHandler<ItemModel>
     {
-        public List<ItemModel> List { get; set; } = new List<ItemModel> { new ItemModel { Id = 0, Name = "", Brand = "", Price = 0, Quantity = 0, TotalPrice = 0 } };
+        public List<ItemModel> List { get; set; } = new List<ItemModel>();
 
         public void AddItem(Results<ItemModel> model) =>
             List.Add(model.Result);

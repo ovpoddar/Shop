@@ -31,7 +31,6 @@ namespace Shop.Extensions
             services.AddTransient<ICategoryHandler, CategoryHandler>();
             services.AddTransient<IProductHandler, ProductHandler>();
             services.AddTransient<IBalanceHandler, BalanceHandler>();
-            services.AddTransient<IPaymentHandler, PaymentHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
             services.AddTransient<ICookieHandler, CookieHandler>();
@@ -42,7 +41,6 @@ namespace Shop.Extensions
             services.AddTransient<IItemHandler, ItemHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
-            services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
             services.AddTransient<ISignManager, SignManager>();

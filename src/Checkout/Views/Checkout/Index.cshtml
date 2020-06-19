@@ -36,15 +36,15 @@
     </div>
     <div class="card" style="margin-top: 10px" id="Container">
         <div>
-            @for (var i = 1; i < items.List.Count; i++)
+            @foreach (var item in items.List)
             {
                 <div class="card card-deck">
-                    <div class="card card-columns">@items.List[i].Name</div>
-                    <div class="card card-columns">@items.List[i].Brand</div>
-                    <div class="card card-columns">@items.List[i].Price</div>
-                    <div class="card card-columns">@items.List[i].Quantity</div>
-                    <div class="card card-columns">@items.List[i].TotalPrice</div>
-                    <div class="card card-columns d-inline-block"><a class="btn btn-link p-2 align-content-between" asp-action="update" asp-route-Name="@items.List[i].Name">edit</a><a class="btn btn-link p-2 align-content-between" asp-action="Delete" asp-route-id="@items.List[i].Id">delete</a></div>
+                    <div class="card card-columns">@item.Name</div>
+                    <div class="card card-columns">@item.Brand</div>
+                    <div class="card card-columns">@item.Price</div>
+                    <div class="card card-columns">@item.Quantity</div>
+                    <div class="card card-columns">@item.TotalPrice</div>
+                    <div class="card card-columns d-inline-block"><a class="btn btn-link p-2 align-content-between" asp-action="update" asp-route-Name="@item.Name">edit</a><a class="btn btn-link p-2 align-content-between" asp-action="Delete" asp-route-id="@item.Id">delete</a></div>
                 </div>
             }
         </div>

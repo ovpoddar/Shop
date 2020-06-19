@@ -1,11 +1,13 @@
 ﻿using Shop.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.Managers.Interfaces
+namespace Checkout.Managers
 {
     public interface IPaymentManager
     {
-        Task<bool> MakeingPurchaseAsync(List<ItemModel> Items, uint type);
+        Task<bool> MakeingPurchaseAsync(List<ItemModel> list, uint payment);
     }
 }

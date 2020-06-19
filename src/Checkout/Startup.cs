@@ -28,6 +28,8 @@ namespace Checkout
             services.AddTransient<IRequestManger, RequestManger>();
             services.AddTransient<IItemManager, ItemManager>();
             services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
+            services.AddSingleton<IPaymentManager, PaymentManager>();
+            services.AddSingleton<IPaymentHandler, PaymentHandler>();
             services.AddHttpClient();
         }
 
