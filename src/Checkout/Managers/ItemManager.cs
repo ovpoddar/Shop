@@ -22,7 +22,7 @@ namespace Checkout.Managers
         }
         public async Task Add(ItemViewModel model)
         {
-            var product = JsonConvert.DeserializeObject<Results<ItemModel>>(await _requestManger.GetRequest($"http://localhost:59616/api/AddProduct?productName={model.Name}&Quantity={model.Quantity}"));
+            var product = JsonConvert.DeserializeObject<Results<ItemModel>>(await _requestManger.GetRequest($"{WebSitesUrls.EndPoient}api/AddProduct?productName={model.Name}&Quantity={model.Quantity}"));
             if (product.Success == false)
                 return;
             if (_item.List.Any(e => e.Name.ToLower() == product.Result.Name.ToLower()))
@@ -35,7 +35,7 @@ namespace Checkout.Managers
 
         public async Task<ItemViewModel> Model(string name) => new ItemViewModel()
         {
-            Name = JsonConvert.DeserializeObject<Results<Product>>(await _requestManger.GetRequest($"http://localhost:59616/api/Products/GetProduct?Name={name}")).Result.ProductName,
+            Name = JsonConvert.DeserializeObject<Results<Product>>(await _requestManger.GetRequest($"{WebSitesUrls.EndPoient}api/Products/GetProduct?Name={name}")).Result.ProductName,
             Quantity = _item.GetItem(name).Quantity
         };
 

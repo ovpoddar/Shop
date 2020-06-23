@@ -62,13 +62,14 @@ namespace Checkout.Controllers
 
         public async Task<IActionResult> PaymentAsync(uint Payment)
         {
-            if (!await _purchaseHandler.MakePurchaseCallAsync(new PurchaseModel()
+            var responce = await _purchaseHandler.MakePurchaseCallAsync(new PurchaseModel()
             {
                 Items = _itemHandler.List,
                 PaymentType = Payment
-            }))
+            });
+            if (!responce.Success)
                 return View("ErrView");
-            return Redirect("http://localhost:59616/");
+            return Redirect(WebSitesUrls.EndPoient);
         }
     }
 }
