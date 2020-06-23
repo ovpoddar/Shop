@@ -59,8 +59,8 @@ namespace Checkout.Controllers
             await _itemManager.Add(model);
             return Redirect("Index");
         }
-
-        public async Task<IActionResult> PaymentAsync(uint Payment)
+        [HttpPost]
+        public async Task<IActionResult> Payment(uint Payment)
         {
             var responce = await _purchaseHandler.MakePurchaseCallAsync(new PurchaseModel()
             {
@@ -68,8 +68,9 @@ namespace Checkout.Controllers
                 PaymentType = Payment
             });
             if (!responce.Success)
-                return View("ErrView");
+                return View(responce.Objects);
             return Redirect(WebSitesUrls.EndPoient);
         }
+
     }
 }

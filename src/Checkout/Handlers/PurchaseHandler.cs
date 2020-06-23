@@ -17,7 +17,7 @@ namespace Checkout.Handlers
             _requestManger = requestManger ?? throw new ArgumentNullException(nameof(_requestManger));
         }
 
-        public async Task<OverallResult<List<ItemModel>>> MakePurchaseCallAsync(PurchaseModel model) =>
-            JsonConvert.DeserializeObject<OverallResult<List<ItemModel>>>(await _requestManger.PostRequest($"{WebSitesUrls.EndPoient}api/Products/Purchase", model));
+        public async Task<OverallResult<List<Results<ItemModel>>>> MakePurchaseCallAsync(PurchaseModel model) =>
+            JsonConvert.DeserializeObject<OverallResult<List<Results<ItemModel>>>>(await _requestManger.PostRequest($"{WebSitesUrls.EndPoient}api/Products/Purchase", model));
     }
 }

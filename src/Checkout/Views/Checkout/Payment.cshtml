@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "ErrView";
+}
+@model List<Results<ItemModel>>
+
+
+@foreach (var item in Model)
+{
+    <div>@item.Exception</div>
+    <div>@item.Result.</div>
+    <div>@item.Success</div>
+}
+
