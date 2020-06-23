@@ -15,13 +15,13 @@ namespace Checkout.Controllers
     {
         private readonly IItemManager _itemManager;
         private readonly IItemHandler<ItemModel> _itemHandler;
-        private readonly IPaymentManager _paymentManager;
+        private readonly IPurchaseHandler _purchaseHandler;
 
-        public CheckoutController(IItemManager item, IItemHandler<ItemModel> itemHandler, IPaymentManager paymentManager)
+        public CheckoutController(IItemManager item, IItemHandler<ItemModel> itemHandler, IPurchaseHandler purchaseHandler)
         {
             _itemManager = item ?? throw new ArgumentNullException(nameof(_itemManager));
             _itemHandler = itemHandler ?? throw new ArgumentNullException(nameof(_itemHandler));
-            _paymentManager = paymentManager ?? throw new ArgumentNullException(nameof(_paymentManager));
+            _purchaseHandler = purchaseHandler ?? throw new ArgumentNullException(nameof(_purchaseHandler));
         }
 
         [HttpGet]
@@ -62,9 +62,13 @@ namespace Checkout.Controllers
 
         public async Task<IActionResult> PaymentAsync(uint Payment)
         {
-            if (!await _paymentManager.MakeingPurchaseAsync(_itemHandler.List, Payment))
+            if (!await _purchaseHandler.MakePurchaseCallAsync(new PurchaseModel()
+            {
+                Items = _itemHandler.List,
+                PaymentType = Payment
+            }))
                 return View("ErrView");
-            return Redirect("https://localhost:44350/");
+            return Redirect("http://localhost:59616/");
         }
     }
 }

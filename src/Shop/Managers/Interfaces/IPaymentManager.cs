@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Checkout.Managers
+namespace Shop.Managers.Interfaces
 {
     public interface IPaymentManager
     {
-        Task<bool> MakeingPurchaseAsync(List<ItemModel> list, uint payment);
+        OverallResult<List<Results<ItemModel>>> Purchase(PurchaseModel model);
     }
 }

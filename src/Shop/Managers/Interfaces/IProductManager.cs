@@ -1,5 +1,6 @@
 ﻿using Shop.Models;
 using Shop.ViewModels;
+using System.Collections.Generic;
 
 namespace Shop.Managers.Interfaces
 {
@@ -7,6 +8,6 @@ namespace Shop.Managers.Interfaces
     {
         ProductListViewModel GetModel(int pageNumber);
         ProductListViewModel GetFilteredModel(int id, int pageNumber);
-        Results<SaleProduct> UpdateStockLevel(SaleProduct saleProduct);
+        OverallResult<List<Results<ItemModel>>> SalesProduct(PurchaseModel purchaseModel);
     }
 }

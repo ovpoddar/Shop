@@ -27,9 +27,8 @@ namespace Checkout
             services.AddTransient<ISentRequestService, SentRequestService>();
             services.AddTransient<IRequestManger, RequestManger>();
             services.AddTransient<IItemManager, ItemManager>();
+            services.AddTransient<IPurchaseHandler, PurchaseHandler>();
             services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
-            services.AddSingleton<IPaymentManager, PaymentManager>();
-            services.AddSingleton<IPaymentHandler, PaymentHandler>();
             services.AddHttpClient();
         }
 

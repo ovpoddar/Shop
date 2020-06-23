@@ -100,33 +100,44 @@ namespace Shop.Handlers
                 .ToList();
         }
 
-        public Results<SaleProduct> RemoveProduct(SaleProduct saleProduct)
+        public Results<ItemModel> RemoveProduct(ItemModel saleProduct)
         {
-            try
+            var product = _repository.GetAll().FirstOrDefault(e => e.ProductName == saleProduct.Name);
+            if (product == null)
+                return new Results<ItemModel>()
+                {
+                    Exception = "Product Not Found",
+                    HttpStatusCode = HttpStatusCode.NotFound,
+                    Result = saleProduct,
+                    Success = false
+                };
+            var newStockLevel = product.StockLevel - saleProduct.Quantity;
+            product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
+            if (product.StockLevel <= 0) 
+                return new Results<ItemModel>()
+                {
+                    Exception = "Stock Level is 0",
+                    HttpStatusCode= HttpStatusCode.BadRequest,
+                    Result = saleProduct,
+                    Success= false
+                };
+
+            _repository.Update(product);
+            if (product.StockLevel < product.OrderLevel)
+                return new Results<ItemModel>()
+                {
+                    Exception = "Minimum Stock Level",
+                    HttpStatusCode = HttpStatusCode.OK,
+                    Result = saleProduct,
+                    Success = true
+                };
+            return new Results<ItemModel>()
             {
-                var product = _repository.GetAll().FirstOrDefault(p => p.Id == saleProduct.ProductId);
-
-                if (product == null) throw new ArgumentNullException();
-
-                var newStockLevel = product.StockLevel - saleProduct.SaleQuantity;
-                product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
-
-                _repository.Update(product);
-
-                saleProduct.StockLevel = product.StockLevel;
-                saleProduct.OrderLevel = product.OrderLevel;
-
-                if (product.StockLevel < product.OrderLevel) saleProduct.Message = MessageValues.MinimumStock;
-                if (product.StockLevel <= 0) saleProduct.Message = MessageValues.NoStock;
-
-                return new Results<SaleProduct>
-                { HttpStatusCode = HttpStatusCode.OK, Success = true, Result = saleProduct };
-            }
-            catch (Exception exception)
-            {
-                saleProduct.Message = "Product does not exist";
-                return new Results<SaleProduct> { Exception = exception.Message, Result = saleProduct };
-            }
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = saleProduct,
+                Success = true
+            };
         }
 
         public int TotalCount(int id) =>
