@@ -4,11 +4,19 @@
 }
 @model List<Results<ItemModel>>
 
-
-@foreach (var item in Model)
-{
-    <div>@item.Exception</div>
-    <div>@item.Result.</div>
-    <div>@item.Success</div>
-}
-
+    <div class="card">
+        <div class="card-columns">
+            <div>Product</div>
+            <div>Problem</div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="card-columns alert-danger">
+                <div>@item.Result.Name @item.Result.Quantity @item.Result.TotalPrice</div>
+                <div>@item.Exception</div>
+            </div>
+        }
+    </div>
+    <div style="padding-left: calc(50% - 256px); box-sizing: border-box;">
+        <img src="~/Img/common-09-512.png" />
+    </div>
