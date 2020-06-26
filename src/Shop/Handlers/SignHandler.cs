@@ -27,6 +27,17 @@ namespace Shop.Handlers
                     Success = false
                 };
             var result = await _userHandler.FindEmployerAsync(username, password);
+            if (!result.Active)
+                return new LoginStatus
+                {
+                    Employer = null,
+                    Error = new List<string>()
+                    {
+                        new string("Contact To The ShopKeepre")
+                    },
+                    Success = false
+                };
+            _userHandler.DetectLogin(result);
             return result == null ?
             new LoginStatus
             {

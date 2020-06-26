@@ -1,0 +1,33 @@
+﻿@model List<Employer>
+@{
+    ViewData["Title"] = "Index";
+}
+    <div class="card-body card">
+        <div class="row" style="border-bottom: 1px solid black">
+            <div class="col-auto text-left">UserName</div>
+            <div class="col-auto text-left">Email</div>
+            <div class="col-auto text-left">FullName</div>
+            <div class="col-auto text-left">City</div>
+            <div class="col-auto text-left">Gender</div>
+            <div class="col-auto text-left">Mobile No</div>
+            <div class="col-auto text-left">Last LogIn</div>
+            <div class="col-auto text-left">Working</div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="row border-bottom">
+                <div class="col-auto text-left">@item.UserName</div>
+                <div class="col-auto text-left">@item.Email</div>
+                <div class="col-auto text-left">@item.CapatalisedFullName</div>
+                <div class="col-auto text-left">@item.City</div>
+                <div class="col-auto text-left">@item.Gender</div>
+                <div class="col-auto text-left">@item.MobileNo</div>
+                <div class="col-auto text-left">@item.LastLogin</div>
+                <form method="post">
+                    <input type="hidden" value="@item.UserName" name="Username"/>
+                    <div class="col-auto text-left"><input type="checkbox" @if (item.Active) { <text>checked</text>} onclick="this.parentElement.parentElement.submit()"/></div>
+                </form>
+            </div>
+        }
+    </div>

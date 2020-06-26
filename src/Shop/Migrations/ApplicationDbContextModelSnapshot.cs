@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Shop.Migrations
 {
@@ -18,7 +19,7 @@ namespace Shop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Shop.Entities.Balance", b =>
+            modelBuilder.Entity("DataAccess.Entities.Balance", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +41,7 @@ namespace Shop.Migrations
                     b.Property<int>("PaymentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Id")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<long>("Quantity")
@@ -50,7 +51,7 @@ namespace Shop.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Balances");
 
@@ -59,7 +60,7 @@ namespace Shop.Migrations
                         {
                             Id = 1,
                             Ammount = 500m,
-                            Date = new DateTime(2020, 5, 9, 4, 37, 4, 119, DateTimeKind.Local).AddTicks(514),
+                            Date = new DateTime(2020, 6, 26, 17, 55, 50, 945, DateTimeKind.Local).AddTicks(6956),
                             Incoming = 500m,
                             Outgoing = 0m,
                             PaymentTypeId = 2,
@@ -67,7 +68,7 @@ namespace Shop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Shop.Entities.Brand", b =>
+            modelBuilder.Entity("DataAccess.Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +83,7 @@ namespace Shop.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Category", b =>
+            modelBuilder.Entity("DataAccess.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +103,7 @@ namespace Shop.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Csv", b =>
+            modelBuilder.Entity("DataAccess.Entities.Csv", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,12 +127,15 @@ namespace Shop.Migrations
                     b.ToTable("Csvs");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Employer", b =>
+            modelBuilder.Entity("DataAccess.Entities.Employer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("CapatalisedEmail")
                         .HasColumnType("nvarchar(max)");
@@ -154,6 +158,9 @@ namespace Shop.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -174,7 +181,7 @@ namespace Shop.Migrations
                     b.ToTable("Employers");
                 });
 
-            modelBuilder.Entity("Shop.Entities.PaymentType", b =>
+            modelBuilder.Entity("DataAccess.Entities.PaymentType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,7 +208,7 @@ namespace Shop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Shop.Entities.Product", b =>
+            modelBuilder.Entity("DataAccess.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,14 +251,14 @@ namespace Shop.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Shop.Entities.ProductWholeSale", b =>
+            modelBuilder.Entity("DataAccess.Entities.ProductWholeSale", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("WholesaleSizeId")
@@ -259,14 +266,14 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("WholesaleSizeId");
 
                     b.ToTable("ProductWholeSales");
                 });
 
-            modelBuilder.Entity("Shop.Entities.WholesaleSize", b =>
+            modelBuilder.Entity("DataAccess.Entities.WholesaleSize", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,50 +291,50 @@ namespace Shop.Migrations
                     b.ToTable("WholesaleSize");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Balance", b =>
+            modelBuilder.Entity("DataAccess.Entities.Balance", b =>
                 {
-                    b.HasOne("Shop.Entities.PaymentType", "PaymentType")
+                    b.HasOne("DataAccess.Entities.PaymentType", "PaymentType")
                         .WithMany("Balance")
                         .HasForeignKey("PaymentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Entities.Product", "Product")
+                    b.HasOne("DataAccess.Entities.Product", "Product")
                         .WithMany("Balances")
-                        .HasForeignKey("Id");
+                        .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Category", b =>
+            modelBuilder.Entity("DataAccess.Entities.Category", b =>
                 {
-                    b.HasOne("Shop.Entities.Category", "Parent")
+                    b.HasOne("DataAccess.Entities.Category", "Parent")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentId");
                 });
 
-            modelBuilder.Entity("Shop.Entities.Product", b =>
+            modelBuilder.Entity("DataAccess.Entities.Product", b =>
                 {
-                    b.HasOne("Shop.Entities.Brand", "Brands")
+                    b.HasOne("DataAccess.Entities.Brand", "Brands")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Entities.Category", "Categories")
+                    b.HasOne("DataAccess.Entities.Category", "Categories")
                         .WithMany("Products")
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shop.Entities.ProductWholeSale", b =>
+            modelBuilder.Entity("DataAccess.Entities.ProductWholeSale", b =>
                 {
-                    b.HasOne("Shop.Entities.Product", "Product")
+                    b.HasOne("DataAccess.Entities.Product", "Product")
                         .WithMany("ProductWholeSales")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shop.Entities.WholesaleSize", "WholesaleSize")
+                    b.HasOne("DataAccess.Entities.WholesaleSize", "WholesaleSize")
                         .WithMany("ProductWholeSales")
                         .HasForeignKey("WholesaleSizeId")
                         .OnDelete(DeleteBehavior.Cascade)

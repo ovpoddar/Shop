@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Entities
+﻿using System;
+
+namespace DataAccess.Entities
 {
     public class Employer : BaseEntity
     {
@@ -13,6 +15,8 @@
         public long MobileNo { get; set; }
         public string Gender { get; set; }
         public string City { get; set; }
+        public DateTime LastLogin { get; set; }
+        public bool Active { get; set; }
         public string Password { get; set; }
     }
 }

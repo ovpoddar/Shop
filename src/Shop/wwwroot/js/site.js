@@ -5,7 +5,7 @@
         var y = x.getElementsByTagName("div")[1];
         if (y.className === "dropdown-menu")
         {
-            y.className = "d-block";
+            y.className = "card dropdown-menu";
         }
         else
         {

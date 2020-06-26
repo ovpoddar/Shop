@@ -39,6 +39,7 @@ namespace Shop.Extensions
             services.AddTransient<IValidatorHandler, ValidatorHandler>();
             services.AddTransient<IUserHandler, UserHandler>();
             services.AddTransient<IItemHandler, ItemHandler>();
+            services.AddTransient<IEmployerHandler, EmployerHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<ICsvManager, CsvManager>();

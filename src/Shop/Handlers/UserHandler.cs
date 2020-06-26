@@ -50,5 +50,10 @@ namespace Shop.Handlers
             }
         }
 
+        public void DetectLogin(Employer employer)
+        {
+            employer.LastLogin = DateTime.Now;
+            _repository.Update(employer);
+        }
     }
 }

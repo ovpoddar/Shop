@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Tests", "Test\Shop.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Test", "Test\DataAccess.Test\DataAccess.Test.csproj", "{0B70BCA4-B293-4345-89E1-646844DAFFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout", "src\Checkout\Checkout.csproj", "{65ECA8D8-9941-497A-A87B-4328267D1C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout", "src\Checkout\Checkout.csproj", "{65ECA8D8-9941-497A-A87B-4328267D1C06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

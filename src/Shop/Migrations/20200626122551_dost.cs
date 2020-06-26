@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop.Migrations
 {
-    public partial class @new : Migration
+    public partial class dost : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,6 +73,8 @@ namespace Shop.Migrations
                     MobileNo = table.Column<long>(nullable: false),
                     Gender = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
+                    LastLogin = table.Column<DateTime>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
                     Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -209,8 +211,8 @@ namespace Shop.Migrations
 
             migrationBuilder.InsertData(
                 table: "Balances",
-                columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "Id", "Quantity" },
-                values: new object[] { 1, 500m, new DateTime(2020, 5, 9, 4, 37, 4, 119, DateTimeKind.Local).AddTicks(514), 500m, 0m, 2, null, 0L });
+                columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
+                values: new object[] { 1, 500m, new DateTime(2020, 6, 26, 17, 55, 50, 945, DateTimeKind.Local).AddTicks(6956), 500m, 0m, 2, null, 0L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_PaymentTypeId",
@@ -220,7 +222,7 @@ namespace Shop.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_ProductId",
                 table: "Balances",
-                column: "Id");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
@@ -240,7 +242,7 @@ namespace Shop.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductWholeSales_ProductId",
                 table: "ProductWholeSales",
-                column: "Id");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductWholeSales_WholesaleSizeId",

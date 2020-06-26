@@ -10,5 +10,6 @@ namespace Shop.Handlers.Interfaces
         Task<Status> CreateUserAsync(SignInViewModel model);
         Task<Employer> FindEmployerAsync(string userId, string password);
         string GetUserName(string query);
+        void DetectLogin(Employer employer);
     }
 }

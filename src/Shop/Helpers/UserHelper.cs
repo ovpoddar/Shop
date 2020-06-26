@@ -64,6 +64,8 @@ namespace Shop.Helpers
                         Gender = model.Gender.ToString(),
                         MobileNo = model.MobileNo,
                         Password = _protector.HashMd5(model.ConfirmPassword),
+                        LastLogin = DateTime.UtcNow,
+                        Active = status.Success,
                         UnicId = _protector.Hashsha512(model.UserName + model.Password)
                     });
             }
