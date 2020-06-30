@@ -11,7 +11,6 @@ namespace Checkout.Controllers
     public class AuthorizationController : Controller
     {
         [HttpGet]
-        [Type]
         public IActionResult Login()
         {
             return View();
@@ -58,17 +57,4 @@ namespace Checkout.Controllers
         }
     }
 
-    [AttributeUsage(AttributeTargets.All)]
-    public class TypeAttribute : Attribute
-    {
-        public TypeAttribute()
-        {
-
-        }
-        public bool isenable(HttpContext httpContext)
-        {
-            var c = httpContext.Request.Cookies["user"];
-            return !string.IsNullOrWhiteSpace(c);
-        }
-    }
 }

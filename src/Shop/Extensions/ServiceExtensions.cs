@@ -46,7 +46,6 @@ namespace Shop.Extensions
 
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddTransient<IProtectionHelper, ProtectionHelper>();
-            services.AddTransient<IUserHelper, UserHelper>();
 
 
             services.AddTransient<IPaymentManager, PaymentManager>();
