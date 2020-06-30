@@ -13,6 +13,8 @@ using Checkout.Services;
 using Checkout.Managers;
 using Checkout.Handlers;
 using Shop.Models;
+using System.Reflection;
+using Checkout.Controllers;
 
 namespace Checkout
 {
@@ -30,15 +32,14 @@ namespace Checkout
             services.AddTransient<IPurchaseHandler, PurchaseHandler>();
             services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
             services.AddHttpClient();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             app.UseRouting();
             app.UseStaticFiles();
             app.UseEndpoints(endpoints =>

@@ -11,6 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shop.Extensions;
 using Shop.Utilities;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Shop
 {
@@ -19,7 +22,7 @@ namespace Shop
         private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration ?? throw new System.ArgumentNullException(nameof(_configuration));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(_configuration));
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -34,9 +37,7 @@ namespace Shop
                 options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
             });
 
-
-            // it will return the name of the project
-            var migrationsAssembly = typeof(Startup).Namespace;
+            var migrationsAssembly = Assembly.GetExecutingAssembly().GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(builder =>
                 builder.UseSqlServer(_configuration.GetConnectionString("database"),
@@ -44,8 +45,7 @@ namespace Shop
                     ));
 
             services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddHttpContextAccessor();
             services.AddDependencies();
             services.RegisterActionFilters();
@@ -70,7 +70,6 @@ namespace Shop
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop");
             });
-            applicationBuilder.UseCookiePolicy();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();
             applicationBuilder.UseCors();

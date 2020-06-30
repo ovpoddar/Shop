@@ -1,6 +1,4 @@
-﻿@using Shop.Handlers.Interfaces
-@inject IValidatorHandler user
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -34,7 +32,7 @@
         </div>
         <div class="nav-item float-right bg-dark h-100">
             <a href="https://localhost:44350/" class="display-4 btn btn-secondary">Checkout</a>
-            @if (user.User() == null)
+            @if (User == null)
             {
                 <a asp-action="LogIn" asp-controller="Authentication" asp-route-con="@this.ViewContext.RouteData.Values["controller"].ToString()"  asp-route-ac="@this.ViewContext.RouteData.Values["action"].ToString()" class="display-4 btn btn-secondary">Login</a>
             }

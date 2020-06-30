@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Handlers;
@@ -8,6 +9,8 @@ using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
+using Shop.Utilities;
+using System.Reflection;
 
 namespace Shop.Extensions
 {
@@ -33,24 +36,17 @@ namespace Shop.Extensions
             services.AddTransient<IBalanceHandler, BalanceHandler>();
             services.AddTransient<IBrandHandler, BrandHandler>();
             services.AddTransient<ICsvHandler, CsvHandler>();
-            services.AddTransient<ICookieHandler, CookieHandler>();
-            services.AddTransient<ISignHandler, SignHandler>();
             services.AddTransient<IProtectorHandler, ProtectorHandler>();
-            services.AddTransient<IValidatorHandler, ValidatorHandler>();
-            services.AddTransient<IUserHandler, UserHandler>();
             services.AddTransient<IItemHandler, ItemHandler>();
             services.AddTransient<IEmployerHandler, EmployerHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
-            services.AddTransient<ISignManager, SignManager>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddTransient<IProtectionHelper, ProtectionHelper>();
             services.AddTransient<IUserHelper, UserHelper>();
-
-
 
 
             services.AddTransient<IPaymentManager, PaymentManager>();
