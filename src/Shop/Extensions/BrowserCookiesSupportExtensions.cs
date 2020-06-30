@@ -12,8 +12,6 @@ namespace Shop.Extensions
             {
                 var userAgent = context.Context.Request.Headers["User-Agent"].ToString();
 
-                context.CookieOptions.Expires = DateAndTime.Now.AddYears(1);
-
                 if (DisallowsSameSiteNone(userAgent))
                     context.CookieOptions.SameSite = SameSiteMode.Unspecified;
             }
@@ -24,8 +22,6 @@ namespace Shop.Extensions
             if (context.CookieOptions.SameSite == SameSiteMode.None)
             {
                 var userAgent = context.Context.Request.Headers["User-Agent"].ToString();
-
-                context.CookieOptions.Expires = DateAndTime.Now;
 
                 if (DisallowsSameSiteNone(userAgent))
                     context.CookieOptions.SameSite = SameSiteMode.Unspecified;

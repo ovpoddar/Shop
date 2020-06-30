@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
 using System;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductManager _productManager;

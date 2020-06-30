@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.ViewModels;
 using System;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class WholeSaleController : Controller
     {
         private readonly IWholesaleHandler _wholesaleHandler;

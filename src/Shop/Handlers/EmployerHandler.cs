@@ -10,25 +10,34 @@ namespace Shop.Handlers
 {
     public class EmployerHandler : IEmployerHandler
     {
-        private readonly IGenericRepository<Employer> _genericRepository;
+        private readonly IEmployeeReposotory _genericRepository;
 
-        public EmployerHandler(IGenericRepository<Employer> genericRepository)
+        public EmployerHandler(IEmployeeReposotory genericRepository)
         {
             _genericRepository = genericRepository ?? throw new ArgumentNullException(nameof(_genericRepository));
         }
 
-        public void BlockEmployer(string Username)
+        public void BlockEmployer(string name)
         {
-            var Employee = _genericRepository.GetAll().First(e => e.UserName == Username);
-            if (Employee.Active)
-                Employee.Active = false;
-            else
-                Employee.Active = true;
-            _genericRepository.Update(Employee);
+            var user = _genericRepository.GetAll().Where(e => e.UserName == name).FirstOrDefault();
+            if (user != null)
+                if(user.Active == false)
+                    user.Active = true;
+                else
+                    user.Active = false;
+
+            _genericRepository.save();
 
         }
 
         public List<Employer> GetAll() =>
             _genericRepository.GetAll().ToList();
+
+        public void lastcheckIn(Employer employer)
+        {
+            var user = _genericRepository.GetAll().Where(e => e.UserName == employer.UserName && e.PhoneNumber == employer.PhoneNumber && e.Email == employer.Email).FirstOrDefault();
+            user.LastLogin = DateTime.UtcNow;
+            _genericRepository.save();
+        }
     }
 }

@@ -20,7 +20,6 @@ namespace Shop.Extensions
         {
             services.AddScoped<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
             services.AddScoped<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
-            services.AddScoped<IGenericRepository<Employer>, GenericRepositories<Employer>>();
             services.AddScoped<IGenericRepository<Category>, GenericRepositories<Category>>();
             services.AddScoped<IGenericRepository<Product>, GenericRepositories<Product>>();
             services.AddScoped<IGenericRepository<Balance>, GenericRepositories<Balance>>();
@@ -28,6 +27,8 @@ namespace Shop.Extensions
             services.AddScoped<IGenericRepository<Csv>, GenericRepositories<Csv>>();
 
             services.AddScoped<IProductRepositories, ProductRepositories>();
+
+            services.AddScoped<IEmployeeReposotory, EmployeeReposotory>();
 
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();

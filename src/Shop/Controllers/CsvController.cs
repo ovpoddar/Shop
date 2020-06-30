@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Managers.Interfaces;
 using Shop.ViewModels;
 using System;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class CsvController : Controller
     {
         private readonly ICsvManager _csvManager;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.ViewModels;
 using System;
@@ -6,6 +7,7 @@ using System.Linq;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryHandler _categoryHandler;

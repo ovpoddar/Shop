@@ -9,6 +9,7 @@ namespace Shop.Handlers.Interfaces
     public interface IEmployerHandler
     {
         List<Employer> GetAll();
-        void BlockEmployer(string Username);
+        void BlockEmployer(string name);
+        void lastcheckIn(Employer employer);
     }
 }

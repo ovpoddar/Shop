@@ -1,9 +1,11 @@
 using AutoMapper;
 using DataAccess;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using Shop.Extensions;
 using Shop.Utilities;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Shop
@@ -39,10 +40,7 @@ namespace Shop
 
             var migrationsAssembly = Assembly.GetExecutingAssembly().GetName().Name;
 
-            services.AddDbContext<ApplicationDbContext>(builder =>
-                builder.UseSqlServer(_configuration.GetConnectionString("database"),
-                    sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)
-                    ));
+            services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer(_configuration.GetConnectionString("database"), sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -53,6 +51,12 @@ namespace Shop
             services.AddSingleton(
                 new MapperConfiguration(e => { e.AddProfile(new AppProfileMapping()); }).CreateMapper());
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" }); });
+            services.AddIdentity<Employer, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.ConfigureApplicationCookie(cookie =>
+            {
+                cookie.LoginPath = "/Authentication/LogIn";
+            });
         }
 
         public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment)
@@ -73,6 +77,8 @@ namespace Shop
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();
             applicationBuilder.UseCors();
+            applicationBuilder.UseAuthentication();
+            applicationBuilder.UseAuthorization();
             applicationBuilder.UseEndpoints(endpoints =>
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Product}/{action=index}/{id?}"));
         }

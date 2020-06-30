@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class EmployerController : Controller
     {
         private readonly IEmployerHandler _employerHandler;
