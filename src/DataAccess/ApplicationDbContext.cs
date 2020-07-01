@@ -21,6 +21,8 @@ namespace DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new BalanceDataConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentTypeDataConfiguration());
+            modelBuilder.ApplyConfiguration(new IdentityRoleDataConfiguration());
+            modelBuilder.ApplyConfiguration(new IdentityUserDataConfiguration());
         }
     }
 }

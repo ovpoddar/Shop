@@ -1,43 +1,41 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Shop.Handlers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shop.Handlers
 {
     public class EmployerHandler : IEmployerHandler
     {
-        private readonly IEmployeeReposotory _genericRepository;
+        private readonly UserManager<Employer> _userManager;
 
-        public EmployerHandler(IEmployeeReposotory genericRepository)
+        public EmployerHandler(UserManager<Employer> userManager)
         {
-            _genericRepository = genericRepository ?? throw new ArgumentNullException(nameof(_genericRepository));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
         }
 
-        public void BlockEmployer(string name)
+        public async Task BlockEmployerAsync(string name)
         {
-            var user = _genericRepository.GetAll().Where(e => e.UserName == name).FirstOrDefault();
+            var user = _userManager.Users.Where(e => e.UserName == name).FirstOrDefault();
             if (user != null)
-                if(user.Active == false)
-                    user.Active = true;
-                else
-                    user.Active = false;
-
-            _genericRepository.save();
-
+                user.Active = user.Active == false;
+            await _userManager.UpdateAsync(user);
         }
 
-        public List<Employer> GetAll() =>
-            _genericRepository.GetAll().ToList();
 
-        public void lastcheckIn(Employer employer)
+        public bool IsAccessable(Employer employer) =>
+            _userManager.Users.Where(e => e.UserName == employer.UserName && e.PhoneNumber == employer.PhoneNumber && e.Email == employer.Email).FirstOrDefault().Active;
+
+        public async Task<IdentityResult> LastcheckInAsync(Employer employer)
         {
-            var user = _genericRepository.GetAll().Where(e => e.UserName == employer.UserName && e.PhoneNumber == employer.PhoneNumber && e.Email == employer.Email).FirstOrDefault();
-            user.LastLogin = DateTime.UtcNow;
-            _genericRepository.save();
+            var user = _userManager.Users.Where(e => e.UserName == employer.UserName && e.PhoneNumber == employer.PhoneNumber && e.Email == employer.Email).FirstOrDefault();
+            user.LastLogin = DateTime.Now;
+            return await _userManager.UpdateAsync(user);
         }
     }
 }

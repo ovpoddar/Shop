@@ -6,7 +6,7 @@ using System;
 
 namespace Shop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CsvController : Controller
     {
         private readonly ICsvManager _csvManager;

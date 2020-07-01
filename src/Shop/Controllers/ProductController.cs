@@ -6,7 +6,7 @@ using System;
 
 namespace Shop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductManager _productManager;
@@ -27,6 +27,10 @@ namespace Shop.Controllers
                 _productManager.GetModel(pageNumber) :
                 _productManager.GetFilteredModel(categoryId, pageNumber));
         }
-
+        [AllowAnonymous]
+        public IActionResult MissingPage()
+        {
+            return View();
+        }
     }
 }

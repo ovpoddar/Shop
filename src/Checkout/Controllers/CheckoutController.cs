@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Checkout.Handlers;
 using Checkout.Managers;
 using Checkout.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
 
 namespace Checkout.Controllers
 {
+    [Authorize]
     public class CheckoutController : Controller
     {
         private readonly IItemManager _itemManager;

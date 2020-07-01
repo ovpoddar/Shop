@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop.Migrations
 {
-    public partial class fresh : Migration
+    public partial class addRoleandrequireddata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,9 @@ namespace Shop.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true)
+                    City = table.Column<string>(nullable: true),
+                    LastLogin = table.Column<DateTime>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,19 +325,28 @@ namespace Shop.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "PaymentTypes",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Card" });
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "e3cfd559-5325-4507-b6a3-f8711256f868", "1b660393-8235-4257-a7f6-d90ee2efd1c2", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Active", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "LastLogin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "77971948-55cb-4adc-899d-965fab136782", 0, true, "Home", "6fca286c-3bf5-4601-967b-0ab57159c491", "admin@gmail.com", false, "Shop", "Male", new DateTime(2020, 7, 1, 12, 23, 8, 265, DateTimeKind.Local).AddTicks(1462), "Keeper", true, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==", "8436159825", false, "aa32abe5-77ee-439d-b1b5-0595d3b47cd5", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "PaymentTypes",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Cash" });
+                values: new object[,]
+                {
+                    { 1, "Card" },
+                    { 2, "Cash" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Balances",
                 columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
-                values: new object[] { 1, 500m, new DateTime(2020, 6, 30, 22, 17, 52, 516, DateTimeKind.Local).AddTicks(7614), 500m, 0m, 2, null, 0L });
+                values: new object[] { 1, 500m, new DateTime(2020, 7, 1, 12, 23, 8, 263, DateTimeKind.Local).AddTicks(2322), 500m, 0m, 2, null, 0L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Shop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryHandler _categoryHandler;

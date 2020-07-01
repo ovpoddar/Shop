@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200630164753_fresh")]
-    partial class fresh
+    [Migration("20200701065810_addRoleandrequireddatau")]
+    partial class addRoleandrequireddatau
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace Shop.Migrations
                         {
                             Id = 1,
                             Ammount = 500m,
-                            Date = new DateTime(2020, 6, 30, 22, 17, 52, 516, DateTimeKind.Local).AddTicks(7614),
+                            Date = new DateTime(2020, 7, 1, 12, 28, 10, 165, DateTimeKind.Local).AddTicks(7805),
                             Incoming = 500m,
                             Outgoing = 0m,
                             PaymentTypeId = 2,
@@ -137,6 +137,9 @@ namespace Shop.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -156,6 +159,9 @@ namespace Shop.Migrations
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -204,6 +210,31 @@ namespace Shop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            Active = true,
+                            City = "Home",
+                            ConcurrencyStamp = "d49ec2b3-b652-441d-b25a-e512a7fff4af",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Shop",
+                            Gender = "Male",
+                            LastLogin = new DateTime(2020, 7, 1, 12, 28, 10, 167, DateTimeKind.Local).AddTicks(7113),
+                            LastName = "Keeper",
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==",
+                            PhoneNumber = "8436159825",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7c0c44ae-8a67-4840-ace4-1e5749ed4fab",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.PaymentType", b =>
@@ -341,6 +372,15 @@ namespace Shop.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "456110a4-27ab-45a7-a0ce-5c5571aad34c",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

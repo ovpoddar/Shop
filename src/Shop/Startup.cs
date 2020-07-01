@@ -56,6 +56,7 @@ namespace Shop
             services.ConfigureApplicationCookie(cookie =>
             {
                 cookie.LoginPath = "/Authentication/LogIn";
+                cookie.AccessDeniedPath = "/Product/MissingPage";
             });
         }
 

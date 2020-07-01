@@ -3,9 +3,11 @@ using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers
@@ -36,12 +38,15 @@ namespace Shop.Controllers
             {
                 var user = await _userManager.FindByEmailAsync(model.UserName);
                 if (user == null)
-                    return View();
+                    user = _userManager.Users.Where(e => e.UserName == model.UserName || e.PhoneNumber == model.UserName).FirstOrDefault();
+                if (user == null)
+                    return View(model);
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
-                if (result.Succeeded)
+                if (result.Succeeded && _employeeReposotory.IsAccessable(user))
                 {
-                    _employeeReposotory.lastcheckIn(user);
-                    return RedirectToAction("index", "product");
+                    var check = await _employeeReposotory.LastcheckInAsync(user);
+                    if (check.Succeeded)
+                        return RedirectToAction("index", "product");
                 }
             }
             return View(model);
@@ -79,6 +84,7 @@ namespace Shop.Controllers
                 foreach(var err in result.Errors)
                 {
                     ModelState.AddModelError(err.Code, err.Description);
+                    return View(model);
                 }
             }
             return View(model);

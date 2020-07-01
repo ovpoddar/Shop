@@ -7,7 +7,7 @@ using System;
 
 namespace Shop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class BrandController : Controller
     {
         private readonly IBrandHandler _brandHandler;

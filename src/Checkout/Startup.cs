@@ -42,6 +42,8 @@ namespace Checkout
                 app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Checkout}/{action=index}/{id?}");

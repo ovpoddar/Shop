@@ -28,8 +28,6 @@ namespace Shop.Extensions
 
             services.AddScoped<IProductRepositories, ProductRepositories>();
 
-            services.AddScoped<IEmployeeReposotory, EmployeeReposotory>();
-
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
             services.AddTransient<ICategoryHandler, CategoryHandler>();
