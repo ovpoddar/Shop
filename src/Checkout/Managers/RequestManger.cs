@@ -24,7 +24,7 @@ namespace Checkout.Managers
         public async Task<string> PatchRequest<T>(string uri, T entity, string token) =>
             await (await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Patch, uri, token, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
 
-        public async Task<string> PostRequest<T>(string uri, T entity, string token) =>
-            await(await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Post, uri, token, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
+        public async Task<string> PostRequest<T>(string uri, T entity) =>
+            await(await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Post, uri, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
     }
 }

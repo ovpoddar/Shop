@@ -33,7 +33,7 @@ namespace Shop.Handlers
                     new Claim(JwtRegisteredClaimNames.Exp, DateTime.Now.AddDays(1).ToShortDateString()),
                     new Claim(ClaimsIdentity.DefaultNameClaimType, employer.UserName),
                     new Claim(JwtRegisteredClaimNames.Iat, employer.Id),
-
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 },
                 audience: _configuration.GetSection("jwt")["Audiences"],
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF32.GetBytes(_configuration.GetSection("Jwt")["secret"])), SecurityAlgorithms.HmacSha512),

@@ -35,7 +35,7 @@ namespace Shop.Controllers.Api
 
         }
 
-        [HttpPost("Purchase")]
+        [HttpPatch("Purchase")]
         [EnableCors("All")]
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult PurchaseProduct([FromBody] PurchaseModel model)

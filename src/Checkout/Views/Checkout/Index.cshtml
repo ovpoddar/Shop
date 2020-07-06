@@ -1,9 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Index";
-    ViewData["ac"] = "Index";
-}
-@model ItemViewModel
+﻿@model ItemViewModel
 @inject IItemHandler<ItemModel> items
+@inject IUserHandler user
 <form method="post">
     <div asp-validation-summary="All" class="text-danger bg-light"></div>
     <div>
@@ -69,8 +66,12 @@
 
 <script>
     var c = document.getElementById("suggst");
-    c.addEventListener("keyup", call);
-    c.addEventListener("paste", call);
+    c.addEventListener("keyup", function () {
+        call("@user.UserToken")
+    });
+    c.addEventListener("paste", function () {
+        call("@user.UserToken")
+    });
 </script>
 
 @section footer

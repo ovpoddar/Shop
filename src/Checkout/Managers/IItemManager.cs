@@ -9,9 +9,9 @@ namespace Checkout.Managers
 {
     public interface IItemManager
     {
-        Task<string> Add(ItemViewModel model);
+        Task<string> Add(ItemViewModel model, string token);
         void remove(int id);
         ItemModel GetItem(string name);
-        Task<ItemViewModel> Model(string name);
+        Task<ItemViewModel> Model(string name, string token);
     }
 }

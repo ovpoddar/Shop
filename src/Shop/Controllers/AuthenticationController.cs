@@ -18,13 +18,11 @@ namespace Shop.Controllers
     {
         private readonly IEmployerHandler _employerHandler;
         private readonly IAuthenticationManager _authenticationManager;
-        private readonly SignInManager<Employer> _signInManager;
 
-        public AuthenticationController(IEmployerHandler employerHandler, IAuthenticationManager authenticationManager, SignInManager<Employer> signInManager)
+        public AuthenticationController(IEmployerHandler employerHandler, IAuthenticationManager authenticationManager)
         {
             _employerHandler = employerHandler ?? throw new ArgumentNullException(nameof(_employerHandler));
             _authenticationManager = authenticationManager ?? throw new ArgumentNullException(nameof(_authenticationManager));
-            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(_signInManager));
         }
 
         [HttpGet]
@@ -71,7 +69,7 @@ namespace Shop.Controllers
         [HttpPost]
         public async Task<IActionResult> LogOutAsync()
         {
-            await _signInManager.SignOutAsync();
+            await _authenticationManager.SignOutUserAsync();
             return RedirectToAction("LogIn", "Authentication");
         }
     }

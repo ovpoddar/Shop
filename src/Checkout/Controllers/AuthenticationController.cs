@@ -5,18 +5,20 @@ using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Checkout.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IRequestManger _requestManger;
+        private readonly IloginManager  _iloginManager;
 
-        public AuthenticationController(IRequestManger requestManger)
+        public AuthenticationController(IloginManager iloginManager)
         {
-            _requestManger = requestManger ?? throw new ArgumentNullException(nameof(_requestManger));
+            _iloginManager = iloginManager ?? throw new ArgumentNullException(nameof(_iloginManager));
         }
         [HttpGet("Checkout/Login")]
         public IActionResult Login()
@@ -26,16 +28,26 @@ namespace Checkout.Controllers
         [HttpPost("Checkout/Login")]
         public async Task<IActionResult> LoginAsync(LogInViewModel logInView)
         {
-            var result = JsonConvert.DeserializeObject<Results<CustomeSignInResult>>
-                (await _requestManger.PostRequest($"{WebSitesUrls.EndPoient}api/Authentication/Login", logInView, "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJBbWFyIFBvZGRhciIsImVtYWlsIjoiYW1hcnBvZGRlcjBAZ21haWwuY29tIiwiZ2VuZGVyIjoiTWFsZSIsImV4cCI6MTU5NDEwMTc1OCwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkFtYXJwb2RkYXIiLCJpYXQiOiI0YjgwMjA4MC1kNGVmLTQ2YWYtYjc4NS0yZjAyMTQwZWNlYzAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjU5NjE2LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzUwLyJ9.GBCtVTgO6QxuaS__JTIjFGwHT3C7pychjwhOvapt7R1SGV5uQazHCek-NAQj0-5tYViv2eh4tDIP9fY5hXhwQw"));
-            if (result.Result.Succeeded)
-                return RedirectToAction("Index", "Checkout");
-            ModelState.AddModelError("", result.Exception);
-            foreach (var err in result.Result.Errors)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(err.Code, err.Description);
+                var result = await _iloginManager.LogMeIn(logInView);
+                if (result.Success)
+                {
+                    return RedirectToAction("Index", "Checkout");
+                }
+                foreach (var err in result.Error)
+                {
+                    ModelState.AddModelError("", err);
+                }
             }
             return View(logInView);
+        }
+
+        [HttpPost("Checkout/LogOut")]
+        public async Task<IActionResult> LogOutAsync()
+        {
+            await _iloginManager.LogMeOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }

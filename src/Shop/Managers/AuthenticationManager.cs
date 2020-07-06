@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
@@ -17,16 +18,18 @@ namespace Shop.Managers
         private readonly UserManager<Employer> _userManager;
         private readonly SignInManager<Employer> _signInManager;
         private readonly IEmployerHandler _employerHandler;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITokenHandler _tokenHandler;
         private readonly IMapper _mapper;
 
-        public AuthenticationManager(UserManager<Employer> userManager, SignInManager<Employer> signInManager, IMapper mapper, IEmployerHandler employerHandler, ITokenHandler tokenHandler)
+        public AuthenticationManager(UserManager<Employer> userManager, SignInManager<Employer> signInManager, IMapper mapper, IEmployerHandler employerHandler, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(_signInManager));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
             _employerHandler = employerHandler ?? throw new ArgumentNullException(nameof(_employerHandler));
             _tokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(_tokenHandler));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
         }
 
         public async Task<CustomeSignInResult> LogInUserAsync(Employer user, string password)
@@ -70,6 +73,15 @@ namespace Shop.Managers
                 Succeeded = false,
                 Token = null
             };
+        }
+
+        public async Task SignOutUserAsync()
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspUser", new CookieOptions()
+            {
+                Expires = DateTime.Now
+            });
+            await _signInManager.SignOutAsync();
         }
 
         public async Task<CustomeIdentityResult> SignUpUserAsync(SignInViewModel model)

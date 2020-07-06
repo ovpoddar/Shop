@@ -17,24 +17,31 @@ namespace Checkout.Controllers
         private readonly IItemManager _itemManager;
         private readonly IItemHandler<ItemModel> _itemHandler;
         private readonly IPurchaseHandler _purchaseHandler;
+        private readonly IUserHandler _userHandler;
 
-        public CheckoutController(IItemManager item, IItemHandler<ItemModel> itemHandler, IPurchaseHandler purchaseHandler)
+        public CheckoutController(IItemManager item, IItemHandler<ItemModel> itemHandler, IPurchaseHandler purchaseHandler, IUserHandler userHandler)
         {
             _itemManager = item ?? throw new ArgumentNullException(nameof(_itemManager));
             _itemHandler = itemHandler ?? throw new ArgumentNullException(nameof(_itemHandler));
             _purchaseHandler = purchaseHandler ?? throw new ArgumentNullException(nameof(_purchaseHandler));
+            _userHandler = userHandler ?? throw new ArgumentNullException(nameof(_userHandler));
         }
 
         [HttpGet]
         public IActionResult Index()
         {
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> IndexAsync(ItemViewModel model)
         {
-            var result = await _itemManager.Add(model);
+
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
+            var result = await _itemManager.Add(model, _userHandler.UserToken);
             if (ModelState.IsValid && string.IsNullOrEmpty(result))
                 return View(model);
             ModelState.AddModelError("1", result);
@@ -43,6 +50,8 @@ namespace Checkout.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
             _itemManager.remove(id);
             return Redirect("../Index");
         }
@@ -50,13 +59,17 @@ namespace Checkout.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAsync(string Name)
         {
-            return View(await _itemManager.Model(Name));
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
+            return View(await _itemManager.Model(Name, _userHandler.UserToken));
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateAsync(ItemViewModel model)
         {
-            var result = await _itemManager.Add(model);
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
+            var result = await _itemManager.Add(model, _userHandler.UserToken);
             if (!ModelState.IsValid && string.IsNullOrWhiteSpace(result)) 
                 return Redirect("Index");
             ModelState.AddModelError("1", result);
@@ -65,11 +78,13 @@ namespace Checkout.Controllers
         [HttpPost]
         public async Task<IActionResult> Payment(uint Payment)
         {
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
             var responce = await _purchaseHandler.MakePurchaseCallAsync(new PurchaseModel()
             {
                 Items = _itemHandler.List,
                 PaymentType = Payment
-            });
+            }, _userHandler.UserToken);
             if (!responce.Success)
                 return View(responce.Objects);
             return Redirect(WebSitesUrls.EndPoient);

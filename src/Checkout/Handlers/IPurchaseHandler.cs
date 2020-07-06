@@ -8,6 +8,6 @@ namespace Checkout.Handlers
 {
     public interface IPurchaseHandler
     {
-        Task<OverallResult<List<Results<ItemModel>>>> MakePurchaseCallAsync(PurchaseModel model);
+        Task<OverallResult<List<Results<ItemModel>>>> MakePurchaseCallAsync(PurchaseModel model, string token);
     }
 }
