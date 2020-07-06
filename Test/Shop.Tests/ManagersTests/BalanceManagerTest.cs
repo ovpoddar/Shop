@@ -43,7 +43,7 @@ namespace Shop.Tests.ManagersTests
                 .Setup(e => e.GetLastBalance())
                 .Returns(balance);
 
-            _balanceManager.Purchase(itemModels(), 0);
+            _balanceManager.Purchase(itemModels(), 0, It.IsAny<string>());
 
             _balanceHandler
                 .Verify(e => e.AddBalance(It.IsAny<Balance>()), Times.AtLeastOnce);

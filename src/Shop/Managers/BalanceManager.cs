@@ -24,7 +24,7 @@ namespace Shop.Managers
             //all done
         }
 
-        public void Purchase(List<ItemModel> items, uint purchaseType)
+        public void Purchase(List<ItemModel> items, uint purchaseType, string user)
         {
             foreach (var item in items)
             {
@@ -36,7 +36,8 @@ namespace Shop.Managers
                     ProductId = product.Id,
                     Quantity = (uint)item.Quantity,
                     Incoming = product.Price * item.Quantity,
-                    Ammount = _balance.GetLastBalance().Ammount + product.Price * item.Quantity
+                    Ammount = _balance.GetLastBalance().Ammount + product.Price * item.Quantity,
+                    EmployerId = user
                 });
             }
         }

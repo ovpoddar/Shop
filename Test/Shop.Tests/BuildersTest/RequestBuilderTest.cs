@@ -1,5 +1,6 @@
 ﻿using Checkout.Builders;
 using FluentAssertions;
+using Moq;
 using System.Net.Http;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace Shop.Tests.BuildersTest
             var uri = "myServer/api/location/guid";
             var method = HttpMethod.Patch;
 
-            var output = _requestBuilder.BuildRequest(method, uri);
+            var output = _requestBuilder.BuildRequest(method, uri, It.IsAny<string>());
 
             output.RequestUri.Should().Be($"{uri}");
             output.Method.Should().Be(method);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop.Migrations
 {
-    public partial class addRoleandrequireddata : Migration
+    public partial class addnewfeathers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -279,11 +279,18 @@ namespace Shop.Migrations
                     Quantity = table.Column<long>(nullable: false),
                     Ammount = table.Column<decimal>(nullable: false),
                     ProductId = table.Column<int>(nullable: true),
+                    EmployerId = table.Column<string>(nullable: true),
                     PaymentTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Balances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Balances_AspNetUsers_EmployerId",
+                        column: x => x.EmployerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Balances_PaymentTypes_PaymentTypeId",
                         column: x => x.PaymentTypeId,
@@ -327,12 +334,12 @@ namespace Shop.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e3cfd559-5325-4507-b6a3-f8711256f868", "1b660393-8235-4257-a7f6-d90ee2efd1c2", "Admin", "ADMIN" });
+                values: new object[] { "1", "a34e67dd-14e7-4930-b6dd-1212f6b43506", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Active", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "LastLogin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "77971948-55cb-4adc-899d-965fab136782", 0, true, "Home", "6fca286c-3bf5-4601-967b-0ab57159c491", "admin@gmail.com", false, "Shop", "Male", new DateTime(2020, 7, 1, 12, 23, 8, 265, DateTimeKind.Local).AddTicks(1462), "Keeper", true, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==", "8436159825", false, "aa32abe5-77ee-439d-b1b5-0595d3b47cd5", false, "Admin" });
+                values: new object[] { "1", 0, true, "Home", "731b87ac-284e-4953-b106-e38474438f26", "admin@gmail.com", false, "Shop", "Male", new DateTime(2020, 7, 6, 11, 47, 58, 272, DateTimeKind.Local).AddTicks(3471), "Keeper", true, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==", "8436159825", false, "1d527c77-ba29-44c8-9798-d2941f66f953", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "PaymentTypes",
@@ -344,9 +351,14 @@ namespace Shop.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "1", "1" });
+
+            migrationBuilder.InsertData(
                 table: "Balances",
-                columns: new[] { "Id", "Ammount", "Date", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
-                values: new object[] { 1, 500m, new DateTime(2020, 7, 1, 12, 23, 8, 263, DateTimeKind.Local).AddTicks(2322), 500m, 0m, 2, null, 0L });
+                columns: new[] { "Id", "Ammount", "Date", "EmployerId", "Incoming", "Outgoing", "PaymentTypeId", "ProductId", "Quantity" },
+                values: new object[] { 1, 500m, new DateTime(2020, 7, 6, 11, 47, 58, 270, DateTimeKind.Local).AddTicks(2697), null, 500m, 0m, 2, null, 0L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -386,6 +398,11 @@ namespace Shop.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Balances_EmployerId",
+                table: "Balances",
+                column: "EmployerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_PaymentTypeId",

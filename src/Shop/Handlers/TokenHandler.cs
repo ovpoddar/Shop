@@ -31,7 +31,9 @@ namespace Shop.Handlers
                     new Claim(JwtRegisteredClaimNames.Email, employer.Email),
                     new Claim(JwtRegisteredClaimNames.Gender, employer.Gender),
                     new Claim(JwtRegisteredClaimNames.Exp, DateTime.Now.AddDays(1).ToShortDateString()),
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, employer.UserName)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, employer.UserName),
+                    new Claim(JwtRegisteredClaimNames.Iat, employer.Id),
+
                 },
                 audience: _configuration.GetSection("jwt")["Audiences"],
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF32.GetBytes(_configuration.GetSection("Jwt")["secret"])), SecurityAlgorithms.HmacSha512),

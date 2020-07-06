@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace dataaccess.configuration
+namespace DataAccess.Configuration
 {
-    public class identityuserroledataconfiguration : IEntityTypeConfiguration<IdentityUserRole>
+    public class IdentityUserRoleDataConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
     {
-        public void Configure(EntityTypeBuilder<IdentityUserRole> builder)
+        public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
         {
-            builder.HasData(new IdentityUserRole()
+            builder.HasData(new IdentityUserRole<string>
             {
                 RoleId = "1",
                 UserId = "1"

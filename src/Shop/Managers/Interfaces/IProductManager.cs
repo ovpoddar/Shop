@@ -8,6 +8,6 @@ namespace Shop.Managers.Interfaces
     {
         ProductListViewModel GetModel(int pageNumber);
         ProductListViewModel GetFilteredModel(int id, int pageNumber);
-        OverallResult<List<Results<ItemModel>>> SalesProduct(PurchaseModel purchaseModel);
+        OverallResult<List<Results<ItemModel>>> SalesProduct(PurchaseModel purchaseModel, string user);
     }
 }

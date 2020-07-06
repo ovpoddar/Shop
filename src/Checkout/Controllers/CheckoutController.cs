@@ -34,10 +34,11 @@ namespace Checkout.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync(ItemViewModel model)
         {
-            if (!ModelState.IsValid)
+            var result = await _itemManager.Add(model);
+            if (ModelState.IsValid && string.IsNullOrEmpty(result))
                 return View(model);
-            await _itemManager.Add(model);
-            return View();
+            ModelState.AddModelError("1", result);
+            return View(model);
         }
 
         public IActionResult Delete(int id)
@@ -55,10 +56,11 @@ namespace Checkout.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAsync(ItemViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-            await _itemManager.Add(model);
-            return Redirect("Index");
+            var result = await _itemManager.Add(model);
+            if (!ModelState.IsValid && string.IsNullOrWhiteSpace(result)) 
+                return Redirect("Index");
+            ModelState.AddModelError("1", result);
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Payment(uint Payment)

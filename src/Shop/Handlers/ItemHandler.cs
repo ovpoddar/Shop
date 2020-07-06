@@ -36,6 +36,14 @@ namespace Shop.Handlers
                     Result = null,
                     Success = false
                 };
+            if(product.StockLevel < Quantity)
+                return new Results<ItemModel>()
+                {
+                    Exception = "we dont have enough Product",
+                    HttpStatusCode = HttpStatusCode.OK,
+                    Result = null,
+                    Success = true
+                };
             return new Results<ItemModel>()
             {
                 Exception = null,

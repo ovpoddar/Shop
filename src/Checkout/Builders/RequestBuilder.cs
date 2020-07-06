@@ -13,7 +13,7 @@ namespace Checkout.Builders
             return message;
         }
 
-        public HttpRequestMessage BuildRequest(HttpMethod method, string url, string content, string token)
+        public HttpRequestMessage BuildRequest(HttpMethod method, string url, string token, string content)
         {
             var message = new HttpRequestMessage(method, url)
             {

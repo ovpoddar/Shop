@@ -6,6 +6,6 @@ namespace Shop.Managers.Interfaces
     public interface IBalanceManager
     {
         void Sales();
-        void Purchase(List<ItemModel> items, uint purchaseType);
+        void Purchase(List<ItemModel> items, uint purchaseType, string user);
     }
 }

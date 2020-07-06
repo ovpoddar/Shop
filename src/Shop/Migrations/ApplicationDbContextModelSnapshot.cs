@@ -32,6 +32,9 @@ namespace Shop.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EmployerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Incoming")
                         .HasColumnType("decimal(18,2)");
 
@@ -49,6 +52,8 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployerId");
+
                     b.HasIndex("PaymentTypeId");
 
                     b.HasIndex("ProductId");
@@ -60,7 +65,7 @@ namespace Shop.Migrations
                         {
                             Id = 1,
                             Ammount = 500m,
-                            Date = new DateTime(2020, 7, 1, 12, 28, 10, 165, DateTimeKind.Local).AddTicks(7805),
+                            Date = new DateTime(2020, 7, 6, 11, 47, 58, 270, DateTimeKind.Local).AddTicks(2697),
                             Incoming = 500m,
                             Outgoing = 0m,
                             PaymentTypeId = 2,
@@ -216,12 +221,12 @@ namespace Shop.Migrations
                             AccessFailedCount = 0,
                             Active = true,
                             City = "Home",
-                            ConcurrencyStamp = "d49ec2b3-b652-441d-b25a-e512a7fff4af",
+                            ConcurrencyStamp = "731b87ac-284e-4953-b106-e38474438f26",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Shop",
                             Gender = "Male",
-                            LastLogin = new DateTime(2020, 7, 1, 12, 28, 10, 167, DateTimeKind.Local).AddTicks(7113),
+                            LastLogin = new DateTime(2020, 7, 6, 11, 47, 58, 272, DateTimeKind.Local).AddTicks(3471),
                             LastName = "Keeper",
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
@@ -229,7 +234,7 @@ namespace Shop.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==",
                             PhoneNumber = "8436159825",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7c0c44ae-8a67-4840-ace4-1e5749ed4fab",
+                            SecurityStamp = "1d527c77-ba29-44c8-9798-d2941f66f953",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -375,7 +380,7 @@ namespace Shop.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "456110a4-27ab-45a7-a0ce-5c5571aad34c",
+                            ConcurrencyStamp = "a34e67dd-14e7-4930-b6dd-1212f6b43506",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -464,6 +469,13 @@ namespace Shop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -487,6 +499,10 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("DataAccess.Entities.Balance", b =>
                 {
+                    b.HasOne("DataAccess.Entities.Employer", "Employer")
+                        .WithMany("Balances")
+                        .HasForeignKey("EmployerId");
+
                     b.HasOne("DataAccess.Entities.PaymentType", "PaymentType")
                         .WithMany("Balance")
                         .HasForeignKey("PaymentTypeId")

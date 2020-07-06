@@ -38,7 +38,7 @@ namespace Shop.Managers
                 TotalNo = _productHandler.TotalCount()
             };
 
-        public OverallResult<List<Results<ItemModel>>> SalesProduct(PurchaseModel purchaseModel)
+        public OverallResult<List<Results<ItemModel>>> SalesProduct(PurchaseModel purchaseModel, string user)
         {
             var result = _paymentManager.Purchase(purchaseModel);
             if (!result.Success)
@@ -47,7 +47,7 @@ namespace Shop.Managers
                     Success = false,
                     Objects = result.Objects
                 };
-            _balanceManager.Purchase(purchaseModel.Items, purchaseModel.PaymentType);
+            _balanceManager.Purchase(purchaseModel.Items, purchaseModel.PaymentType, user);
             return new OverallResult<List<Results<ItemModel>>>
             {
                 Success = true,

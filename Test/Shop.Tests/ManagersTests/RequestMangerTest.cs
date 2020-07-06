@@ -44,7 +44,7 @@ namespace Shop.Tests.ManagersTests
                 })
                 .Verifiable();
 
-            var result = await _requestManger.PatchRequest("localhost/1020://index.html", new Product() { ProductName = "xoxo" });
+            var result = await _requestManger.PatchRequest("localhost/1020://index.html", new Product() { ProductName = "xoxo" }, It.IsAny<string>());
 
             result.Should().NotBeNullOrEmpty();
         }

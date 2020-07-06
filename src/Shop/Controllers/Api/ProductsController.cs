@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.ActionFilters;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
+using System.Linq;
 using System.Net;
 
 namespace Shop.Controllers.Api
@@ -13,7 +15,7 @@ namespace Shop.Controllers.Api
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController
+    public class ProductsController : ControllerBase
     {
         private readonly IProductManager _productManager;
         private readonly IProductHandler _productHandler;
@@ -38,7 +40,7 @@ namespace Shop.Controllers.Api
         [ServiceFilter(typeof(ProductActionFilter))]
         public IActionResult PurchaseProduct([FromBody] PurchaseModel model)
         {
-            return new OkObjectResult(_productManager.SalesProduct(model));
+            return new OkObjectResult(_productManager.SalesProduct(model, HttpContext.User.Claims.FirstOrDefault(e => e.Type == "iat").Value));
         }
     }
 }

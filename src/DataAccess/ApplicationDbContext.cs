@@ -1,5 +1,6 @@
 ﻿using DataAccess.Configuration;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,7 @@ namespace DataAccess
             modelBuilder.ApplyConfiguration(new PaymentTypeDataConfiguration());
             modelBuilder.ApplyConfiguration(new IdentityRoleDataConfiguration());
             modelBuilder.ApplyConfiguration(new IdentityUserDataConfiguration());
+            modelBuilder.ApplyConfiguration(new IdentityUserRoleDataConfiguration());
         }
     }
 }

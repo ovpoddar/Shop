@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200701065308_addRoleandrequireddata")]
-    partial class addRoleandrequireddata
+    [Migration("20200706061758_addnewfeathers")]
+    partial class addnewfeathers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace Shop.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EmployerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Incoming")
                         .HasColumnType("decimal(18,2)");
 
@@ -51,6 +54,8 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployerId");
+
                     b.HasIndex("PaymentTypeId");
 
                     b.HasIndex("ProductId");
@@ -62,7 +67,7 @@ namespace Shop.Migrations
                         {
                             Id = 1,
                             Ammount = 500m,
-                            Date = new DateTime(2020, 7, 1, 12, 23, 8, 263, DateTimeKind.Local).AddTicks(2322),
+                            Date = new DateTime(2020, 7, 6, 11, 47, 58, 270, DateTimeKind.Local).AddTicks(2697),
                             Incoming = 500m,
                             Outgoing = 0m,
                             PaymentTypeId = 2,
@@ -214,16 +219,16 @@ namespace Shop.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "77971948-55cb-4adc-899d-965fab136782",
+                            Id = "1",
                             AccessFailedCount = 0,
                             Active = true,
                             City = "Home",
-                            ConcurrencyStamp = "6fca286c-3bf5-4601-967b-0ab57159c491",
+                            ConcurrencyStamp = "731b87ac-284e-4953-b106-e38474438f26",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Shop",
                             Gender = "Male",
-                            LastLogin = new DateTime(2020, 7, 1, 12, 23, 8, 265, DateTimeKind.Local).AddTicks(1462),
+                            LastLogin = new DateTime(2020, 7, 6, 11, 47, 58, 272, DateTimeKind.Local).AddTicks(3471),
                             LastName = "Keeper",
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
@@ -231,7 +236,7 @@ namespace Shop.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAENy1MasO3pTdOMRvDS7vQ6H0hs5NL9hOIgMbPIvj8WeSPwHB4D3C7BlwU6QzJ+JHCA==",
                             PhoneNumber = "8436159825",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa32abe5-77ee-439d-b1b5-0595d3b47cd5",
+                            SecurityStamp = "1d527c77-ba29-44c8-9798-d2941f66f953",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -376,8 +381,8 @@ namespace Shop.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e3cfd559-5325-4507-b6a3-f8711256f868",
-                            ConcurrencyStamp = "1b660393-8235-4257-a7f6-d90ee2efd1c2",
+                            Id = "1",
+                            ConcurrencyStamp = "a34e67dd-14e7-4930-b6dd-1212f6b43506",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -466,6 +471,13 @@ namespace Shop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -489,6 +501,10 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("DataAccess.Entities.Balance", b =>
                 {
+                    b.HasOne("DataAccess.Entities.Employer", "Employer")
+                        .WithMany("Balances")
+                        .HasForeignKey("EmployerId");
+
                     b.HasOne("DataAccess.Entities.PaymentType", "PaymentType")
                         .WithMany("Balance")
                         .HasForeignKey("PaymentTypeId")
