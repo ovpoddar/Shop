@@ -12,7 +12,6 @@ using Shop.Models;
 
 namespace Checkout.Controllers
 {
-    [Authorize]
     public class CheckoutController : Controller
     {
         private readonly IItemManager _itemManager;

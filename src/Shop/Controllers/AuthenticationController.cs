@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers;
 using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
+using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Linq;
@@ -14,15 +16,15 @@ namespace Shop.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly UserManager<Employer> _userManager;
+        private readonly IEmployerHandler _employerHandler;
+        private readonly IAuthenticationManager _authenticationManager;
         private readonly SignInManager<Employer> _signInManager;
-        private readonly IEmployerHandler _employeeReposotory;
 
-        public AuthenticationController(UserManager<Employer> userManager, SignInManager<Employer> signInManager, IEmployerHandler employeeReposotory)
+        public AuthenticationController(IEmployerHandler employerHandler, IAuthenticationManager authenticationManager, SignInManager<Employer> signInManager)
         {
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
+            _employerHandler = employerHandler ?? throw new ArgumentNullException(nameof(_employerHandler));
+            _authenticationManager = authenticationManager ?? throw new ArgumentNullException(nameof(_authenticationManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(_signInManager));
-            _employeeReposotory = employeeReposotory ?? throw new ArgumentNullException(nameof(_employeeReposotory));
         }
 
         [HttpGet]
@@ -36,18 +38,10 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.UserName);
-                if (user == null)
-                    user = _userManager.Users.Where(e => e.UserName == model.UserName || e.PhoneNumber == model.UserName).FirstOrDefault();
-                if (user == null)
-                    return View(model);
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
-                if (result.Succeeded && _employeeReposotory.IsAccessable(user))
-                {
-                    var check = await _employeeReposotory.LastcheckInAsync(user);
-                    if (check.Succeeded)
+                var user = _employerHandler.GetEmployer(model.UserName);
+                if (user != null)
+                    if ((await _authenticationManager.LogInUserAsync(user, model.Password)).Succeeded)
                         return RedirectToAction("index", "product");
-                }
             }
             return View(model);
         }
@@ -63,28 +57,12 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Employer()
-                {
-                    UserName = model.UserName,
-                    PhoneNumber = model.MobileNo.ToString(),
-                    Email = model.Email,
-                    City = model.City,
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
-                    Gender = model.Gender.ToString(),
-                    Active = true,
-                    LastLogin = DateTime.UtcNow
-                };
-                var result = await _userManager.CreateAsync(user, model.ConfirmPassword);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: true);
-                    return RedirectToAction("index", "product");
-                }
-                foreach(var err in result.Errors)
+                var result = await _authenticationManager.SignUpUserAsync(model);
+                if (result.Success)
+                    return Redirect($"{WebSitesUrls.CallingPoient}");
+                foreach (var err in result.Errors)
                 {
                     ModelState.AddModelError(err.Code, err.Description);
-                    return View(model);
                 }
             }
             return View(model);

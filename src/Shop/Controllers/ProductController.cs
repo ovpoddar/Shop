@@ -6,7 +6,7 @@ using System;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Identity.Application")]
     public class ProductController : Controller
     {
         private readonly IProductManager _productManager;

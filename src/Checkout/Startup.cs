@@ -1,20 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Checkout.Builders;
+using Checkout.Handlers;
+using Checkout.Managers;
+using Checkout.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Checkout.Builders;
-using Checkout.Services;
-using Checkout.Managers;
-using Checkout.Handlers;
 using Shop.Models;
-using System.Reflection;
-using Checkout.Controllers;
 
 namespace Checkout
 {
@@ -42,8 +34,6 @@ namespace Checkout
                 app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.UseStaticFiles();
-            app.UseAuthentication();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Checkout}/{action=index}/{id?}");

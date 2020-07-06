@@ -1,15 +1,11 @@
-﻿using DataAccess.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DataAccess.Configuration
+namespace dataaccess.configuration
 {
-    public class IdentityUserRoleDataConfiguration : IEntityTypeConfiguration<IdentityUserRole>
+    public class identityuserroledataconfiguration : IEntityTypeConfiguration<IdentityUserRole>
     {
         public void Configure(EntityTypeBuilder<IdentityUserRole> builder)
         {

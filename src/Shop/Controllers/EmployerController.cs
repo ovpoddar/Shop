@@ -12,7 +12,7 @@ using Shop.Handlers.Interfaces;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Identity.Application")]
     public class EmployerController : Controller
     {
         private readonly IEmployerHandler _employerHandler;

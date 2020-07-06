@@ -13,5 +13,6 @@ namespace Shop.Handlers.Interfaces
         Task BlockEmployerAsync(string name);
         Task<IdentityResult> LastcheckInAsync(Employer employer);
         bool IsAccessable(Employer employer);
+        Employer GetEmployer(string query);
     }
 }

@@ -10,8 +10,8 @@
 
 <div class="row justify-content-xl-center">
     <div class="col-md-4">
-        <form asp-action="LogIn" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" />
@@ -22,8 +22,6 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <input type="hidden" value="@ViewBag.con" name="con"/>
-            <input type="hidden" value="@ViewBag.ac" name="ac"/>
             <div class="form-group">
                 <input type="submit" value="Log In" class="btn btn-primary" formmethod="post" />
             </div>
@@ -32,5 +30,5 @@
 </div>
 
 <div class="text-center mt-5">
-    <a asp-action="SignIn" asp-route-con="@ViewBag.con"  asp-route-ac="@ViewBag.ac">Create a new Account</a>
+    <a asp-action="SignIn">Create a new Account</a>
 </div>

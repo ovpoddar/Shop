@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,11 @@ using Microsoft.OpenApi.Models;
 using Shop.Extensions;
 using Shop.Utilities;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Shop
 {
@@ -28,6 +33,21 @@ namespace Shop
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication()
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = false,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = _configuration.GetSection("Jwt")["Issuer"],
+                        ValidAudience = _configuration.GetSection("Jwt")["Audiences"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(_configuration.GetSection("Jwt")["secret"]))
+                    };
+                });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => false;
@@ -37,11 +57,7 @@ namespace Shop
                 options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
                 options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
             });
-
-            var migrationsAssembly = Assembly.GetExecutingAssembly().GetName().Name;
-
-            services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer(_configuration.GetConnectionString("database"), sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly)));
-
+            services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer(_configuration.GetConnectionString("database"), sqlOptions => sqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name)));
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddHttpContextAccessor();
@@ -52,7 +68,8 @@ namespace Shop
                 new MapperConfiguration(e => { e.AddProfile(new AppProfileMapping()); }).CreateMapper());
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" }); });
             services.AddIdentity<Employer, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.ConfigureApplicationCookie(cookie =>
             {
                 cookie.LoginPath = "/Authentication/LogIn";
@@ -60,16 +77,15 @@ namespace Shop
             });
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment)
+        public void Configure(IApplicationBuilder applicationBuilder, IWebHostEnvironment webHostEnvironment, IServiceProvider serviceProvider)
         {
             if (webHostEnvironment.IsDevelopment())
                 applicationBuilder.UseDeveloperExceptionPage();
             else
                 applicationBuilder.UseExceptionHandler("/Error");
-
-
-            InitializeDb(applicationBuilder);
-
+            // migrate the application in short
+            serviceProvider.GetService<ApplicationDbContext>()
+                .Database.Migrate();
             applicationBuilder.UseSwagger();
             applicationBuilder.UseSwaggerUI(c =>
             {
@@ -82,11 +98,6 @@ namespace Shop
             applicationBuilder.UseAuthorization();
             applicationBuilder.UseEndpoints(endpoints =>
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Product}/{action=index}/{id?}"));
-        }
-
-        private static void InitializeDb(IApplicationBuilder applicationBuilder)
-        {
-            applicationBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
         }
     }
 }

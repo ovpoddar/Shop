@@ -27,6 +27,10 @@ namespace Shop.Handlers
             await _userManager.UpdateAsync(user);
         }
 
+        public Employer GetEmployer(string query) =>
+            _userManager.Users
+            .Where(e => e.UserName == query || e.Email == query || e.PhoneNumber == query)
+            .FirstOrDefault();
 
         public bool IsAccessable(Employer employer) =>
             _userManager.Users.Where(e => e.UserName == employer.UserName && e.PhoneNumber == employer.PhoneNumber && e.Email == employer.Email).FirstOrDefault().Active;

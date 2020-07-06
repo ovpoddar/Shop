@@ -38,10 +38,12 @@ namespace Shop.Extensions
             services.AddTransient<IProtectorHandler, ProtectorHandler>();
             services.AddTransient<IItemHandler, ItemHandler>();
             services.AddTransient<IEmployerHandler, EmployerHandler>();
+            services.AddTransient<ITokenHandler, TokenHandler>();
 
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<ICsvManager, CsvManager>();
             services.AddTransient<IBalanceManager, BalanceManager>();
+            services.AddTransient<IAuthenticationManager, AuthenticationManager>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
             services.AddTransient<IProtectionHelper, ProtectionHelper>();

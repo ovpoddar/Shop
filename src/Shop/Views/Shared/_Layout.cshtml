@@ -34,19 +34,19 @@
                 </div>
             </div>
         }
-        <div class="nav-item float-right bg-dark h-100">
-            <a href="https://localhost:44350/" class="display-4 btn btn-secondary">Checkout</a>
-            @if (!_signInManager.IsSignedIn(User))
-            {
-                <a asp-action="LogIn" asp-controller="Authentication" class="display-4 btn btn-secondary">Login</a>
-            }
-            else
-            {
-                <form method="post" asp-action="LogOut" asp-controller="Authentication" class="display-4 btn btn-secondary">
-                    <button type="submit" style="width: 100%; height: 100%; background: transparent; border: none; color: white">Log Out</button>
-                </form>
-            }
-        </div>
+    <div class="nav-item float-right bg-dark h-100">
+        <a href="https://localhost:44350/" class="display-4 btn btn-secondary">Checkout</a>
+        @if (!_signInManager.IsSignedIn(User))
+        {
+            <a asp-action="LogIn" asp-controller="Authentication" class="display-4 btn btn-secondary">Login</a>
+        }
+        else
+        {
+            <form method="post" asp-action="LogOut" asp-controller="Authentication" class="display-4 btn btn-secondary">
+                <button type="submit" style="width: 100%; height: 100%; background: transparent; border: none; color: white">Log Out</button>
+            </form>
+        }
+    </div>
     </header>
     <section style="width: auto; height: auto;" class="card-body">
         @RenderBody()

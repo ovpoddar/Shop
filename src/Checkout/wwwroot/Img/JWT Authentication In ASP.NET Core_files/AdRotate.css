@@ -1,0 +1,1 @@
+.breaking-news-container{width:calc(100% - 130px);float:right}.breaking-news-container>ul{overflow:hidden;position:relative;height:40px;white-space:nowrap;width:100%;margin:0;padding:0;list-style:none}.breaking-news-container>ul>li{position:absolute;right:-999px;margin:0!important;width:100%;white-space:normal}.breaking-news-container>ul>li:first-child{right:0}

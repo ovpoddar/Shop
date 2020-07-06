@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Utilities;
@@ -7,7 +8,7 @@ using System;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Identity.Application")]
     public class BrandController : Controller
     {
         private readonly IBrandHandler _brandHandler;

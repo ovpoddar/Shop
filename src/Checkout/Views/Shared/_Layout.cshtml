@@ -31,7 +31,7 @@
         </div>
         <div class="nav-item float-right bg-dark h-100">
             <a asp-action="Index" asp-controller="Checkout" class="display-4 btn btn-secondary">Checkout</a>
-                <a asp-action="LogOut" asp-controller="Authentication" asp-route-con="@this.ViewContext.RouteData.Values["controller"].ToString()"  asp-route-ac="@this.ViewContext.RouteData.Values["action"].ToString()" class="display-4 btn btn-secondary">LogOut</a>
+            username = @User.Identity.Name
         </div>
     </header>
     <section style="width: auto; height: auto;" class="card-body">
