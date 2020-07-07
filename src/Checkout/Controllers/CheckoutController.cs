@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Checkout.Handlers;
+﻿using Checkout.Handlers;
 using Checkout.Managers;
 using Checkout.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers.Interfaces;
 using Shop.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace Checkout.Controllers
 {
@@ -70,7 +66,7 @@ namespace Checkout.Controllers
             if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
                 return RedirectToAction("Login", "Checkout");
             var result = await _itemManager.Add(model, _userHandler.UserToken);
-            if (!ModelState.IsValid && string.IsNullOrWhiteSpace(result)) 
+            if (!ModelState.IsValid && string.IsNullOrWhiteSpace(result))
                 return Redirect("Index");
             ModelState.AddModelError("1", result);
             return View(model);

@@ -113,13 +113,13 @@ namespace Shop.Handlers
                 };
             var newStockLevel = product.StockLevel - saleProduct.Quantity;
             product.StockLevel = newStockLevel <= 0 ? 0 : newStockLevel;
-            if (product.StockLevel <= 0) 
+            if (product.StockLevel <= 0)
                 return new Results<ItemModel>()
                 {
                     Exception = "We Dont Have Enough Stock",
-                    HttpStatusCode= HttpStatusCode.BadRequest,
+                    HttpStatusCode = HttpStatusCode.BadRequest,
                     Result = saleProduct,
-                    Success= false
+                    Success = false
                 };
 
             _repository.Update(product);

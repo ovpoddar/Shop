@@ -8,9 +8,6 @@ using Shop.Models;
 using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Checkout.Managers
@@ -45,7 +42,7 @@ namespace Checkout.Managers
                 return returnobject;
             }
 
-            foreach(var err in responce.Result.Errors)
+            foreach (var err in responce.Result.Errors)
             {
                 returnobject.Error.Add(err.Description);
             }

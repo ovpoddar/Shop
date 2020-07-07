@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Configuration;
-using Shop.Handlers.Interfaces;
-using Shop.Helpers.Interfaces;
+﻿using Shop.Handlers.Interfaces;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Shop.Handlers
 {

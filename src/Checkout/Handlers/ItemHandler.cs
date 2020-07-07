@@ -1,9 +1,6 @@
-﻿using DataAccess.Entities;
-using Shop.Models;
-using System;
+﻿using Shop.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Checkout.Handlers
 {
@@ -26,7 +23,7 @@ namespace Checkout.Handlers
         public decimal Total()
         {
             decimal total = 0;
-            foreach(var item in List)
+            foreach (var item in List)
             {
                 total += (decimal)item.TotalPrice;
             };

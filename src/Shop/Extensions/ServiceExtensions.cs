@@ -1,6 +1,5 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
 using Shop.Handlers;
@@ -9,8 +8,6 @@ using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
-using Shop.Utilities;
-using System.Reflection;
 
 namespace Shop.Extensions
 {

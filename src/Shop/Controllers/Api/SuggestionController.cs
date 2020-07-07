@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Shop.Controllers.Api
 {

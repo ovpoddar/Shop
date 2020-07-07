@@ -1,11 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Shop.Handlers.Interfaces;
+using Shop.Managers.Interfaces;
 using Shop.Models;
-using Shop.Handlers.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Shop.Managers.Interfaces;
 
 namespace Shop.Managers
 {

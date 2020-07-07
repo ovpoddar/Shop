@@ -1,15 +1,9 @@
-﻿using DataAccess.Entities;
-using DataAccess.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Shop.Handlers;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers

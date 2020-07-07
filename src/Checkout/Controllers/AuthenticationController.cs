@@ -1,20 +1,14 @@
 ﻿using Checkout.Managers;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Shop.Models;
 using Shop.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Checkout.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IloginManager  _iloginManager;
+        private readonly IloginManager _iloginManager;
 
         public AuthenticationController(IloginManager iloginManager)
         {

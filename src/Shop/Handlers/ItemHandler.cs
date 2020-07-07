@@ -1,10 +1,7 @@
 ﻿using Shop.Handlers.Interfaces;
 using Shop.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Shop.Handlers
 {
@@ -36,7 +33,7 @@ namespace Shop.Handlers
                     Result = null,
                     Success = false
                 };
-            if(product.StockLevel < Quantity)
+            if (product.StockLevel < Quantity)
                 return new Results<ItemModel>()
                 {
                     Exception = "we dont have enough Product",
@@ -48,8 +45,8 @@ namespace Shop.Handlers
             {
                 Exception = null,
                 HttpStatusCode = HttpStatusCode.OK,
-                Result = new ItemModel() 
-                { 
+                Result = new ItemModel()
+                {
                     Name = product.ProductName,
                     Price = product.Price,
                     Brand = product.Brands.BrandName,

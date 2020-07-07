@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Checkout.Builders;
+﻿using Checkout.Builders;
 using Checkout.Services;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -25,6 +25,6 @@ namespace Checkout.Managers
             await (await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Patch, uri, token, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
 
         public async Task<string> PostRequest<T>(string uri, T entity) =>
-            await(await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Post, uri, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
+            await (await _sent.SendAsync(_builder.BuildRequest(HttpMethod.Post, uri, JsonConvert.SerializeObject(entity)))).Content.ReadAsStringAsync();
     }
 }

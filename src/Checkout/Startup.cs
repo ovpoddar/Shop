@@ -36,7 +36,7 @@ namespace Checkout
             services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
             services.AddSingleton<IUserHandler, UserHandler>();
             services.AddHttpClient();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

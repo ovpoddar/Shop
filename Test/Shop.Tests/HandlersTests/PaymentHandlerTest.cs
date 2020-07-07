@@ -24,10 +24,10 @@
 //            _mock = new Mock<IRequestManger>();
 //            _mock1 = new Mock<IProductHandler>();
 //            _productHandler = new PaymentHandler(
-                
+
 //                // _mock.Object,
 //                _mock1.Object
-                
+
 //                );
 //        }
 

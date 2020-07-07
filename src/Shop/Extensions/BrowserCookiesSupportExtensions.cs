@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Http;
-using Microsoft.VisualBasic;
 
 namespace Shop.Extensions
 {

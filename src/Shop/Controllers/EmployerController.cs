@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using Shop.Handlers;
 using Shop.Handlers.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
@@ -28,7 +26,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             var model = new List<Employer>();
-            foreach(var user in _userManager.Users.ToList())
+            foreach (var user in _userManager.Users.ToList())
             {
                 if (await _userManager.IsInRoleAsync(user, "Admin"))
                     continue;

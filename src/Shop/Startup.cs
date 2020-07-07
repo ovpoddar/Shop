@@ -6,19 +6,16 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shop.Extensions;
 using Shop.Utilities;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace Shop
@@ -83,7 +80,6 @@ namespace Shop
                 applicationBuilder.UseDeveloperExceptionPage();
             else
                 applicationBuilder.UseExceptionHandler("/Error");
-            // migrate the application in short
             serviceProvider.GetService<ApplicationDbContext>()
                 .Database.Migrate();
             applicationBuilder.UseSwagger();

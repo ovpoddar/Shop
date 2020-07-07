@@ -1,19 +1,10 @@
-﻿using DataAccess.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shop.Controllers.Api

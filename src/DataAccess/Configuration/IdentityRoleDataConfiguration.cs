@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Configuration
 {
@@ -13,7 +10,7 @@ namespace DataAccess.Configuration
         {
             builder.HasData(new IdentityRole()
             {
-                Id= "1",
+                Id = "1",
                 Name = "Admin",
                 NormalizedName = "ADMIN"
             });
