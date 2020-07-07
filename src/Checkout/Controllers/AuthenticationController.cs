@@ -1,4 +1,5 @@
-﻿using Checkout.Managers;
+﻿using Checkout.Handlers;
+using Checkout.Managers;
 using Microsoft.AspNetCore.Mvc;
 using Shop.ViewModels;
 using System;
@@ -9,10 +10,12 @@ namespace Checkout.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IloginManager _iloginManager;
+        private readonly IUserHandler _userHandler;
 
-        public AuthenticationController(IloginManager iloginManager)
+        public AuthenticationController(IloginManager iloginManager, IUserHandler userHandler)
         {
             _iloginManager = iloginManager ?? throw new ArgumentNullException(nameof(_iloginManager));
+            _userHandler = userHandler ?? throw new ArgumentNullException(nameof(_userHandler));
         }
         [HttpGet("Checkout/Login")]
         public IActionResult Login()
@@ -22,6 +25,8 @@ namespace Checkout.Controllers
         [HttpPost("Checkout/Login")]
         public async Task<IActionResult> LoginAsync(LogInViewModel logInView)
         {
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                RedirectToAction("Index", "Checkout");
             if (ModelState.IsValid)
             {
                 var result = await _iloginManager.LogMeIn(logInView);

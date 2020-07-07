@@ -37,8 +37,12 @@ namespace Checkout.Managers
             };
             if (responce.Success)
             {
-                _httpContextAccessor.HttpContext.Response.Cookies.Append(".AspUser", _dataProtectionProvider.CreateProtector(_configuration["dataprotector"])
-                                                                                        .Protect(responce.Result.Token));
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(".AspUser",
+                    _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]).Protect(responce.Result.Token),
+                    new CookieOptions()
+                    {
+                        Expires = DateTime.Now.AddDays(.6)
+                    });
                 return returnobject;
             }
 

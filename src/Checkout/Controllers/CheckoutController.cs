@@ -34,7 +34,8 @@ namespace Checkout.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync(ItemViewModel model)
         {
-
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+                return RedirectToAction("Login", "Checkout");
             if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
                 return RedirectToAction("Login", "Checkout");
             var result = await _itemManager.Add(model, _userHandler.UserToken);
@@ -83,6 +84,7 @@ namespace Checkout.Controllers
             }, _userHandler.UserToken);
             if (!responce.Success)
                 return View(responce.Objects);
+            _itemHandler.List.Clear();
             return Redirect(WebSitesUrls.CallingPoient);
         }
 
