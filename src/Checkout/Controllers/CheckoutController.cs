@@ -83,7 +83,7 @@ namespace Checkout.Controllers
             }, _userHandler.UserToken);
             if (!responce.Success)
                 return View(responce.Objects);
-            return Redirect(WebSitesUrls.EndPoient);
+            return Redirect(WebSitesUrls.CallingPoient);
         }
 
     }
