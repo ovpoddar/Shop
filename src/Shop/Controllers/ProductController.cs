@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
+using Shop.Utilities;
 using System;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Admin", AuthenticationSchemes = "Identity.Application")]
+    [AuthorizeCookie]
     public class ProductController : Controller
     {
         private readonly IProductManager _productManager;

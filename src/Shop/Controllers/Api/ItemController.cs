@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
+using Shop.Utilities;
 using System;
 
 namespace Shop.Controllers.Api
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [AuthorizeToken]
     [Route("api/")]
     [ApiController]
     public class ItemController : ControllerBase

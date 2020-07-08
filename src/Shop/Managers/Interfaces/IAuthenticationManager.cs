@@ -9,6 +9,7 @@ namespace Shop.Managers.Interfaces
     {
         Task<CustomeIdentityResult> SignUpUserAsync(SignInViewModel model);
         Task<CustomeSignInResult> LogInUserAsync(Employer user, string password);
+        Task<Results<CustomeSignInResult>> LogInUserResultAsync(LogInViewModel logInViewModel);
         Task SignOutUserAsync();
     }
 }

@@ -30,9 +30,8 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _employerHandler.GetEmployer(model.UserName);
-                if (user != null)
-                    if ((await _authenticationManager.LogInUserAsync(user, model.Password)).Succeeded)
+                if (_employerHandler.GetEmployer(model.UserName) != null)
+                    if ((await _authenticationManager.LogInUserAsync(_employerHandler.GetEmployer(model.UserName), model.Password)).Succeeded)
                         return RedirectToAction("index", "product");
             }
             return View(model);

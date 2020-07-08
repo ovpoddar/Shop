@@ -1,12 +1,12 @@
 ﻿using DataAccess.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Handlers.Interfaces;
+using Shop.Utilities;
 using System;
 
 namespace Shop.Controllers
 {
-    [Authorize(Roles = "Admin", AuthenticationSchemes = "Identity.Application")]
+    [AuthorizeCookie]
     public class BrandController : Controller
     {
         private readonly IBrandHandler _brandHandler;

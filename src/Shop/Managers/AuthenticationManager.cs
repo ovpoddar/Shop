@@ -9,6 +9,7 @@ using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Shop.Managers
@@ -74,6 +75,23 @@ namespace Shop.Managers
                 Token = null
             };
         }
+
+        public async Task<Results<CustomeSignInResult>> LogInUserResultAsync(LogInViewModel logInViewModel) =>
+            _employerHandler.GetEmployer(logInViewModel.UserName) == null ?
+            new Results<CustomeSignInResult>()
+            {
+                Exception = "Provide a Valid Credentials",
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = null,
+                Success = false
+            } :
+            new Results<CustomeSignInResult>
+            {
+                Success = true,
+                Result = await LogInUserAsync(_employerHandler.GetEmployer(logInViewModel.UserName), logInViewModel.Password),
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK
+            };
 
         public async Task SignOutUserAsync()
         {

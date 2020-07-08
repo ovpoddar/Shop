@@ -26,22 +26,7 @@ namespace Shop.Controllers.Api
         {
             if (ModelState.IsValid)
             {
-                var user = _employerHandler.GetEmployer(logInView.UserName);
-                if (user != null)
-                    return new Results<CustomeSignInResult>
-                    {
-                        HttpStatusCode = HttpStatusCode.BadRequest,
-                        Result = await _authenticationManager.LogInUserAsync(user, logInView.Password),
-                        Success = true,
-                        Exception = "no data found"
-                    };
-                return new Results<CustomeSignInResult>
-                {
-                    HttpStatusCode = HttpStatusCode.BadRequest,
-                    Result = null,
-                    Success = false,
-                    Exception = "no data found"
-                };
+                return await _authenticationManager.LogInUserResultAsync(logInView);
             }
             return new Results<CustomeSignInResult>
             {
