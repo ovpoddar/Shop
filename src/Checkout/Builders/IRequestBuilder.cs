@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Security.Policy;
 
 namespace Checkout.Builders
 {

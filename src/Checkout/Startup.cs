@@ -1,14 +1,10 @@
-using Checkout.Builders;
-using Checkout.Handlers;
-using Checkout.Managers;
-using Checkout.Services;
+using Checkout.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shop.Models;
 using System;
 
 namespace Checkout
@@ -26,15 +22,9 @@ namespace Checkout
         {
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
-            services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
-            services.AddTransient<IRequestBuilder, RequestBuilder>();
-            services.AddTransient<ISentRequestService, SentRequestService>();
-            services.AddTransient<IRequestManger, RequestManger>();
-            services.AddTransient<IItemManager, ItemManager>();
-            services.AddTransient<IloginManager, loginManager>();
-            services.AddTransient<IPurchaseHandler, PurchaseHandler>();
-            services.AddSingleton<IItemHandler<ItemModel>, ItemHandler>();
-            services.AddSingleton<IUserHandler, UserHandler>();
+            services.AddAuthentication()
+                .AddCookie(IdentityConstants.ApplicationScheme);
+            services.AddDescriptors();
             services.AddHttpClient();
 
         }
