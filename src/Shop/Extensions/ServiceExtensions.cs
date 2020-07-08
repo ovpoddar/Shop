@@ -53,7 +53,6 @@ namespace Shop.Extensions
         public static IServiceCollection RegisterActionFilters(this IServiceCollection services)
         {
             services.AddScoped<ProductActionFilter>();
-            services.AddHttpClient();
             return services;
         }
     }

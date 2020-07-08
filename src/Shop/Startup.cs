@@ -30,6 +30,38 @@ namespace Shop
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+                options.HttpOnly = HttpOnlyPolicy.None;
+                options.Secure = CookieSecurePolicy.SameAsRequest;
+                options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
+                options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
+            });
+            services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer(_configuration.GetConnectionString("database"), sqlOptions => sqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name)));
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+            services.AddHttpContextAccessor();
+            services.AddDependencies();
+            services.RegisterActionFilters();
+            services.AddHttpClient();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("All", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            });
+            services.AddSingleton(
+                new MapperConfiguration(e =>
+                {
+                    e.AddProfile(new AppProfileMapping());
+                }).CreateMapper());
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" });
+            });
             services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
@@ -44,26 +76,6 @@ namespace Shop
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(_configuration.GetSection("Jwt")["secret"]))
                     };
                 });
-
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => false;
-                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
-                options.HttpOnly = HttpOnlyPolicy.None;
-                options.Secure = CookieSecurePolicy.SameAsRequest;
-                options.OnAppendCookie = cookieContext => cookieContext.CheckSameSite();
-                options.OnDeleteCookie = cookieContext => cookieContext.CheckSameSite();
-            });
-            services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer(_configuration.GetConnectionString("database"), sqlOptions => sqlOptions.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name)));
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddHttpContextAccessor();
-            services.AddDependencies();
-            services.RegisterActionFilters();
-            services.AddCors(options => options.AddPolicy("All", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
-            services.AddSingleton(
-                new MapperConfiguration(e => { e.AddProfile(new AppProfileMapping()); }).CreateMapper());
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" }); });
             services.AddIdentity<Employer, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
