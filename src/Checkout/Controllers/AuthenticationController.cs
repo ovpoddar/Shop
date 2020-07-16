@@ -25,7 +25,7 @@ namespace Checkout.Controllers
         [HttpPost("Checkout/Login")]
         public async Task<IActionResult> LoginAsync(LogInViewModel logInView)
         {
-            if (string.IsNullOrWhiteSpace(_userHandler.GetUserToken()))
+            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
                 RedirectToAction("Index", "Checkout");
             if (ModelState.IsValid)
             {
