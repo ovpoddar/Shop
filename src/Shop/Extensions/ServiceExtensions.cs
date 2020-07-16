@@ -8,6 +8,8 @@ using Shop.Helpers;
 using Shop.Helpers.Interfaces;
 using Shop.Managers;
 using Shop.Managers.Interfaces;
+using Shop.Wrappers;
+using Shop.Wrappers.Interfaces;
 
 namespace Shop.Extensions
 {
@@ -44,6 +46,8 @@ namespace Shop.Extensions
 
             services.AddTransient<ICsvHelper, CsvHelper>();
 
+            services.AddTransient<ISignInManagerWrapper, SignInManagerWrapper>();
+            services.AddTransient<IUserManagerWrapper, UserManagerWrapper>();
 
             services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<IPaymentHandler, PaymentHandler>();

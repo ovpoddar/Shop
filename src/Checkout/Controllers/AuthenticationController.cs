@@ -25,7 +25,7 @@ namespace Checkout.Controllers
         [HttpPost("Checkout/Login")]
         public async Task<IActionResult> LoginAsync(LogInViewModel logInView)
         {
-            if (string.IsNullOrWhiteSpace(_userHandler.UserToken))
+            if (string.IsNullOrWhiteSpace(_userHandler.GetUserToken()))
                 RedirectToAction("Index", "Checkout");
             if (ModelState.IsValid)
             {
@@ -43,9 +43,9 @@ namespace Checkout.Controllers
         }
 
         [HttpPost("Checkout/LogOut")]
-        public async Task<IActionResult> LogOutAsync()
+        public IActionResult LogOut()
         {
-            await _iloginManager.LogMeOutAsync();
+            _iloginManager.LogMeOutAsync();
             return RedirectToAction("Login");
         }
     }

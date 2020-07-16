@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Shop.Tests.ServisesTests
+namespace Checkout.Tests.ServisesTests
 {
     public class SentRequestServiceTest
     {

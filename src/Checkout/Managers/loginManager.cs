@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Shop.Models;
@@ -55,13 +53,10 @@ namespace Checkout.Managers
             return returnobject;
         }
 
-        public async Task LogMeOutAsync()
-        {
+        public void LogMeOutAsync() =>
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspUser", new CookieOptions()
             {
                 Expires = DateTime.Now
             });
-            await _httpContextAccessor.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-        }
     }
 }

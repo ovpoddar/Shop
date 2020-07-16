@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Shop.Handlers.Interfaces;
 using Shop.Managers.Interfaces;
 using Shop.Models;
 using Shop.ViewModels;
+using Shop.Wrappers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +19,16 @@ namespace Shop.Managers
 {
     public class AuthenticationManager : IAuthenticationManager
     {
-        private readonly UserManager<Employer> _userManager;
-        private readonly SignInManager<Employer> _signInManager;
+        private readonly IUserManagerWrapper _userManager;
+        private readonly ISignInManagerWrapper _signInManager;
         private readonly IEmployerHandler _employerHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IDataProtectionProvider _dataProtectionProvider;
+        private readonly IConfiguration _configuration;
         private readonly ITokenHandler _tokenHandler;
         private readonly IMapper _mapper;
 
-        public AuthenticationManager(UserManager<Employer> userManager, SignInManager<Employer> signInManager, IMapper mapper, IEmployerHandler employerHandler, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor)
+        public AuthenticationManager(IUserManagerWrapper userManager, ISignInManagerWrapper signInManager, IMapper mapper, IEmployerHandler employerHandler, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor, IDataProtectionProvider dataProtectionProvider, IConfiguration configuration)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(_signInManager));
@@ -31,6 +36,8 @@ namespace Shop.Managers
             _employerHandler = employerHandler ?? throw new ArgumentNullException(nameof(_employerHandler));
             _tokenHandler = tokenHandler ?? throw new ArgumentNullException(nameof(_tokenHandler));
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
+            _dataProtectionProvider = dataProtectionProvider ?? throw new ArgumentNullException(nameof(_dataProtectionProvider));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(_configuration));
         }
 
         public async Task<CustomeSignInResult> LogInUserAsync(Employer user, string password)
@@ -41,15 +48,21 @@ namespace Shop.Managers
 
                 if (result.Succeeded)
                 {
-                    var checkIn = await _employerHandler.LastcheckInAsync(user);
+                    var token = _tokenHandler.GenerateToken(user);
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append(".AspUser",
+                                                                             _dataProtectionProvider.CreateProtector(_configuration["dataprotector"]).Protect(token),
+                                                                              new CookieOptions()
+                                                                              {
+                                                                                  Expires = DateTime.Now.AddDays(.6)
+                                                                              });
                     return new CustomeSignInResult()
                     {
                         IsLockedOut = result.IsLockedOut,
                         Succeeded = result.Succeeded,
                         IsNotAllowed = result.IsNotAllowed,
                         RequiresTwoFactor = result.RequiresTwoFactor,
-                        Errors = checkIn.Errors.ToList(),
-                        Token = _tokenHandler.GenerateToken(user)
+                        Errors = (await _employerHandler.LastcheckInAsync(user)).Errors.ToList(),
+                        Token = token
                     };
                 }
             }
@@ -109,7 +122,7 @@ namespace Shop.Managers
             var token = "";
             if (createResult.Succeeded)
             {
-                await _signInManager.SignInAsync(employer, isPersistent: true);
+                await _signInManager.SignInAsync(employer, true);
                 token = _tokenHandler.GenerateToken(employer);
             }
             return new CustomeIdentityResult()

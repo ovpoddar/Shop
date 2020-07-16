@@ -21,7 +21,8 @@ namespace Checkout.Handlers
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
         }
 
-        public string Username => string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"])
+        public string Username => string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]) || new JwtSecurityTokenHandler().CanReadToken(_dataProtectionProvider.CreateProtector(_configuration["dataprotector"])
+                    .Unprotect(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]))
                 ? null
                 : new JwtSecurityTokenHandler()
                 .ReadJwtToken(_dataProtectionProvider.CreateProtector(_configuration["dataprotector"])
@@ -29,13 +30,29 @@ namespace Checkout.Handlers
                 .First(e => e.Type == ClaimsIdentity.DefaultNameClaimType)
                 .Value;
 
-        public string UserToken => string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"])
+        public string UserToken => 
+            string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]) || string.IsNullOrWhiteSpace(check)
                 ? null
-                : _dataProtectionProvider
-                .CreateProtector(_configuration["dataprotector"])
-                .Unprotect(_httpContextAccessor
-                    .HttpContext
-                    .Request
-                    .Cookies[".AspUser"]);
+                : check;
+
+        private string check
+        {
+            get
+            {
+                try
+                {
+                    return _dataProtectionProvider
+                    .CreateProtector(_configuration["dataprotector"])
+                    .Unprotect(_httpContextAccessor
+                        .HttpContext
+                        .Request
+                        .Cookies[".AspUser"]);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

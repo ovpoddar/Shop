@@ -8,14 +8,10 @@ namespace Shop.Managers
 {
     public class PaymentManager : IPaymentManager
     {
-        private readonly IPaymentHandler _paymentHandler;
         private readonly IProductHandler _productHandler;
 
-        public PaymentManager(IPaymentHandler paymentHandler, IProductHandler productHandler)
-        {
-            _paymentHandler = paymentHandler ?? throw new ArgumentNullException(nameof(_paymentHandler));
+        public PaymentManager(IProductHandler productHandler) =>
             _productHandler = productHandler ?? throw new ArgumentNullException(nameof(_productHandler));
-        }
 
         public OverallResult<List<Results<ItemModel>>> Purchase(PurchaseModel model)
         {

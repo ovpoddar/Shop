@@ -7,6 +7,6 @@ namespace Checkout.Managers
     public interface IloginManager
     {
         Task<Status> LogMeIn(LogInViewModel logInView);
-        Task LogMeOutAsync();
+        void LogMeOutAsync();
     }
 }

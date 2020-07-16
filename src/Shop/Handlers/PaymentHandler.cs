@@ -39,16 +39,6 @@ namespace Shop.Handlers
             return products;
         }
 
-
-        //public async Task<bool> PurchaseCall(List<SaleProduct> products)
-        //{
-        //    //foreach (var product in products)
-        //    //{
-        //    //    if (!JsonConvert.DeserializeObject<Results<SaleProduct>>(await _requestManger.PatchRequest("http://localhost:59616/api/Products/StockLevel", product)).Success)
-        //    //        return false;
-        //    //}
-        //    return true;
-        //}
         public Task<bool> SalesCall(List<SaleProduct> products)
         {
             throw new NotImplementedException();

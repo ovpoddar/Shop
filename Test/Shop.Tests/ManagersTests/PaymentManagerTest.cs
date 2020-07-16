@@ -1,48 +1,101 @@
-﻿//using FluentAssertions;
-//using Moq;
-//using Shop.Handlers.Interfaces;
-//using Shop.Managers;
-//using Shop.Managers.Interfaces;
-//using Shop.Models;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Xunit;
+﻿using FluentAssertions;
+using Moq;
+using Shop.Handlers.Interfaces;
+using Shop.Managers;
+using Shop.Models;
+using System.Collections.Generic;
+using System.Net;
+using Xunit;
 
-//namespace Shop.Tests.ManagersTests
-//{
-//    public class PaymentManagerTest
-//    {
-//        private readonly Mock<IBalanceManager> _balanceManager;
-//        private readonly Mock<IPaymentHandler> _paymentHandler;
-//        private readonly PaymentManager _paymentManager;
-//        public PaymentManagerTest()
-//        {
-//            _balanceManager = new Mock<IBalanceManager>();
-//            _paymentHandler = new Mock<IPaymentHandler>();
-//            _paymentManager = new PaymentManager(_balanceManager.Object, _paymentHandler.Object);
-//        }
+namespace Shop.Tests.ManagersTests
+{
+    public class PaymentManagerTest
+    {
+        private readonly Mock<IProductHandler> _productHandler;
+        private readonly PaymentManager _paymentManager;
+        public PaymentManagerTest()
+        {
+            _productHandler = new Mock<IProductHandler>();
+            _paymentManager = new PaymentManager(_productHandler.Object);
+        }
 
-//        [Fact]
-//        public async Task MakeingPaymentAsyncTestAsyncTrue()
-//        {
-//            var list = new List<ItemModel>() { new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 } };
+        [Fact]
+        public void PurchaseWithSuccess()
+        {
+            var model = new PurchaseModel()
+            {
+                Items = new List<ItemModel>()
+                {
+                    new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 }
+                },
+                PaymentType = 1
+            };
 
-//            _paymentHandler
-//                .Setup(e => e.PurchaseCall(It.IsAny<List<SaleProduct>>()))
-//                .Returns(Task.FromResult(true));
-//            _paymentHandler
-//                .Setup(e => e.GetProducts(It.IsAny<List<ItemModel>>()))
-//                .Returns(It.IsAny<List<SaleProduct>>());
-//            _balanceManager
-//                .Setup(e => e.Purchase(It.IsAny<List<ItemModel>>(), 1));
+            _productHandler.Setup(e => e.RemoveProduct(It.IsAny<ItemModel>())).Returns(new Results<ItemModel>()
+            {
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = It.IsAny<ItemModel>(),
+                Success = true
+            }).Verifiable();
 
-//            var result = await _paymentManager.MakeingPurchaseAsync(list, 1);
+            var result = _paymentManager.Purchase(model);
 
-//            result.Should().BeTrue();
-//            _paymentHandler
-//                .Verify(e => e.PurchaseCall(It.IsAny<List<SaleProduct>>()), Times.AtLeastOnce);
-//            _paymentHandler
-//                .Verify(e => e.GetProducts(It.IsAny<List<ItemModel>>()), Times.AtLeastOnce);
-//        }
-//    }
-//}
+            result.Success.Should().BeTrue();
+            _productHandler.Verify(e => e.RemoveProduct(It.IsAny<ItemModel>()), Times.Once);
+        }
+
+        [Fact]
+        public void PurchaseWithUnsuccess()
+        {
+            var model = new PurchaseModel()
+            {
+                Items = new List<ItemModel>()
+                {
+                    new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 }
+                },
+                PaymentType = 1
+            };
+
+            _productHandler.Setup(e => e.RemoveProduct(It.IsAny<ItemModel>())).Returns(new Results<ItemModel>()
+            {
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = It.IsAny<ItemModel>(),
+                Success = false
+            }).Verifiable();
+
+            var result = _paymentManager.Purchase(model);
+
+            result.Success.Should().BeFalse();
+            _productHandler.Verify(e => e.RemoveProduct(It.IsAny<ItemModel>()), Times.Once);
+        }
+
+        [Fact]
+        public void Purchasemultipalproduct()
+        {
+            var model = new PurchaseModel()
+            {
+                Items = new List<ItemModel>()
+                {
+                    new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 },
+                    new ItemModel { Brand = "brand", Id = 1, Name = "name", Price = 20, Quantity = 20, TotalPrice = 400 }
+                },
+                PaymentType = 1
+            };
+
+            _productHandler.Setup(e => e.RemoveProduct(It.IsAny<ItemModel>())).Returns(new Results<ItemModel>()
+            {
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = It.IsAny<ItemModel>(),
+                Success = false
+            }).Verifiable();
+
+            var result = _paymentManager.Purchase(model);
+
+            result.Success.Should().BeFalse();
+            _productHandler.Verify(e => e.RemoveProduct(It.IsAny<ItemModel>()), Times.AtLeast(model.Items.Count));
+        }
+    }
+}

@@ -37,9 +37,6 @@
 
   <ItemGroup>
     <Folder Include="WWWROOT\Images\" />
-    <Folder Include="WWWROOT\Userfile\" />
-    <Folder Include="WWWROOT\Userfile\" />
-    <Folder Include="WWWROOT\Userfile\" />
   </ItemGroup>
 
   <ItemGroup>

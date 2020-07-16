@@ -23,7 +23,7 @@ namespace Checkout.Managers
         {
             var product = JsonConvert.DeserializeObject<Results<ItemModel>>(await _requestManger.GetRequest($"{WebSitesUrls.EndPoient}api/AddProduct?productName={model.Name}&Quantity={model.Quantity}", token));
             if (product.Success == false)
-                return null;
+                return "Request Fail";
             if (product.Result == null)
                 return product.Exception;
             if (_item.List.Any(e => e.Name.ToLower() == product.Result.Name.ToLower()))

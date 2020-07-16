@@ -4,6 +4,7 @@ using Shop.Handlers.Interfaces;
 using Shop.Managers;
 using Shop.Models;
 using System.Collections.Generic;
+using System.Net;
 using Xunit;
 
 namespace Shop.Tests.ManagersTests
@@ -22,10 +23,16 @@ namespace Shop.Tests.ManagersTests
         [Fact]
         public void Purchase()
         {
-            var product = new Product()
+            var product = new Results<Product>()
             {
-                Id = 1,
-                Price = 2
+                Exception = null,
+                HttpStatusCode = HttpStatusCode.OK,
+                Result = new Product()
+                {
+                    Id = 1,
+                    Price = 2
+                },
+                Success = true
             };
             var balance = new Balance()
             {
@@ -33,7 +40,7 @@ namespace Shop.Tests.ManagersTests
             };
 
             _productHandler
-                .Setup(e => e.GetProduct(It.IsAny<string>()).Result)
+                .Setup(e => e.GetProduct(It.IsAny<string>()))
                 .Returns(product);
 
             _balanceHandler
