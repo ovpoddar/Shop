@@ -46,6 +46,7 @@ namespace Shop
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddHttpContextAccessor();
+            services.AddDataAccess();
             services.AddDependencies();
             services.RegisterActionFilters();
             services.AddHttpClient();

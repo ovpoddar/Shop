@@ -18,42 +18,30 @@ namespace Shop.Extensions
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
-            services.AddScoped<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
-            services.AddScoped<IGenericRepository<Category>, GenericRepositories<Category>>();
-            services.AddScoped<IGenericRepository<Product>, GenericRepositories<Product>>();
-            services.AddScoped<IGenericRepository<Balance>, GenericRepositories<Balance>>();
-            services.AddScoped<IGenericRepository<Brand>, GenericRepositories<Brand>>();
-            services.AddScoped<IGenericRepository<Csv>, GenericRepositories<Csv>>();
-
-            services.AddScoped<IProductRepositories, ProductRepositories>();
-
-            services.AddScoped<ICatagoriesHelper, CatagoriesHelper>();
-
-            services.AddTransient<ISuggestionHandler, SuggestionHandler>();
-            services.AddTransient<IWholesaleHandler, WholesaleHandler>();
-            services.AddTransient<ICategoryHandler, CategoryHandler>();
-            services.AddTransient<IProductHandler, ProductHandler>();
-            services.AddTransient<IBalanceHandler, BalanceHandler>();
-            services.AddTransient<IBrandHandler, BrandHandler>();
-            services.AddTransient<ICsvHandler, CsvHandler>();
-            services.AddTransient<IProtectorHandler, ProtectorHandler>();
-            services.AddTransient<IItemHandler, ItemHandler>();
-            services.AddTransient<IEmployerHandler, EmployerHandler>();
-            services.AddTransient<ITokenHandler, TokenHandler>();
-
+            services.AddTransient<IAuthenticationManager, AuthenticationManager>();
+            services.AddTransient<IBalanceManager, BalanceManager>();
+            services.AddTransient<IPaymentManager, PaymentManager>();
             services.AddTransient<IProductManager, ProductManager>();
             services.AddTransient<ICsvManager, CsvManager>();
-            services.AddTransient<IBalanceManager, BalanceManager>();
-            services.AddTransient<IAuthenticationManager, AuthenticationManager>();
+
+            services.AddTransient<ISuggestionHandler, SuggestionHandler>();
+            services.AddTransient<IProtectorHandler, ProtectorHandler>();
+            services.AddTransient<IWholesaleHandler, WholesaleHandler>();
+            services.AddTransient<ICategoryHandler, CategoryHandler>();
+            services.AddTransient<IEmployerHandler, EmployerHandler>();
+            services.AddTransient<IBalanceHandler, BalanceHandler>();
+            services.AddTransient<IPaymentHandler, PaymentHandler>();
+            services.AddTransient<IProductHandler, ProductHandler>();
+            services.AddTransient<IBrandHandler, BrandHandler>();
+            services.AddTransient<ITokenHandler, TokenHandler>();
+            services.AddTransient<IItemHandler, ItemHandler>();
+            services.AddTransient<ICsvHandler, CsvHandler>();
 
             services.AddTransient<ICsvHelper, CsvHelper>();
 
             services.AddTransient<ISignInManagerWrapper, SignInManagerWrapper>();
             services.AddTransient<IUserManagerWrapper, UserManagerWrapper>();
 
-            services.AddTransient<IPaymentManager, PaymentManager>();
-            services.AddTransient<IPaymentHandler, PaymentHandler>();
             return services;
         }
 

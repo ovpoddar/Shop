@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DataAccess.Test
+namespace DataAccess.Test.ReposotoryesTests
 {
     public class GenericRepositoriesTest
     {
