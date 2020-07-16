@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,31 +7,38 @@ using System.Linq;
 namespace DataAccess.Repositories
 {
     public class ProductRepositories : IProductRepositories
-
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public ProductRepositories(ApplicationDbContext applicationDbContext) =>
+        public ProductRepositories(ApplicationDbContext applicationDbContext)
+        {
             _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(_applicationDbContext));
+        }
+
+        //public IEnumerable<int> GetCategoryIds(int id)
+        //{
+        //    return _applicationDbContext.Categories.FromSqlRaw($"exec spGetCategoryIds @id = {id}")
+        //        .Select(p => p.Id)
+        //        .ToList();
+        //}
 
         public IEnumerable<int> GetCategoryIds(int id)
         {
-            return Getvalues(id);
+            Getvalues(id);
+            return ints
+                .Select(p => p.Id)
+                .ToList();
         }
+        public List<Category> ints { get; set; } = new List<Category>();
 
-        //public IEnumerable<int> GetCategoryIds(int id) =>
-        //    _applicationDbContext.Categories.FromSqlRaw($"exec spGetCategoryIds @id = {id}")
-        //    .Select(p => p.Id)
-        //    .ToList();
-
-        private IEnumerable<int> Getvalues(int id)
+        private void Getvalues(int id)
         {
-            var list = new List<int>();
             var parent = _applicationDbContext.Categories.Where(e => e.ParentId == id);
-            list.Add(_applicationDbContext.Categories.First(e => e.Id == id).Id);
+            ints.Add(_applicationDbContext.Categories.First(e => e.Id == id));
             if (parent.Any())
-                return list.AsEnumerable();
-            return Getvalues(parent.First().Id);
+                Getvalues(parent.First().Id);
+            return;
         }
+
     }
 }

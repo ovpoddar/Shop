@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Xunit;
@@ -25,24 +26,27 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Name = "cateorie1",
-                Parent = new Category(),
-                Products = new List<Product>(),
-                SubCategories = new List<Category>()
             };
             var cateorie2 = new Category()
             {
                 Id = 2,
                 Name = "cateorie2",
-                Parent = new Category(),
-                Products = new List<Product>(),
-                SubCategories = new List<Category>(),
-                ParentId = 0
+                ParentId = 1
+            };
+            var cateorie3 = new Category()
+            {
+                Id = 3,
+                Name = "cateorie3",
+                ParentId = 2
             };
             _context.Add(cateorie1);
             _context.Add(cateorie2);
+            _context.Add(cateorie3);
             _context.SaveChanges();
 
             var result = _repositories.GetCategoryIds(1);
+            result.Should().NotBeEmpty();
+            result.Should().HaveCount(3);
         }
     }
 }
