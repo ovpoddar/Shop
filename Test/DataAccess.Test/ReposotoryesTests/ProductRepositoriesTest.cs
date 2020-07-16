@@ -2,7 +2,6 @@
 using DataAccess.Helpers;
 using DataAccess.Repositories;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Collections.Generic;
 using Xunit;

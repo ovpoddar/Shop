@@ -84,8 +84,8 @@ namespace Shop.Tests.ManagersTests
             }).Verifiable();
             var result = await _authenticationManager.LogInUserResultAsync(new LogInViewModel()
             {
-            Password = "coco",
-            UserName = "sola"
+                Password = "coco",
+                UserName = "sola"
             });
             result.Exception.Should().BeNull();
             _employerHandler.Verify(e => e.GetEmployer(It.IsAny<string>()), Times.Exactly(2));
@@ -97,8 +97,8 @@ namespace Shop.Tests.ManagersTests
             _employerHandler.Setup(e => e.GetEmployer(It.IsAny<string>())).Returns((Employer)null).Verifiable();
             var result = await _authenticationManager.LogInUserResultAsync(new LogInViewModel()
             {
-            Password = "coco",
-            UserName = "sola"
+                Password = "coco",
+                UserName = "sola"
             });
             result.Exception.Should().Be("Provide a Valid Credentials");
             _employerHandler.Verify(e => e.GetEmployer(It.IsAny<string>()), Times.Once);

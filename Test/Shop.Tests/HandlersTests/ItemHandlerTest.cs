@@ -4,10 +4,7 @@ using Moq;
 using Shop.Handlers;
 using Shop.Handlers.Interfaces;
 using Shop.Models;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests

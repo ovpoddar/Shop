@@ -3,9 +3,6 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Shop.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Shop.Tests.HandlersTests

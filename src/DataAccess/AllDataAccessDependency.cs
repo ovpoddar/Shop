@@ -2,9 +2,6 @@
 using DataAccess.Helpers;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess
 {
@@ -25,5 +22,5 @@ namespace DataAccess
             services.AddScoped<ICatagoriesHelper, CatagoriesHelper>();
             return services;
         }
-}
+    }
 }

@@ -30,7 +30,7 @@ namespace Checkout.Handlers
                 .First(e => e.Type == ClaimsIdentity.DefaultNameClaimType)
                 .Value;
 
-        public string UserToken => 
+        public string UserToken =>
             string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]) || string.IsNullOrWhiteSpace(check)
                 ? null
                 : check;

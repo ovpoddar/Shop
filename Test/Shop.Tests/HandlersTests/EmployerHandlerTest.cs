@@ -7,7 +7,6 @@ using Shop.Wrappers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,7 +32,7 @@ namespace Shop.Tests.HandlersTests
                 new Employer()
                 {
                     UserName = "coco",
-                    Active= false                    
+                    Active= false
                 }
             }.AsQueryable());
             _userManager.Setup(e => e.UpdateAsync(It.IsAny<Employer>())).Verifiable();
@@ -116,7 +115,7 @@ namespace Shop.Tests.HandlersTests
             });
 
             result.Should().NotBeNull();
-            _userManager.Verify(e => e.Users,Times.Once);
+            _userManager.Verify(e => e.Users, Times.Once);
             _userManager.Verify(e => e.UpdateAsync(It.IsAny<Employer>()), Times.Once);
         }
     }

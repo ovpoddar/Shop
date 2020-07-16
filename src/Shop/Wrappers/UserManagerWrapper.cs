@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Shop.Wrappers.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +22,7 @@ namespace Shop.Wrappers
         public async Task<IdentityResult> CreateAsync(Employer employer, string Password) =>
             await _userManager.CreateAsync(employer, Password);
 
-        public Task<IdentityResult> UpdateAsync(Employer employer) => 
+        public Task<IdentityResult> UpdateAsync(Employer employer) =>
             _userManager.UpdateAsync(employer);
     }
 }
