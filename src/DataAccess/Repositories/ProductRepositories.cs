@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,37 +9,19 @@ namespace DataAccess.Repositories
 {
     public class ProductRepositories : IProductRepositories
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly ICatagoriesHelper _helper;
 
-        public ProductRepositories(ApplicationDbContext applicationDbContext)
+        public ProductRepositories(ICatagoriesHelper helper)
         {
-            _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(_applicationDbContext));
+            _helper = helper ?? throw new ArgumentNullException(nameof(_helper));
         }
-
-        //public IEnumerable<int> GetCategoryIds(int id)
-        //{
-        //    return _applicationDbContext.Categories.FromSqlRaw($"exec spGetCategoryIds @id = {id}")
-        //        .Select(p => p.Id)
-        //        .ToList();
-        //}
 
         public IEnumerable<int> GetCategoryIds(int id)
         {
-            Getvalues(id);
-            return ints
+            _helper.Getvalues(id);
+            return _helper.Categories
                 .Select(p => p.Id)
                 .ToList();
         }
-        public List<Category> ints { get; set; } = new List<Category>();
-
-        private void Getvalues(int id)
-        {
-            var parent = _applicationDbContext.Categories.Where(e => e.ParentId == id);
-            ints.Add(_applicationDbContext.Categories.First(e => e.Id == id));
-            if (parent.Any())
-                Getvalues(parent.First().Id);
-            return;
-        }
-
     }
 }

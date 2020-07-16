@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Helpers;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.ActionFilters;
@@ -26,6 +27,8 @@ namespace Shop.Extensions
             services.AddScoped<IGenericRepository<Csv>, GenericRepositories<Csv>>();
 
             services.AddScoped<IProductRepositories, ProductRepositories>();
+
+            services.AddScoped<ICatagoriesHelper, CatagoriesHelper>();
 
             services.AddTransient<ISuggestionHandler, SuggestionHandler>();
             services.AddTransient<IWholesaleHandler, WholesaleHandler>();
