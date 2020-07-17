@@ -1,7 +1,4 @@
 ﻿using Checkout.Helpers;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;

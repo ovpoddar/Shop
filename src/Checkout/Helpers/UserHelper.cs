@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Checkout.Helpers
 {
@@ -27,18 +23,18 @@ namespace Checkout.Helpers
         public string CheckUserValidToken()
         {
             try
-                {
-                    return _dataProtectionProvider
-                    .CreateProtector(_configuration["dataprotector"])
-                    .Unprotect(_httpContextAccessor
-                        .HttpContext
-                        .Request
-                        .Cookies[".AspUser"]);
-                }
-                catch
-                {
-                    return null;
-                }
+            {
+                return _dataProtectionProvider
+                .CreateProtector(_configuration["dataprotector"])
+                .Unprotect(_httpContextAccessor
+                    .HttpContext
+                    .Request
+                    .Cookies[".AspUser"]);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

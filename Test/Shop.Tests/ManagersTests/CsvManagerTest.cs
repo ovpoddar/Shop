@@ -37,7 +37,6 @@ namespace Shop.Tests.ManagersTests
         [Fact]
         public void UpdateTest()
         {
-            //please change the path is if it retuen any err 
             var csv = "C:\\Users\\ayanp\\Desktop\\Shop\\src\\Shop\\wwwroot\\Userfile\\1099075911";
             _productHandler
                 .Setup(e => e.AddProduct(It.IsAny<Product>()))
