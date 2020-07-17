@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.DataProtection;
+﻿using Checkout.Helpers;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -10,49 +11,23 @@ namespace Checkout.Handlers
 {
     public class UserHandler : IUserHandler
     {
-        private readonly IDataProtectionProvider _dataProtectionProvider;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IConfiguration _configuration;
+        private readonly IUserhelper _userhelper;
 
-        public UserHandler(IDataProtectionProvider dataProtectionProvider, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public UserHandler(IUserhelper userhelper)
         {
-            _dataProtectionProvider = dataProtectionProvider ?? throw new ArgumentNullException(nameof(_dataProtectionProvider));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(_configuration));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
+            _userhelper = userhelper ?? throw new ArgumentNullException(nameof(_userhelper));
         }
 
-        public string Username => string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]) || new JwtSecurityTokenHandler().CanReadToken(_dataProtectionProvider.CreateProtector(_configuration["dataprotector"])
-                    .Unprotect(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]))
+        public string Username => _userhelper.CheckCookie() || new JwtSecurityTokenHandler().CanReadToken(_userhelper.CheckUserValidToken()) == false
                 ? null
                 : new JwtSecurityTokenHandler()
-                .ReadJwtToken(_dataProtectionProvider.CreateProtector(_configuration["dataprotector"])
-                    .Unprotect(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"])).Claims
+                .ReadJwtToken(_userhelper.CheckUserValidToken()).Claims
                 .First(e => e.Type == ClaimsIdentity.DefaultNameClaimType)
                 .Value;
 
         public string UserToken =>
-            string.IsNullOrWhiteSpace(_httpContextAccessor.HttpContext.Request.Cookies[".AspUser"]) || string.IsNullOrWhiteSpace(check)
+            _userhelper.CheckCookie() || string.IsNullOrWhiteSpace(_userhelper.CheckUserValidToken())
                 ? null
-                : check;
-
-        private string check
-        {
-            get
-            {
-                try
-                {
-                    return _dataProtectionProvider
-                    .CreateProtector(_configuration["dataprotector"])
-                    .Unprotect(_httpContextAccessor
-                        .HttpContext
-                        .Request
-                        .Cookies[".AspUser"]);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
+                : _userhelper.CheckUserValidToken();
     }
 }

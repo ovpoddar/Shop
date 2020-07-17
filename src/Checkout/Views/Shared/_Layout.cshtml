@@ -17,20 +17,7 @@
 </head>
 <body>
     <header class="card-header bg-dark" style="width:auto; height: 70px;">
-        <div class="btn-block float-left h-100" style="width: 100px">
-            <a asp-action="Index" asp-controller="Product" class="btn btn-link h-100">Home</a>
-        </div>
-        <div class="nav-item dropdown float-left bg-dark h-100" id="toggle">
-            <div class="nav-link dropdown-toggle btn-block h-100">
-                Manage
-            </div>
-            <div class="dropdown-menu" style="background: #a5a5a5">
-                <a asp-action="Index" asp-controller="category" class="dropdown-item">category</a>
-                <a asp-action="Index" asp-controller="brand" class="dropdown-item">brand</a>
-                <a asp-action="Index" asp-controller="WholeSale" class="dropdown-item">wholeSale</a>
-                <a asp-action="Index" asp-controller="Csv" class="dropdown-item">csv</a>
-            </div>
-        </div>
+        <div class="nav-item float-left text-primary">@user.Username</div>
         <div class="nav-item float-right bg-dark h-100">
             @if (string.IsNullOrWhiteSpace(user.Username))
             {
