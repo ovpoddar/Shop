@@ -10,9 +10,9 @@ namespace Checkout.Managers
     public class RequestManger : IRequestManger
     {
         private readonly IRequestBuilder _builder;
-        private readonly ISentRequestService _sent;
+        private readonly IHttpServices _sent;
 
-        public RequestManger(IRequestBuilder builder, ISentRequestService sent)
+        public RequestManger(IRequestBuilder builder, IHttpServices sent)
         {
             _builder = builder ?? throw new ArgumentNullException(nameof(_builder));
             _sent = sent ?? throw new ArgumentNullException(nameof(_sent));

@@ -8,13 +8,13 @@ using Shop.Models;
 
 namespace Checkout.Extensions
 {
-    public static class ServisesExtension
+    public static class ServicesExtensions
     {
         public static IServiceCollection AddDescriptors(this IServiceCollection services)
         {
             services.AddTransient<IRequestBuilder, RequestBuilder>();
 
-            services.AddTransient<ISentRequestService, SentRequestService>();
+            services.AddTransient<IHttpServices, HttpServices>();
 
             services.AddTransient<IRequestManger, RequestManger>();
             services.AddTransient<IloginManager, loginManager>();

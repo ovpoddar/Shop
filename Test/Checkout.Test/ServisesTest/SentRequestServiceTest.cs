@@ -37,7 +37,7 @@ namespace Checkout.Tests.ServisesTests
 
             factory.Setup(httpFactory => httpFactory.CreateClient(It.IsAny<string>())).Returns(client);
 
-            var httpService = new SentRequestService(factory.Object);
+            var httpService = new HttpServices(factory.Object);
 
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://test.com/api/test/whatever");
             var result = httpService.SendAsync(httpRequestMessage);

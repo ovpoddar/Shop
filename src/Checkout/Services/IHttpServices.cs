@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Checkout.Services
 {
-    public interface ISentRequestService
+    public interface IHttpServices
     {
         Task<HttpResponseMessage> SendAsync(HttpRequestMessage request);
     }

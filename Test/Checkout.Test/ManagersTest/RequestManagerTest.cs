@@ -15,12 +15,12 @@ namespace Checkout.Test.ManagersTest
     public class RequestManagerTest
     {
         private readonly Mock<IRequestBuilder> _builder;
-        private readonly Mock<ISentRequestService> _sent;
+        private readonly Mock<IHttpServices> _sent;
         private readonly RequestManger _requestManger;
         public RequestManagerTest()
         {
             _builder = new Mock<IRequestBuilder>();
-            _sent = new Mock<ISentRequestService>();
+            _sent = new Mock<IHttpServices>();
             _requestManger = new RequestManger(_builder.Object, _sent.Object);
         }
 

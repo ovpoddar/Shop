@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace Checkout.Services
 {
-    public class SentRequestService : ISentRequestService
+    public class HttpServices : IHttpServices
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public SentRequestService(IHttpClientFactory httpClientFactory) =>
+        public HttpServices(IHttpClientFactory httpClientFactory) =>
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(_httpClientFactory));
 
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request) =>
