@@ -11,10 +11,8 @@ namespace Shop.Wrappers
     {
         private readonly UserManager<Employer> _userManager;
 
-        public UserManagerWrapper(UserManager<Employer> userManager)
-        {
+        public UserManagerWrapper(UserManager<Employer> userManager) =>
             _userManager = userManager ?? throw new ArgumentNullException(nameof(_userManager));
-        }
 
         public IQueryable<Employer> Users =>
             _userManager.Users;
