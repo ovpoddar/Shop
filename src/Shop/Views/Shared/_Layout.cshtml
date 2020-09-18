@@ -1,0 +1,61 @@
+﻿@inject SignInManager<Employer> _signInManager
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (IsSectionDefined("script"))
+    {
+        @RenderSection("script");
+    }
+</head>
+<body>
+    <header class="card-header bg-dark" style="width:auto; height: 70px;">
+        @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        { 
+            <div class="btn-block float-left h-100" style="width: 100px">
+                <a asp-action="Index" asp-controller="Product" class="btn btn-link h-100">Home</a>
+            </div>
+            <div class="nav-item dropdown float-left bg-dark h-100" id="toggle">
+                <div class="nav-link dropdown-toggle btn-block h-100">
+                    Manage
+                </div>
+                <div class="dropdown-menu" style="background: #a5a5a5; top:0;">
+                    <a asp-action="Index" asp-controller="category" class="dropdown-item">category</a>
+                    <a asp-action="Index" asp-controller="brand" class="dropdown-item">brand</a>
+                    <a asp-action="Index" asp-controller="WholeSale" class="dropdown-item">wholeSale</a>
+                    <a asp-action="Index" asp-controller="Csv" class="dropdown-item">csv</a>
+                    <a asp-action="Index" asp-controller="Employer" class="dropdown-item">Employeee</a>
+                </div>
+            </div>
+        }
+    <div class="nav-item float-right bg-dark h-100">
+        <a href="https://localhost:44350/" class="display-4 btn btn-secondary">Checkout</a>
+        @if (!_signInManager.IsSignedIn(User))
+        {
+            <a asp-action="LogIn" asp-controller="Authentication" class="display-4 btn btn-secondary">Login</a>
+        }
+        else
+        {
+            <form method="post" asp-action="LogOut" asp-controller="Authentication" class="display-4 btn btn-secondary">
+                <button type="submit" style="width: 100%; height: 100%; background: transparent; border: none; color: white">Log Out</button>
+            </form>
+        }
+    </div>
+    </header>
+    <section style="width: auto; height: auto;" class="card-body">
+        @RenderBody()
+    </section>
+    <footer>
+        @if (IsSectionDefined("footer"))
+        {
+            @RenderSection("footer");
+        }
+    </footer>
+</body>
+</html>

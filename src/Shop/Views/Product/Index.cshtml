@@ -1,0 +1,56 @@
+﻿@model ProductListViewModel
+@{
+    ViewData["Title"] = "Index";
+    ViewData["ac"] = "Index";
+}
+    <form method="post" id="form">
+        <table>
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Price</td>
+                    <td>Brand</td>
+                    <td>
+                        <select name="categoryId">
+                            <option>Categories</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </td>
+                    <td>Stock</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Price</td>
+                        <td>@item.Brands.BrandName</td>
+                        <td>@item.Categories.Name</td>
+                        <td>@item.StockLevel</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        @for (var x = 1; x <= Model.TotalNo; x++)
+        {
+            <button name="PageNumber" value="@x" type="submit">@x</button>
+        }
+    </form>
+    <script>
+        if (getCookie("category") === "") {
+            document.getElementsByName("categoryId")[0].value = "Categories";
+        }
+        else {
+            document.getElementsByName("categoryId")[0].value = getCookie("category");
+        }
+        document.getElementsByName("categoryId")[0].onchange = function () {
+            document.cookie = "category =" + this.value + ";";
+            document.getElementById('form').submit();
+        };
+    </script>

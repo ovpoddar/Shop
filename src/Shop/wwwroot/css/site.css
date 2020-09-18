@@ -1,0 +1,113 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+table {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(90deg, #c2c2c2 30%, #808080 70%);
+    color: black;
+    height: 45px;
+    box-sizing: border-box;
+}
+tbody {
+    background: rgba(0, 0, 0,.15);
+    box-sizing: border-box;
+}
+tbody tr td{
+    height: 39px;
+}
+tr td {
+    padding: 10px;
+}
+select {
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 0px;
+}
+select:hover {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+}
+option {
+    background: transparent;
+    color: Background;
+    border: none;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+ul li {
+    display: block;
+    background: #808080;
+    z-index:200;
+    margin-top:2px;
+}
+#suggesstion{
+    position:absolute;
+    z-index:200
+}
+#suggesstion span {
+    display: block;
+    background: #6c757d;
+    color:#fff;
+}
+.col-auto{
+    width: 12.5%;
+    overflow:hidden;
+    text-indent: unset;
+}

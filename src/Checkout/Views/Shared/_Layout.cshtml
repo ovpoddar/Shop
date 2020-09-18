@@ -1,0 +1,44 @@
+﻿@inject IUserHandler user
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (IsSectionDefined("script"))
+    {
+        @RenderSection("script");
+    }
+</head>
+<body>
+    <header class="card-header bg-dark" style="width:auto; height: 70px;">
+        <div class="nav-item float-left text-primary">@user.Username</div>
+        <div class="nav-item float-right bg-dark h-100">
+            @if (string.IsNullOrWhiteSpace(user.Username))
+            {
+                <a asp-action="Login" asp-controller="Checkout" class="display-4 btn btn-secondary">Login</a>
+            }
+            else
+            {
+                <form asp-action="LogOut" asp-controller="Checkout" method="post" class="display-4 btn btn-secondary">
+                    <button type="submit" style="width: 100%; height: 100%; background: transparent; border: none; color: white">Log Out</button>
+                </form>
+            }
+        </div>
+    </header>
+    <section style="width: auto; height: auto;" class="card-body">
+        @RenderBody()
+    </section>
+    <footer>
+        @if (IsSectionDefined("footer"))
+        {
+            @RenderSection("footer");
+        }
+    </footer>
+</body>
+</html>
