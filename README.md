@@ -1,7 +1,7 @@
 # Shop
 Work with tim shop
 
-after this there is no need to add any stored procedures.
+ after this there is no need to add any stored procedures.
  just update the migration and run the project.
  if there is any privious version of this database just delete that update the new migration...
  
@@ -14,3 +14,8 @@ Dairy Milk Chocolate,00000101052500455,Sweets,Chocolate,,,,,Cadbury,20,1,200g,0.
 
 
  save this as {name}.csv file then to add a product just add this
+
+
+ # About this application
+ 
+ this shop application is a replica of a grossery store. over here every employer has their own account to login the shop and there is a admin account for the owner of the shop. over here you can add stock with csv file which is showed above. admin user can check the current stock of a shop in a dashboard.
