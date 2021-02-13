@@ -9,13 +9,7 @@ namespace DataAccess
     {
         public static IServiceCollection AddDataAccess(this IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<ProductWholeSale>, GenericRepositories<ProductWholeSale>>();
-            services.AddScoped<IGenericRepository<WholesaleSize>, GenericRepositories<WholesaleSize>>();
-            services.AddScoped<IGenericRepository<Category>, GenericRepositories<Category>>();
-            services.AddScoped<IGenericRepository<Product>, GenericRepositories<Product>>();
-            services.AddScoped<IGenericRepository<Balance>, GenericRepositories<Balance>>();
-            services.AddScoped<IGenericRepository<Brand>, GenericRepositories<Brand>>();
-            services.AddScoped<IGenericRepository<Csv>, GenericRepositories<Csv>>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositories<>));
 
             services.AddScoped<IProductRepositories, ProductRepositories>();
 
