@@ -1,5 +1,4 @@
-﻿using DataAccess.Entities;
-using DataAccess.Helpers;
+﻿using DataAccess.Helpers;
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
