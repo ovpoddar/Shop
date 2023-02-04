@@ -93,8 +93,8 @@ namespace Shop
                 applicationBuilder.UseDeveloperExceptionPage();
             else
                 applicationBuilder.UseExceptionHandler("/Error");
-            serviceProvider.GetService<ApplicationDbContext>()
-                .Database.Migrate();
+            //serviceProvider.GetService<ApplicationDbContext>()
+                //.Database.Migrate();
             applicationBuilder.UseSwagger();
             applicationBuilder.UseSwaggerUI(c =>
             {
